@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HelloWorld from './components/HelloWorld';
+import IDE from './components/IDE';
+import './style/style.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <HelloWorld />
+    <IDE />
   </React.StrictMode>,
   document.getElementById('root')
 );
