@@ -9,7 +9,7 @@ jobs:
     working_directory: ~/src/frontend
     steps:
       - checkout
-      - run: cd frontend
+      
       - run: pwd
       - run: ls -la
       - restore_cache:
