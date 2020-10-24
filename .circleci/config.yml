@@ -1,4 +1,5 @@
 version: 2.1
+working_directory: ~/src/frontend
 orbs:
   node: circleci/node@4.0.0
 jobs:
@@ -8,10 +9,22 @@ jobs:
     working_directory: ~/src/frontend
     steps:
       - checkout
-      - setup_remote_docker
       - run: pwd
       - run: ls -la
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      
       - run: yarn install
+   
+      - save_cache:
+        paths:
+          - node_modules
+          - ~/.npm 
+          - ~/.cache
+        key: v1-dependencies-{{ checksum "package.json" }}
+
       - run: yarn lint
       - run: yarn test
 
