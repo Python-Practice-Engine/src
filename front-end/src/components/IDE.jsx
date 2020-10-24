@@ -6,15 +6,13 @@ import {
   CardTitle,
   CardText,
   CardBody,
-  CardHeader,
   ListGroup,
-  InputGroup,
   ListGroupItem,
   Badge,
-  Button
 } from 'reactstrap';
 import Header from './Header';
 import GNavbar from './GNavbar';
+import Skulpt from './Skulpt';
 
 import '../style/style.css';
 
@@ -55,21 +53,7 @@ const IDE = () => {
                 </Col>
                 <Col md="8">
                     <Row className="ide-row">
-                    <div className="ide-card">
-                    <Card >
-                        <CardHeader>Python Text Editor</CardHeader>
-                        <CardBody>
-                        <InputGroup size="lg" className="mock-input">
-                        </InputGroup>
-                        </CardBody>
-                        
-                    </Card>
-                    <div className="submit-btns">
-                    <Button color="info" size="md">Run</Button>{' '}
-                    <Button color="outline-info" size="md">Submit</Button>{' '}
-                    </div>
-                    </div>
-                    
+                    <Skulpt></Skulpt>                    
                     </Row>
                     <h4>Test Cases</h4>
                     <Row className="test-case-row" >
@@ -93,5 +77,6 @@ const IDE = () => {
         </div>
     );
 };
+
 
 export default IDE;
