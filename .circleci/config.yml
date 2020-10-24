@@ -9,6 +9,8 @@ jobs:
       - setup_remote_docker
       
       - run: yarn install
+      - run: yarn lint
+      - run: yarn test
 
 workflows:
   deploy:
