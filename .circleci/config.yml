@@ -6,6 +6,9 @@ jobs:
     working_directory: ~/src/frontend
     steps:
       - checkout
+      - setup_remote_docker
+      
+      - run: yarn install
 
 workflows:
   deploy:
