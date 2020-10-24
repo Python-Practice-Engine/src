@@ -2,16 +2,12 @@ version: 2.1
 jobs:
   frontend:
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: circleci/node:12.9.1-browser
     working_directory: ~/src/frontend
     steps:
       - checkout
 
 workflows:
-  node-tests:
-    jobs:
-      - node/test
-
-  workflow name:
+  deploy:
     jobs:
       - frontend
