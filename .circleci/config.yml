@@ -6,6 +6,6 @@ workflows:
     jobs:
       - node/test
 
-    working_directory: ~/src/frontend
+  working_directory: ~/src/frontend
     steps:
       - checkout ~/src
