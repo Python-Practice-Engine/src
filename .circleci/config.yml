@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   frontend:
     docker:
-      - image: cimg/node:15.0.1-browser
+      - image: cimg/node:15.0.1
     working_directory: ~/src/frontend
     steps:
       - checkout
