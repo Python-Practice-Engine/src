@@ -1,10 +1,8 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.1.0
 jobs:
   frontend:
     docker:
-      - image: circleci/node:12.9.1-browser
+      - image: cimg/node:15.0.1-browser
     working_directory: ~/src/frontend
     steps:
       - checkout
