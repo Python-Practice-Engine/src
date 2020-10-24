@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  frontend:
+    docker:
+      - image: cimg/node:15.0-browsers
+    working_directory: ~/src/frontend
+    steps:
+      - checkout
+      - setup_remote_docker
+      
+      - run: yarn install
+
+workflows:
+  deploy:
+    jobs:
+      - frontend
