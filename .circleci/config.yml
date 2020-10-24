@@ -8,8 +8,7 @@ jobs:
       - image: circleci/node@3.0.0
     working_directory: ~/src/frontend
     steps:
-      - checkout:
-        path: ~/src
+      checkout
 
 workflows:
   node-tests:
