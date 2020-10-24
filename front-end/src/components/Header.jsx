@@ -20,7 +20,7 @@ class Header extends React.Component {
             </Col>
             <Col md="6">
                 <div className="float-right">
-                    <Button color="outline-success" size="lg" className="log-out-btn">Log Out</Button>{' '}
+                    <Button color="outline-success" size="md" className="log-out-btn">Log Out</Button>{' '}
                 </div>
             </Col>
         </Row>

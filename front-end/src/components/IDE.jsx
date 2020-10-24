@@ -11,6 +11,7 @@ import {
   InputGroup,
   ListGroupItem,
   Badge,
+  Button
 } from 'reactstrap';
 import Header from './Header';
 import GNavbar from './GNavbar';
@@ -32,6 +33,8 @@ const IDE = () => {
                         <CardTitle>Question title</CardTitle>
                         <hr/>
                         <CardText>
+                        <Badge color="primary" pill>Loops</Badge>
+                        <Badge color="warning" pill>Medium</Badge>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                             Ut rutrum odio pulvinar, pulvinar tellus quis, ullamcorper nisi. 
@@ -59,8 +62,14 @@ const IDE = () => {
                         <InputGroup size="lg" className="mock-input">
                         </InputGroup>
                         </CardBody>
+                        
                     </Card>
+                    <div className="submit-btns">
+                    <Button color="info" size="md">Run</Button>{' '}
+                    <Button color="outline-info" size="md">Submit</Button>{' '}
                     </div>
+                    </div>
+                    
                     </Row>
                     <h4>Test Cases</h4>
                     <Row className="test-case-row" >
