@@ -12,18 +12,18 @@ jobs:
       - run: pwd
       - run: ls -la
       - restore_cache:
-        keys:
+          keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       
       - run: yarn install
    
       - save_cache:
-        paths:
+          paths:
           - node_modules
           - ~/.npm 
           - ~/.cache
-        key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn lint
       - run: yarn test
