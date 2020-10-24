@@ -6,25 +6,6 @@ jobs:
     working_directory: ~/src/frontend
     steps:
       - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-
-      - run: yarn install
-
-      - save_cache:
-          paths:
-          - node_modules
-          - ~/.npm
-          - ~/.cache
-
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn-test
-      - run: npm install
-      - run: npm start
 
 workflows:
   deploy:
