@@ -39,6 +39,7 @@ class Skulpt extends React.Component {
         var prog = document.getElementById("code-input").value; 
         var mypre = document.getElementById("code-output"); 
         mypre.innerHTML = ''; 
+        window.Sk.python3 = true;
         window.Sk.pre = "output";
         window.Sk.configure({output:outf, read:builtinRead}); 
         var myPromise = window.Sk.misceval.asyncToPromise(function() {
