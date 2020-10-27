@@ -15,6 +15,7 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yarn install
+      - run: apt-get install python3-venv
       - run:
           name: Install Python deps in a venv
           command: |
