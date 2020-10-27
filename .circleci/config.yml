@@ -16,6 +16,7 @@ jobs:
       - run: ls -la
       - run: yarn install
       - aws-cli/install
+      - aws-cli/setup
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
