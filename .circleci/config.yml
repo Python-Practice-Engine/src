@@ -16,7 +16,6 @@ jobs:
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
-
 workflows:
   deploy:
     jobs:
