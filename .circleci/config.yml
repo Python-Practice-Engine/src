@@ -1,5 +1,4 @@
 version: 2.1
-working_directory: ~/src/frontend
 orbs:
   node: circleci/node@4.0.0
 jobs:
