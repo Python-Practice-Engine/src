@@ -15,12 +15,7 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yarn install
-      - run: sudo apt-get install python3-venv
-      - run:
-          name: Install Python deps in a venv
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
+      - run: sudo pip install awscli
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
