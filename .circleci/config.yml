@@ -16,9 +16,9 @@ jobs:
       - run: ls -la
       - run: yarn install
       - aws-cli/install:
-          version: 1
+          version: "1"
       - aws-cli/setup:
-          version: 1
+          version: "1"
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
