@@ -20,14 +20,14 @@ jobs:
   aws:
     docker:
       - image: cimg/python:3.9.0
-    working_directory: ~/src/frontend
+    working_directory: ~/src
     steps:
       - run: pwd
       - aws-cli/install
       - aws-cli/setup
       - aws-s3/sync:
-          from: .
-          to: 's3://pythonlearningatmac/'
+          from: frontend/
+          to: 's3://pythonlearningatmac/frontend'
 workflows:
   deploy:
     jobs:
