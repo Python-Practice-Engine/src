@@ -15,9 +15,9 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yarn install
-      - aws-cli/install
+      - aws-cli/install:
           version: 1
-      - aws-cli/setup
+      - aws-cli/setup:
           version: 1
       - aws-s3/sync:
           from: bucket
