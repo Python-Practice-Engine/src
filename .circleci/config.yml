@@ -16,10 +16,14 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yarn install
+      
+  aws:
+    docker:
+      - image: cimg/python:3.9.0
+    working_directory: ~/src
+    steps:
       - aws-cli/install
       - aws-cli/setup
-      - python/dist
-      - python/install-packages
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
@@ -27,6 +31,7 @@ workflows:
   deploy:
     jobs:
       - frontend
+      - aws
   app-tests:
     jobs:
       - node/test
