@@ -10,7 +10,7 @@ jobs:
   frontend:
     docker:
       - image: cimg/node:15.0-browsers
-    working_directory: ~/src/frontend
+    working_directory: ~/src/front-end
     steps:
       - checkout
       - run: pwd
@@ -26,8 +26,8 @@ jobs:
       - aws-cli/install
       - aws-cli/setup
       - aws-s3/sync:
-          from: frontend/
-          to: 's3://pythonlearningatmac/frontend'
+          from: front-end/
+          to: 's3://pythonlearningatmac/front-end'
 workflows:
   deploy:
     jobs:
