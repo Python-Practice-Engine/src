@@ -20,7 +20,7 @@ jobs:
   aws:
     docker:
       - image: cimg/python:3.9.0
-    working_directory: ~/src
+    working_directory: ~/src/frontend
     steps:
       - aws-cli/install
       - aws-cli/setup
