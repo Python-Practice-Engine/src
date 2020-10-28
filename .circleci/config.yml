@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@4.0.0
   aws-s3: circleci/aws-s3@1.0.11
   aws-cli: circleci/aws-cli@1.3.0
-  python: cjw296/python-ci@2.1.0
+  python: circleci/python@1.2.1
 
 
 jobs:
@@ -18,7 +18,8 @@ jobs:
       - run: yarn install
       - aws-cli/install
       - aws-cli/setup
-      - python/pip-setuptools-build-package
+      - python/dist
+      - python/install-packages
       - aws-s3/sync:
           from: bucket
           to: 's3://pythonlearningatmac/'
