@@ -16,6 +16,7 @@ jobs:
       - run: pwd
       - run: ls -la
       - run: yarn install
+      - run: npm run build
       
   aws:
     docker:
@@ -23,11 +24,13 @@ jobs:
     working_directory: ~/src
     steps:
       - run: pwd
+      - run: ls
       - aws-cli/install
       - aws-cli/setup
+      - run: cd front-end/
       - aws-s3/sync:
-          from: front-end/
-          to: 's3://pythonlearningatmac/front-end'
+          from: "./build"
+          to: "s3://pythonlearningatmac"
 workflows:
   deploy:
     jobs:
