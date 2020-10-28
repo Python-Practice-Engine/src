@@ -25,7 +25,7 @@ jobs:
       - aws-cli/install
       - aws-cli/setup
       - aws-s3/sync:
-          from: bucket
+          from: pythonlearningatmac
           to: 's3://pythonlearningatmac/'
 workflows:
   deploy:
