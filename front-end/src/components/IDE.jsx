@@ -28,23 +28,13 @@ const IDE = () => {
                 <Col md="3" className="question-col">
                     <Card>
                         <CardBody>
-                        <CardTitle>Question title</CardTitle>
+                        <CardTitle>Addition Calculator</CardTitle>
                         <hr/>
                         <CardText>
-                        <Badge color="primary" pill>Loops</Badge>
-                        <Badge color="warning" pill>Medium</Badge>
+                        <Badge color="primary" pill>Functions</Badge>
+                        <Badge color="warning" pill>Easy</Badge>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Ut rutrum odio pulvinar, pulvinar tellus quis, ullamcorper nisi. 
-                            Aliquam tristique nibh condimentum, lacinia sapien vel, 
-                            tempus justo. Integer eu massa ligula. Donec sodales ligula mi,
-                            at varius nisl tincidunt quis. Aenean at felis nibh. Nullam 
-                            auctor quis nisi malesuada ultricies. Curabitur lobortis 
-                            porttitor ex, et dictum nisl auctor eu. Etiam gravida 
-                            massa vitae urna volutpat, vel volutpat orci sagittis. 
-                            Class aptent taciti sociosqu ad litora torquent per 
-                            conubia nostra, per inceptos himenaeos. Aliquam 
-                            semper egestas scelerisque. Sed vel dignissim sapien.
+                        Write a function which takes two parameters, adds them together, and returns the result
                         </p> 
 
                         </CardText>
@@ -66,10 +56,10 @@ const IDE = () => {
                                 Test Case #2
                                 <span className="float-right"><Badge color="success" pill>Passed</Badge></span>
                             </ListGroupItem>
-                            <ListGroupItem>
+                            {/* <ListGroupItem>
                                 Test Case #3
                                 <span className="float-right"><Badge color="danger" pill>Failed</Badge></span>
-                            </ListGroupItem>
+                            </ListGroupItem> */}
                         </ListGroup>
                     </Row>
                 </Col>
