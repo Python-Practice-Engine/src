@@ -34,7 +34,7 @@ const IDE = () => {
             {/* navbar */}
             <GNavbar></GNavbar>
             {/* IDE/Question */}
-            <Row gutter={16}>
+            <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>
                 <Col span={6} className="gutter-row">
                     <div className="question-col">
                         <Question 
@@ -44,28 +44,23 @@ const IDE = () => {
                         />
                     </div>
                 </Col>
-                <Col span={17} className="gutter-row">
-                        <Row gutter={16}>
-                            <div className="ide-row">
-                                <Skulpt></Skulpt>       
-                            </div>             
+                <Col span={18} className="gutter-row">
+                        <Row gutter={16} >
+                            <Skulpt ></Skulpt>    
                         </Row>
                         <Row gutter={16}>
-                            <div className="test-case-row">
-                                <List
-                                    // style={{width:'100%'}}
-                                    header={<h4>Test Cases</h4>}
-                                    size="large"
-                                    bordered
-                                    dataSource={data}
-                                    renderItem={item => <List.Item>
-                                                            {item}
-                                                            <span className="float-right"><Badge status="success" text="Passed" /></span>
-                                                        </List.Item>}
-                                />
-                            </div>
-                        </Row>
-                
+                            <List
+                                style={{width:'100%', "margin-top": "1%"}}
+                                header={<h4>Test Cases</h4>}
+                                size="large"
+                                bordered
+                                dataSource={data}
+                                renderItem={item => <List.Item>
+                                                        {item}
+                                                        <span className="float-right"><Badge status="success" text="Passed" /></span>
+                                                    </List.Item>}
+                            />
+                        </Row>         
                 </Col>
             </Row>
         </div>
