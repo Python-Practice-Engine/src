@@ -34,8 +34,14 @@
     margin-left: 5%;
     
 }
+/* 
+.ide-col {
+    padding: 5px;
+    height: 100vh;
+    margin-left: 5%;
+} */
 
-.ide-card {
+ .ide-card {
     padding: 1%;
     width: 100%;
     margin-top: 0.5%;

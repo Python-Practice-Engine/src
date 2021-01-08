@@ -11,7 +11,7 @@ function Question(props) {
         <Card title={props.title}>
             <Badge color="blue" text={props.tags} />
             <Badge color="gold" text={props.difficulty} />
-            <p>{props.difficulty}</p> 
+            <p>{props.description}</p> 
         </Card>
     );
 }
