@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Card,
   Row,
   Col,
   CardTitle,
@@ -8,13 +7,18 @@ import {
   CardBody,
   ListGroup,
   ListGroupItem,
-  Badge,
 } from 'reactstrap';
+import {
+    Card,
+    Badge,
+} from 'antd';
 import Header from './Header';
 import GNavbar from './GNavbar';
 import Skulpt from './Skulpt';
+import Question from '.Question';
 
 import '../style/style.css';
+import 'antd/dist/antd.css';
 
 const IDE = () => {
     return (
@@ -25,21 +29,8 @@ const IDE = () => {
             <GNavbar></GNavbar>
             {/* IDE/Question */}
             <Row>
-                <Col md="3" className="question-col">
-                    <Card>
-                        <CardBody>
-                        <CardTitle>Addition Calculator</CardTitle>
-                        <hr/>
-                        <CardText>
-                        <Badge color="primary" pill>Functions</Badge>
-                        <Badge color="warning" pill>Easy</Badge>
-                        <p>
-                        Write a function which takes two parameters, adds them together, and returns the result
-                        </p> 
-
-                        </CardText>
-                        </CardBody>
-                    </Card>
+                <Col md="3" className="question-col" >
+                    <Question />
                 </Col>
                 <Col md="8">
                     <Row className="ide-row">
