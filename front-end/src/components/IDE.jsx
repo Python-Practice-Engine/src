@@ -15,7 +15,7 @@ import {
 import Header from './Header';
 import GNavbar from './GNavbar';
 import Skulpt from './Skulpt';
-import Question from '.Question';
+import Question from './Question';
 
 import '../style/style.css';
 import 'antd/dist/antd.css';

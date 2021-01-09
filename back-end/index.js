@@ -23,6 +23,16 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/questions/:id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var id = req.params.id;
+
+  const sqlRetrieve = `SELECT * FROM questions WHERE id = ${id};`;
+  db.query(sqlRetrieve, (err, result)=> {
+    res.send(result);
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on port 3001");
 });
