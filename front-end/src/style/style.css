@@ -28,26 +28,16 @@
 }
 
 .question-col {
-    padding: 1%;
-    margin-left: 1%;
     height: 100vh;
-    margin-left: 5%;
-    
 }
 
 .ide-card {
-    padding: 1%;
     width: 100%;
-    margin-top: 0.5%;
 }
 
 .mock-input{
     height: 300px;
     
-}
-
-.test-case-row {
-    padding: 1%;
 }
 
 .submit-btns {
