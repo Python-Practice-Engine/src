@@ -5,7 +5,6 @@ import React from 'react';
     Button,
 } from 'antd';
 import '../style/style.css';
-<<<<<<< HEAD
 import MyCodeMirror from './MyCodeMirror';
 import 'antd/dist/antd.css';
 
