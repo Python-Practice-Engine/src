@@ -60,12 +60,12 @@ class Skulpt extends React.Component {
                 <Card title="Python Text Editor">
                     <Input.Group size="large" className="mock-input">
                         <div>
-                            <textarea id="code-input" name="code-input" margin="0">Your Code Here</textarea>
+                            {/* <textarea id="code-input" name="code-input" margin="0">Your Code Here</textarea> */}
                             <MyCodeMirror></MyCodeMirror>
                             <pre id="code-output"></pre>
                         </div>
                     </Input.Group>
-                    <textarea readonly="true" class="output" id="code-output"></textarea>
+                    {/* <textarea readonly="true" class="output" id="code-output"></textarea> */}
                 </Card>
                 <div className="submit-btns">
                     <Button type="primary" size="large" onClick={this.execute}>Run</Button>{' '}
