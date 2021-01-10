@@ -15,7 +15,6 @@ function Question(props) {
                 <Badge color="blue" text={props.tags} />
                 <Badge color="gold" text={props.difficulty} />
             </Space>
->>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e
             <p>{props.description}</p> 
         </Card>
     );
