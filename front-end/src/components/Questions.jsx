@@ -5,7 +5,9 @@ import QuestionsTable from './QuestionsTable';
 const Questions = () => {
     return (
         <div>
-            <QuestionsTable />
+            <div className="q-table">
+                <QuestionsTable />
+            </div>
         </div>
     );
 };
