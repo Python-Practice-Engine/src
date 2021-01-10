@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
-import Axios from 'axios';
+
 
 function Question(props) {
 

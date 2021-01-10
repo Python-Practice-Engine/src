@@ -37,7 +37,6 @@ class Skulpt extends React.Component {
             return window.Sk.builtinFiles["files"][x];
         }
 
-        var prog = document.getElementById("code-input").value; 
         var mypre = document.getElementById("code-output"); 
         mypre.innerHTML = ''; 
         window.Sk.python3 = true;

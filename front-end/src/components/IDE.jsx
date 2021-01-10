@@ -15,6 +15,7 @@ import {
 } from 'antd';
 import Skulpt from './Skulpt';
 import Question from './Question';
+import Axios from 'axios';
 
 import '../style/style.css';
 import 'antd/dist/antd.css';
@@ -28,7 +29,6 @@ const IDE = () => {
 
     useEffect(() => {
         // const { id } = this.props.match.params
-        console.log(props.id)
         // Axios.get(`http://localhost:3001/questions/${props.id}`).then((response)=> {
         Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
             console.log(response.data);
@@ -37,7 +37,7 @@ const IDE = () => {
             // props.difficulty=response.data[0].difficulty;
             // props.description=response.data[0].description;
         });
-    }, [props.id]);
+    }, []);
 
 
     return (
