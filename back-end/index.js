@@ -5,12 +5,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// REACT_APP_HOST=capstone.ct6ijyqh0qoc.us-east-1.rds.amazonaws.com
-// REACT_APP_PORT=3306
-// REACT_APP_USER=admin
-// REACT_APP_PASSWORD=hinatashoyou
-// REACT_APP_DATABASE=problems
-
 const db = mysql.createPool({
   host: process.env.REACT_APP_HOST,
   port: process.env.REACT_APP_PORT,
@@ -25,6 +19,16 @@ app.use(express.json());
 app.get('/', (req, res) => {
   const sqlSearch = "SELECT * FROM questions;";
   db.query(sqlSearch, (err, result)=> {
+    res.send(result);
+  });
+});
+
+app.get('/questions/:id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var id = req.params.id;
+
+  const sqlRetrieve = `SELECT * FROM questions WHERE id = ${id};`;
+  db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
 });
