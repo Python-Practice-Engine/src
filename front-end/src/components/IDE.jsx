@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   CardTitle,
   CardText,
@@ -25,6 +25,21 @@ const data = [
   ];
 
 const IDE = () => {
+
+    useEffect(() => {
+        // const { id } = this.props.match.params
+        console.log(props.id)
+        // Axios.get(`http://localhost:3001/questions/${props.id}`).then((response)=> {
+        Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
+            console.log(response.data);
+            // props.title=response.data[0].name;
+            // props.tags=response.data[0].tags;
+            // props.difficulty=response.data[0].difficulty;
+            // props.description=response.data[0].description;
+        });
+    }, [props.id]);
+
+
     return (
         <div>
             <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>

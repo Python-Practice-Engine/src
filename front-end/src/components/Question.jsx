@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Card,
     Badge,
@@ -9,19 +9,6 @@ import 'antd/dist/antd.css';
 import Axios from 'axios';
 
 function Question(props) {
-
-    useEffect(() => {
-        // const { id } = this.props.match.params
-        console.log(props.id)
-        // Axios.get(`http://localhost:3001/questions/${props.id}`).then((response)=> {
-        Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
-            console.log(response.data);
-            // props.title=response.data[0].name;
-            // props.tags=response.data[0].tags;
-            // props.difficulty=response.data[0].difficulty;
-            // props.description=response.data[0].description;
-        });
-    }, [props.id]);
 
     return (
         <Card title={`${props.id} - ${props.title}`} >
