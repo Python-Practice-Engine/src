@@ -71,7 +71,6 @@ class Skulpt extends React.Component {
                     <Button type="primary" size="large" onClick={this.execute}>Run</Button>{' '}
                     <Button size="large">Submit</Button>{' '}
                 </div>
-{/* >>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e */}
             </div>
         );
     }
