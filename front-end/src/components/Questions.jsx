@@ -1,10 +1,11 @@
 import React from 'react';
 import '../style/style.css';
+import QuestionsTable from './QuestionsTable';
 
 const Questions = () => {
     return (
         <div>
-            This is the Questions page
+            <QuestionsTable />
         </div>
     );
 };

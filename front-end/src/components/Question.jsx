@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import {
     Card,
-    Badge,
-    Space,
+    Tag,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
@@ -11,10 +10,12 @@ import Axios from 'axios';
 function Question(props) {
     return (
         <Card title={props.title}>
-            <Space>
-                <Badge color="blue" text={props.tags} />
-                <Badge color="gold" text={props.difficulty} />
-            </Space>
+            <Tag color="blue">
+                {props.tags}
+            </Tag>
+            <Tag color="gold">
+                {props.difficulty}
+            </Tag>
             <p>{props.description}</p> 
         </Card>
     );

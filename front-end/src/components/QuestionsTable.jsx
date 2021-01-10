@@ -9,88 +9,105 @@ import {
 import '../style/style.css';
 import 'antd/dist/antd.css';
 
+function CreateCategoryTag(category) {
+    let color;
+    switch(category) {
+        case 'function':
+            color = 'red';
+            break;
+        case 'operator':
+            color = 'blue';
+            break;
+        case 'string':
+            color = 'orange';
+            break;
+        case 'list':
+            color = 'gold';
+            break;
+        case 'boolean':
+            color = 'lime';
+            break;
+    }
+    return (
+      <Tag color={color} key={category}>
+        {category.toUpperCase()}
+      </Tag>
+    );
+}
+
+function CreateDifficultyTag(difficulty) {
+    let color;
+    switch(difficulty) {
+        case 'easy':
+            color = 'green';
+            break;
+        case 'medium':
+            color = 'gold';
+            break;
+        case 'hard':
+            color = 'volcano';
+            break;
+    }
+    return (
+      <Tag color={color}>
+        {difficulty.toUpperCase()}
+      </Tag>
+    );
+}
+
 const columns = [
     {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-      render: text => <a>{text}</a>,
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: text => <a>{text}</a>,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+        title: 'Tags',
+        key: 'tags',
+        dataIndex: 'tags',
+        render: tags => (tags.map(tag => (CreateCategoryTag(tag)))),
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: tags => (
-        <>
-          {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
+        title: 'Difficulty',
+        dataIndex: 'difficulty',
+        key: 'difficulty',
+        render: difficulty => (CreateDifficultyTag(difficulty)),
     },
   ];
   
   const data = [
     {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
+        key: '1',
+        id: 1,
+        title: 'Addition Calculator',
+        tags: ['function', 'operator'],
+        difficulty: 'easy',
     },
     {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
+        key: '2',
+        id: 2,
+        title: 'Concatinating Strings',
+        tags: ['string', 'operator'],
+        difficulty: 'medium',
     },
     {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
+        key: '3',
+        id: 3,
+        title: 'Comparing Lists',
+        tags: ['list', 'boolean'],
+        difficulty: 'hard',
     },
   ];
 
-function QuestionsTable(props) {
+function QuestionsTable() {
     return (
-        <Card title={props.title}>
-            <Space>
-                <Badge color="blue" text={props.tags} />
-                <Badge color="gold" text={props.difficulty} />
-            </Space>
-            <p>{props.description}</p> 
-        </Card>
+        <Table columns={columns} dataSource={data} />
     );
 }
 
