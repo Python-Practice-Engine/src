@@ -57,23 +57,8 @@ class Skulpt extends React.Component {
     render() {
         return (
             <div className="ide-card">
-<<<<<<< HEAD
-            <Card >
-                <CardHeader>Python Text Editor</CardHeader>
-                <CardBody>
-                <div>
-                <InputGroup size="lg" className="mock-input">
-                <MyCodeMirror></MyCodeMirror>
-                </InputGroup>
-                <textarea readonly="true" class="output" id="code-output"></textarea>
-                </div>
-                </CardBody>
-            </Card>
-            <div className="submit-btns">
-            <Button color="info" size="md" onClick={this.execute}>Run</Button>{' '}
-            <Button color="outline-info" size="md">Submit</Button>{' '}
-            </div>
-=======
+              //  <MyCodeMirror></MyCodeMirror>
+              //  <textarea readonly="true" class="output" id="code-output"></textarea>
                 <Card title="Python Text Editor">
                     <Input.Group size="large" className="mock-input">
                         <div>
