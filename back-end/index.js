@@ -36,15 +36,3 @@ app.get('/questions/:id', (req, res) => {
 app.listen(3001, () => {
   console.log("running on port 3001");
 });
-
-
-
-// const bodyParser = require('body-parser')
-// const path = require('path');
-// res.sendFile(path.join(__dirname, 'build', 'index.html'));
-
-// app.use(express.static(path.join(__dirname, 'build')));
-
-// app.get('/ping', function (req, res) {
-//  return res.send('pong');
-// });
