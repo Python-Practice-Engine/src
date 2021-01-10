@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IDE from './components/IDE';
-import './style/style.css'
+import GNavbar from './components/GNavbar';
+import './style/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "antd/dist/antd.css";
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <IDE />
+    <GNavbar />
   </React.StrictMode>,
   document.getElementById('root')
 );

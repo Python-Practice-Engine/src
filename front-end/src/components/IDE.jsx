@@ -10,8 +10,8 @@ import {
   ListGroupItem,
   Badge,
 } from 'reactstrap';
-import Header from './Header';
-import GNavbar from './GNavbar';
+// import Header from './Header';
+// import GNavbar from './GNavbar';
 import Skulpt from './Skulpt';
 
 import '../style/style.css';
@@ -20,9 +20,9 @@ const IDE = () => {
     return (
         <div>
             {/* header */}
-            <Header></Header>
+            {/* <Header></Header> */}
             {/* navbar */}
-            <GNavbar></GNavbar>
+            {/* <GNavbar></GNavbar> */}
             {/* IDE/Question */}
             <Row>
                 <Col md="3" className="question-col">
