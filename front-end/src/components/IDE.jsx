@@ -13,8 +13,6 @@ import {
     Badge,
     List,
 } from 'antd';
-import Header from './Header';
-import GNavbar from './GNavbar';
 import Skulpt from './Skulpt';
 import Question from './Question';
 
@@ -29,11 +27,6 @@ const data = [
 const IDE = () => {
     return (
         <div>
-            {/* header */}
-            <Header></Header>
-            {/* navbar */}
-            <GNavbar></GNavbar>
-            {/* IDE/Question */}
             <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>
                 <Col span={6} className="gutter-row">
                     <div className="question-col">
