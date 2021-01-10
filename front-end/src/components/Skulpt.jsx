@@ -5,12 +5,9 @@ import React from 'react';
     Button,
 } from 'antd';
 import '../style/style.css';
-<<<<<<< HEAD
 import MyCodeMirror from './MyCodeMirror';
-=======
 import 'antd/dist/antd.css';
 
->>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e
 
 /*File consists of auxiliary functions for IDE rendering*/
 
@@ -60,37 +57,21 @@ class Skulpt extends React.Component {
     render() {
         return (
             <div className="ide-card">
-<<<<<<< HEAD
-            <Card >
-                <CardHeader>Python Text Editor</CardHeader>
-                <CardBody>
-                <div>
-                <InputGroup size="lg" className="mock-input">
-                <MyCodeMirror></MyCodeMirror>
-                </InputGroup>
-                <textarea readonly="true" class="output" id="code-output"></textarea>
-                </div>
-                </CardBody>
-            </Card>
-            <div className="submit-btns">
-            <Button color="info" size="md" onClick={this.execute}>Run</Button>{' '}
-            <Button color="outline-info" size="md">Submit</Button>{' '}
-            </div>
-=======
                 <Card title="Python Text Editor">
                     <Input.Group size="large" className="mock-input">
                         <div>
                             <textarea id="code-input" name="code-input" margin="0">Your Code Here</textarea>
+                            <MyCodeMirror></MyCodeMirror>
                             <pre id="code-output"></pre>
                         </div>
                     </Input.Group>
-                    
+                    <textarea readonly="true" class="output" id="code-output"></textarea>
                 </Card>
                 <div className="submit-btns">
                     <Button type="primary" size="large" onClick={this.execute}>Run</Button>{' '}
                     <Button size="large">Submit</Button>{' '}
                 </div>
->>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e
+{/* >>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e */}
             </div>
         );
     }
