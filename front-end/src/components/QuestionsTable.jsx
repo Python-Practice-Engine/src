@@ -37,7 +37,7 @@ function CreateCategoryTag(category) {
 
 function CreateDifficultyTag(difficulty) {
     let color;
-    switch(difficulty.level) {
+    switch(difficulty.text) {
         case 'easy':
             color = 'green';
             break;
@@ -50,7 +50,7 @@ function CreateDifficultyTag(difficulty) {
     }
     return (
       <Tag color={color}>
-        {difficulty.level.toUpperCase()}
+        {difficulty.text.toUpperCase()}
       </Tag>
     );
 }
@@ -119,7 +119,7 @@ const columns = [
                 value: 'hard',
             },
         ],
-        onFilter: (value, record) => record.difficulty.level === value,
+        onFilter: (value, record) => record.difficulty.text === value,
     },
   ];
   
@@ -129,21 +129,21 @@ const columns = [
         id: 1,
         title: 'Addition Calculator',
         tags: ['function', 'operator'],
-        difficulty: {level: 'easy', value: 1},
+        difficulty: {text: 'easy', value: 1},
     },
     {
         key: '2',
         id: 2,
         title: 'Concatinating Strings',
         tags: ['string', 'operator'],
-        difficulty: {level: 'medium', value: 2}
+        difficulty: {text: 'medium', value: 2}
     },
     {
         key: '3',
         id: 3,
         title: 'Comparing Lists',
         tags: ['list', 'boolean'],
-        difficulty: {level: 'hard', value: 3}
+        difficulty: {text: 'hard', value: 3}
     },
   ];
 
