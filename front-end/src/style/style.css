@@ -4,14 +4,12 @@ textarea {
     box-sizing: border-box;
 }
 
-.header-logo {
-    height:100px;
-    width:200px;
-    padding-top: 2%;
-    padding-bottom: 1%;
-    text-align:center;
-    margin-left:9px;
+.header {
+    text-align: center;
+    padding-top: 1%;
+    color: #1890ff;
 }
+
 
 .logo-card {
     width: 220px;
