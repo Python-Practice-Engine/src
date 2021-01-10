@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {
     Card,
     Badge,
+    Space,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';

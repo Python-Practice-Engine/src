@@ -1,12 +1,13 @@
 import React from 'react';
-import {
+  import {
     Card,
-    CardBody,
-    CardHeader,
-    InputGroup,
-    Button
-  } from 'reactstrap';
+    Input,
+    Button,
+} from 'antd';
 import '../style/style.css';
+import MyCodeMirror from './MyCodeMirror';
+import 'antd/dist/antd.css';
+
 
 /*File consists of auxiliary functions for IDE rendering*/
 
@@ -56,22 +57,18 @@ class Skulpt extends React.Component {
     render() {
         return (
             <div className="ide-card">
-            <Card >
-                <CardHeader>Python Text Editor</CardHeader>
-                <CardBody>
-                <InputGroup size="lg" className="mock-input">
-                <div>
-                <textarea id="code-input" name="code-input" margin="0">Your Code Here</textarea>
-                <pre id="code-output"></pre>
+                <Card title="Python Text Editor">
+                    <div>
+                        <Input.Group compact size="large" className="mock-input">
+                        <MyCodeMirror></MyCodeMirror>
+                        </Input.Group>
+                    </div>
+                    <textarea readonly="true" class="output" id="code-output"></textarea>
+                </Card>
+                <div className="submit-btns">
+                    <Button type="primary" size="large" onClick={this.execute}>Run</Button>{' '}
+                    <Button size="large">Submit</Button>{' '}
                 </div>
-                </InputGroup>
-                </CardBody>
-                
-            </Card>
-            <div className="submit-btns">
-            <Button color="info" size="md" onClick={this.execute}>Run</Button>{' '}
-            <Button color="outline-info" size="md">Submit</Button>{' '}
-            </div>
             </div>
         );
     }
