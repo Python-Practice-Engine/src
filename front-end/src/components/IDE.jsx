@@ -30,9 +30,9 @@ const IDE = () => {
     return (
         <div>
             {/* header */}
-            <Header></Header>
+            {/* <Header></Header> */}
             {/* navbar */}
-            <GNavbar></GNavbar>
+            {/* <GNavbar></GNavbar> */}
             {/* IDE/Question */}
             <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>
                 <Col span={6} className="gutter-row">

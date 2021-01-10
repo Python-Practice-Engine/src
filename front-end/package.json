@@ -11,8 +11,13 @@
     "bootstrap": "^4.5.3",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
+<<<<<<< HEAD
     "react-codemirror": "^1.0.0",
     "react-dom": "^16.14.0",
+=======
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+>>>>>>> c1926ec2428cd028ee3cfd8ffd4a82298d6fe9d1
     "react-image": "^4.0.3",
     "react-scripts": "^4.0.1",
     "reactstrap": "^6.5.0"
