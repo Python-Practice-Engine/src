@@ -7,7 +7,6 @@ import React from 'react';
 import '../style/style.css';
 <<<<<<< HEAD
 import MyCodeMirror from './MyCodeMirror';
-=======
 import 'antd/dist/antd.css';
 
 >>>>>>> 5565f3ca55b91c4f0fc6c081648358ba153d277e
