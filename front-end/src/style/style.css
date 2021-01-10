@@ -1,3 +1,9 @@
+textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
 .header-logo {
     height:100px;
     width:200px;
@@ -43,7 +49,7 @@
 
 .mock-input{
     height: 300px;
-    
+    width: 100%;
 }
 
 .test-case-row {

@@ -7,6 +7,7 @@ import {
     Button
   } from 'reactstrap';
 import '../style/style.css';
+import MyCodeMirror from './MyCodeMirror';
 
 /*File consists of auxiliary functions for IDE rendering*/
 
@@ -59,14 +60,13 @@ class Skulpt extends React.Component {
             <Card >
                 <CardHeader>Python Text Editor</CardHeader>
                 <CardBody>
-                <InputGroup size="lg" className="mock-input">
                 <div>
-                <textarea id="code-input" name="code-input" margin="0">Your Code Here</textarea>
-                <pre id="code-output"></pre>
-                </div>
+                <InputGroup size="lg" className="mock-input">
+                <MyCodeMirror></MyCodeMirror>
                 </InputGroup>
+                <textarea readonly="true" class="output" id="code-output"></textarea>
+                </div>
                 </CardBody>
-                
             </Card>
             <div className="submit-btns">
             <Button color="info" size="md" onClick={this.execute}>Run</Button>{' '}
