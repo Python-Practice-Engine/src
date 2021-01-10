@@ -10,11 +10,6 @@ import Axios from 'axios';
 
 function Question(props) {
     return (
-<<<<<<< HEAD
-        <Card title={`${props.id} - ${props.title}`} >
-            <Badge color="blue" text={props.tags} />
-            <Badge color="gold" text={props.difficulty} />
-=======
         <Card title={props.title}>
             <Space>
                 <Badge color="blue" text={props.tags} />
