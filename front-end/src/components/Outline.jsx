@@ -82,6 +82,9 @@ class Outline extends React.Component {
                         </Route>
                     </div>
                 </HashRouter>
+                <div className="footer">
+
+                </div>
             </div>
         );
     }

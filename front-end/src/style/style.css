@@ -3,13 +3,13 @@ textarea {
     height: 100%;
     box-sizing: border-box;
 }
-.navBar {
-    margin-bottom: 100%;
-}
 
 .header {
     text-align: center;
     color: #1890ff;
+}
+.footer {
+    padding-bottom:2%;
 }
 
 .landingPageTitle {
