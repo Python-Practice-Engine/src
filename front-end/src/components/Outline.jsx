@@ -1,32 +1,34 @@
-import React , { useState } from 'react';
+import React from 'react';
 import { 
     Menu,
     Typography,
-    Layout
 } from 'antd';
-import '../style/style.css';
+import {
+    NavLink
+  } from 'reactstrap';
+
 import IDE from './IDE';
 import LandingPage from './LandingPage';
 import Tutorials from './Tutorials';
 import Questions from './Questions';
 import ConceptGraph from './ConceptGraph';
+
+
 import {
     Route,
     Link,
     HashRouter,
     Redirect
   } from "react-router-dom";
-import {
-  NavLink
-} from 'reactstrap';
+
+import '../style/style.css';
 
 const { Title } = Typography;
-const { Footer } = Layout;
 
 class Outline extends React.Component {
     
     state = {
-        current: '',
+        current: 'home',
       };
     
       handleClick = e => {
@@ -40,9 +42,9 @@ class Outline extends React.Component {
             <div className="navBar" >
                 <HashRouter>
                     <div className="header">
-                        <NavLink tag={Link} to="/Home" key="home">
+                        {/* <NavLink tag={Link} to="/Home" key="home"> */}
                             <Title style={{color: '#1890ff', marginBottom: "0", paddingBottom: "0"}}>Python Practice Engine</Title>
-                        </NavLink>
+                        {/* </NavLink> */}
                     </div>
                     <Menu 
                         onClick={this.handleClick} 
@@ -50,6 +52,11 @@ class Outline extends React.Component {
                         mode="horizontal"   
                         style={{marginBottom: "2%", textAlign: "center", marginTop: "0", paddingTop: "0"}}
                     >      
+                            <Menu.Item key="home">
+                                <NavLink tag={Link} to="/Home">
+                                        Home
+                                </NavLink>
+                            </Menu.Item>
                             <Menu.Item key="questions">
                                 <NavLink tag={Link} to="/Questions">
                                         Questions
