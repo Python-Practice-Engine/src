@@ -1,28 +1,34 @@
-import React , { useState } from 'react';
+import React from 'react';
 import { 
     Menu,
-    Typography
+    Typography,
 } from 'antd';
-import '../style/style.css';
+import {
+    NavLink
+  } from 'reactstrap';
+
 import IDE from './IDE';
 import LandingPage from './LandingPage';
 import Tutorials from './Tutorials';
 import Questions from './Questions';
 import ConceptGraph from './ConceptGraph';
+
+
 import {
     Route,
     Link,
     HashRouter,
     Redirect
   } from "react-router-dom";
-import {
-  NavLink
-} from 'reactstrap';
+
+import '../style/style.css';
+
 const { Title } = Typography;
-class GNavbar extends React.Component {
+
+class Outline extends React.Component {
     
     state = {
-        current: 'mail',
+        current: 'home',
       };
     
       handleClick = e => {
@@ -33,24 +39,24 @@ class GNavbar extends React.Component {
     render() {
         const { current } = this.state;
         return (
-            <div>
+            <div className="navBar" >
                 <HashRouter>
                     <div className="header">
-                        <NavLink tag={Link} to="/LandingPage">
-                            <Title style={{color: '#1890ff'}}>Python Practice Engine</Title>
-                        </NavLink>
+                        {/* <NavLink tag={Link} to="/Home" key="home"> */}
+                            <Title style={{color: '#1890ff', marginBottom: "0", paddingBottom: "0"}}>Python Practice Engine</Title>
+                        {/* </NavLink> */}
                     </div>
                     <Menu 
-                        style={{textAlign: 'center'}} 
                         onClick={this.handleClick} 
                         selectedKeys={[current]} 
-                        mode="horizontal"
+                        mode="horizontal"   
+                        style={{marginBottom: "2%", textAlign: "center", marginTop: "0", paddingTop: "0"}}
                     >      
-                            {/* <Menu.Item key="Home">
-                                <NavLink tag={Link} to="/LandingPage">
-                                    Home
+                            <Menu.Item key="home">
+                                <NavLink tag={Link} to="/Home">
+                                        Home
                                 </NavLink>
-                            </Menu.Item> */}
+                            </Menu.Item>
                             <Menu.Item key="questions">
                                 <NavLink tag={Link} to="/Questions">
                                         Questions
@@ -73,7 +79,7 @@ class GNavbar extends React.Component {
                             </Menu.Item>
                     </Menu>
                     <div className="content">
-                        <Route path="/LandingPage" component={LandingPage}/>
+                        <Route path="/Home" component={LandingPage}/>
                         <Route path="/IDE" component={IDE} />
                         <Route path="/Tutorials" component={Tutorials} />
                         <Route path="/Questions" component={Questions} />
@@ -88,4 +94,4 @@ class GNavbar extends React.Component {
     }
 }
 
-export default GNavbar;
+export default Outline;
