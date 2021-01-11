@@ -26,9 +26,12 @@ class Skulpt extends React.Component {
         this.execute = this.execute.bind(this);
     }
 
-    execute() {       
+    execute() {  
+   
         function outf(text) { 
             var mypre = document.getElementById("code-output"); 
+            var output = document.getElementById("output-area");
+            output.style.display = "block";
             mypre.innerHTML = mypre.innerHTML + text; 
         } 
         function builtinRead(x) {
@@ -57,17 +60,22 @@ class Skulpt extends React.Component {
     render() {
         return (
             <div className="ide-card">
-                <Card title="Python Text Editor">
-                    <div>
-                        <Input.Group compact size="large" className="mock-input">
-                        <MyCodeMirror></MyCodeMirror>
-                        </Input.Group>
-                    </div>
-                    <textarea readonly="true" class="output" id="code-output"></textarea>
-                </Card>
+                <div>
+                    <Input.Group compact size="large" className="mock-input">
+                    <MyCodeMirror></MyCodeMirror>
+                    </Input.Group>
+                </div>
                 <div className="submit-btns">
-                    <Button type="primary" size="large" onClick={this.execute}>Run</Button>{' '}
-                    <Button size="large">Submit</Button>{' '}
+                    <Button type="primary" size="medium" onClick={this.execute}>
+                        Run
+                    </Button>{' '}
+                    <Button size="medium">
+                        Submit
+                    </Button>{' '}
+                </div>
+                <div id="output-area" style={{display:"none"}}>
+                    <textarea readonly="true" class="output" id="code-output" name="output">
+                    </textarea>
                 </div>
             </div>
         );
