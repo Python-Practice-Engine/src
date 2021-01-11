@@ -26,6 +26,7 @@ const data = [
   ];
 
 const IDE = () => {
+    const [id, setID] = useState(0);
 
     useEffect(() => {
         // const { id } = this.props.match.params
