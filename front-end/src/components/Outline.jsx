@@ -42,9 +42,7 @@ class Outline extends React.Component {
             <div className="navBar" >
                 <HashRouter>
                     <div className="header">
-                        {/* <NavLink tag={Link} to="/Home" key="home"> */}
                             <Title style={{color: '#1890ff', marginBottom: "0", paddingBottom: "0"}}>Python Practice Engine</Title>
-                        {/* </NavLink> */}
                     </div>
                     <Menu 
                         onClick={this.handleClick} 
