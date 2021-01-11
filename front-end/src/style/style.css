@@ -56,6 +56,18 @@ textarea[name=output] {
     margin-top: 1%;
 }
 
+.q-table {
+    margin: 2% 5% 0 5%;
+}
+
+.panel-topic {
+    min-height: 15vh;
+}
+
+.collapse-topics {
+    margin: 5% 10% 0%;
+}
+
 .questionDescription {
     margin-top: 1%;
 }
