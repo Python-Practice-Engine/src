@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Typography,
     Tag,
@@ -10,19 +10,6 @@ const { Title } = Typography;
 
 function QuestionContent(props) {
     
-
-    useEffect(() => {
-        // const { id } = this.props.match.params
-        // Axios.get(`http://localhost:3001/questions/${id}`).then((response)=> {
-        // Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
-        //     console.log(response.data[0]);
-        //     // setPosts
-        // });
-        console.log("Props have changed");
-        
-    }, []);
-
-    console.log(props.question);
     return (
         <div>
             <Title 
