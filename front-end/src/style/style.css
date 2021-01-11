@@ -51,3 +51,7 @@ textarea {
 .q-table {
     margin: 2% 5% 0 5%
 }
+
+.panel {
+    min-height: 5vh;
+}
