@@ -43,7 +43,7 @@ function QuestionsCollapse() {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a>{item.title}</a>}
                                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                                 />
                             </List.Item>
@@ -58,7 +58,7 @@ function QuestionsCollapse() {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a>{item.title}</a>}
                                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                                 />
                             </List.Item>
@@ -73,7 +73,7 @@ function QuestionsCollapse() {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a>{item.title}</a>}
                                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                                 />
                             </List.Item>
@@ -88,7 +88,7 @@ function QuestionsCollapse() {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a>{item.title}</a>}
                                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                                 />
                             </List.Item>
@@ -103,7 +103,7 @@ function QuestionsCollapse() {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a>{item.title}</a>}
                                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                                 />
                             </List.Item>
