@@ -49,9 +49,13 @@ textarea {
 }
 
 .q-table {
-    margin: 2% 5% 0 5%
+    margin: 2% 5% 0 5%;
 }
 
-.panel {
-    min-height: 5vh;
+.panel-topic {
+    min-height: 15vh;
+}
+
+.collapse-topics {
+    margin: 5% 20% 5% 20%;
 }
