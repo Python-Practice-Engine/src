@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     Card,
-    Badge,
-    Space,
+    Tag,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
@@ -11,9 +10,13 @@ import 'antd/dist/antd.css';
 function Question(props) {
 
     return (
-        <Card title={`${props.id} - ${props.title}`} >
-            <Badge color="blue" text={props.tags} />
-            <Badge color="gold" text={props.difficulty} />
+        <Card title={props.title}>
+            <Tag color="blue">
+                {props.tags}
+            </Tag>
+            <Tag color="gold">
+                {props.difficulty}
+            </Tag>
             <p>{props.description}</p> 
         </Card>
     );
