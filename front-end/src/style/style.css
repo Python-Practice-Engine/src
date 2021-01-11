@@ -3,32 +3,32 @@ textarea {
     height: 100%;
     box-sizing: border-box;
 }
+.navBar {
+    margin-bottom: 100%;
+}
 
 .header {
     text-align: center;
-    padding-top: 1%;
     color: #1890ff;
 }
 
+.landingPageTitle {
+    text-align: center;
+}
 
-.logo-card {
-    width: 220px;
-    height:105px;
-    text-align:center;
+.landingPageImg {
+    height:70vh;
+    width:100%;
+    padding: 0;
+    margin: 0;
+}
+
+.landingPageDescription {
+    text-align: center;
 }
 
 .navbar-padding {
     padding-top: 1%;
-}
-
-.header-padding {
-    padding-top: 1%;
-    padding-left: 3%;
-    padding-right: 3%;
-}
-
-.log-out-btn {
-    margin-top:28%;
 }
 
 .question-col {

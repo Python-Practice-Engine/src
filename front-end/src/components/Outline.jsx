@@ -1,7 +1,8 @@
 import React , { useState } from 'react';
 import { 
     Menu,
-    Typography
+    Typography,
+    Layout
 } from 'antd';
 import '../style/style.css';
 import IDE from './IDE';
@@ -18,11 +19,14 @@ import {
 import {
   NavLink
 } from 'reactstrap';
+
 const { Title } = Typography;
-class GNavbar extends React.Component {
+const { Footer } = Layout;
+
+class Outline extends React.Component {
     
     state = {
-        current: 'mail',
+        current: '',
       };
     
       handleClick = e => {
@@ -33,24 +37,19 @@ class GNavbar extends React.Component {
     render() {
         const { current } = this.state;
         return (
-            <div>
+            <div className="navBar" >
                 <HashRouter>
                     <div className="header">
-                        <NavLink tag={Link} to="/LandingPage">
-                            <Title style={{color: '#1890ff'}}>Python Practice Engine</Title>
+                        <NavLink tag={Link} to="/Home" key="home">
+                            <Title style={{color: '#1890ff', marginBottom: "0", paddingBottom: "0"}}>Python Practice Engine</Title>
                         </NavLink>
                     </div>
                     <Menu 
-                        style={{textAlign: 'center'}} 
                         onClick={this.handleClick} 
                         selectedKeys={[current]} 
-                        mode="horizontal"
+                        mode="horizontal"   
+                        style={{marginBottom: "2%", textAlign: "center", marginTop: "0", paddingTop: "0"}}
                     >      
-                            {/* <Menu.Item key="Home">
-                                <NavLink tag={Link} to="/LandingPage">
-                                    Home
-                                </NavLink>
-                            </Menu.Item> */}
                             <Menu.Item key="questions">
                                 <NavLink tag={Link} to="/Questions">
                                         Questions
@@ -73,7 +72,7 @@ class GNavbar extends React.Component {
                             </Menu.Item>
                     </Menu>
                     <div className="content">
-                        <Route path="/LandingPage" component={LandingPage}/>
+                        <Route path="/Home" component={LandingPage}/>
                         <Route path="/IDE" component={IDE} />
                         <Route path="/Tutorials" component={Tutorials} />
                         <Route path="/Questions" component={Questions} />
@@ -88,4 +87,4 @@ class GNavbar extends React.Component {
     }
 }
 
-export default GNavbar;
+export default Outline;
