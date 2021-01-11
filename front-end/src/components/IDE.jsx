@@ -26,13 +26,15 @@ const data = [
   ];
 
 const IDE = () => {
+    const [question, setQuestion] = useState({});
     const [id, setID] = useState(0);
 
     useEffect(() => {
         // const { id } = this.props.match.params
-        // Axios.get(`http://localhost:3001/questions/${props.id}`).then((response)=> {
+        // Axios.get(`http://localhost:3001/questions/${id}`).then((response)=> {
         Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
-            console.log(response.data);
+            console.log(response.data[0]);
+            // setPosts
             // props.title=response.data[0].name;
             // props.tags=response.data[0].tags;
             // props.difficulty=response.data[0].difficulty;
@@ -43,15 +45,24 @@ const IDE = () => {
 
     return (
         <div>
-            <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>
+            {/* <Row gutter={32} style={{margin: "1% 5% 0 5%" }}>
                 <Col span={6} className="gutter-row">
-                    <div className="question-col">
-                        <Question 
+                    <div className="question-col"> */}
+                        {/* {questions.map(question => (
+                            <Question 
+                                title={question.name}
+                                tags={question.tags}
+                                difficulty={question.difficulty}
+                                description={question.description}
+                            />
+                        ))} */}
+                        <div>{question.name}</div>
+                        {/* <Question 
                             title="Addition Calculator" 
                             tags="Functions" difficulty="Easy" 
                             description="Write a function which takes two parameters, adds them together, and returns the result"
-                        />
-                    </div>
+                        /> */}
+                    {/* </div>
                 </Col>
                 <Col span={18} className="gutter-row">
                         <Row gutter={16} >
@@ -71,7 +82,7 @@ const IDE = () => {
                             />
                         </Row>         
                 </Col>
-            </Row>
+            </Row> */}
         </div>
     );
 };
