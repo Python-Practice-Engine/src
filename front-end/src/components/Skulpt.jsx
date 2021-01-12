@@ -51,7 +51,7 @@ class Skulpt extends React.Component {
     const myPromise = window.Sk.misceval.asyncToPromise(
       () => window.Sk.importMainWithBody(
         '<stdin>',
-        false,
+        true,
         prog,
         true,
       ),
@@ -59,8 +59,8 @@ class Skulpt extends React.Component {
     myPromise.then(() => {
       console.log('success');
     },
-    (err) => {
-      console.log(err.toString());
+    (error) => {
+      outf(error.toString());
     });
   }
 
