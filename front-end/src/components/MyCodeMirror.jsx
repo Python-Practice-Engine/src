@@ -39,7 +39,7 @@ class MyCodeMirror extends React.Component {
     render() {
       return (
         <textarea id="code-input" name="code-input" margin="0">
-          Your Code Here
+          #Your Code Here
         </textarea>
       );
     }
