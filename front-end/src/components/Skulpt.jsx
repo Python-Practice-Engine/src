@@ -60,7 +60,10 @@ class Skulpt extends React.Component {
       console.log('success');
     },
     (error) => {
-      outf(error.toString());
+      const errMsg = error.toString();
+      const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
+      const msg = errMsg.slice(0, -1) + lineNum.toString();
+      outf(msg);
     });
   }
 
