@@ -1,29 +1,30 @@
 import React from 'react';
 import {
-    Typography,
-    Tag,
-    Space
+  Typography,
+  Tag,
+  Space,
 } from 'antd';
 import '../style/style.css';
 
 const { Title } = Typography;
 
 function QuestionContent(props) {
-    return (
-        <div>
-            <Title 
-                level={3} 
-            >
-                {props.title}
-            </Title>
-            <Space>
-                <Tag color="warning">{props.tags}</Tag>
-            </Space>
-            <p className="questionDescription">
-                {props.description}
-            </p> 
-        </div>
-    );
+  const content = props;
+  return (
+    <div>
+      <Title
+        level={3}
+      >
+        {content.title}
+      </Title>
+      <Space>
+        <Tag color="warning">{content.tags}</Tag>
+      </Space>
+      <p className="questionDescription">
+        {content.description}
+      </p>
+    </div>
+  );
 }
 
 export default QuestionContent;
