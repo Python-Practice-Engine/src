@@ -1,8 +1,5 @@
 import React from 'react';
 import '../style/style.css';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/icecoder.css';
-import 'codemirror/mode/python/python';
 
 const mirror = require('codemirror');
 
