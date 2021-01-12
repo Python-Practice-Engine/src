@@ -9,19 +9,19 @@ import '../style/style.css';
 const { Title } = Typography;
 
 function QuestionContent(props) {
-    
+    const content=props.contents;
     return (
         <div>
             <Title 
                 level={3} 
             >
-                {props.question.name}
+                {content.name}
             </Title>
             <Space>
-                <Tag color="warning">{props.question.tags}</Tag>
+                <Tag color="warning">{content.tags}</Tag>
             </Space>
             <p className="questionDescription">
-                {props.question.description}
+                {content.description}
             </p> 
         </div>
     );
