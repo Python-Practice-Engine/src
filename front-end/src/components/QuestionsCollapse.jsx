@@ -4,10 +4,11 @@ import {
   List,
   Avatar,
   Typography,
+  Divider,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
-import { CodeTwoTone } from '@ant-design/icons';
+import { CodeTwoTone, RightSquareOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -34,6 +35,14 @@ function QuestionsCollapse() {
       <Collapse
         ghost
         expandIconPosition="right"
+        expandIcon={
+          ({ isActive }) => (
+            <RightSquareOutlined
+              rotate={isActive ? 90 : 0}
+              style={{ 'font-size': '200%' }}
+            />
+          )
+        }
       >
         <Panel
           className="panel-topic"
@@ -65,6 +74,7 @@ function QuestionsCollapse() {
             )}
           />
         </Panel>
+        <Divider />
         <Panel
           className="panel-topic"
           header={<Title level={4}>Data Types</Title>}
@@ -95,6 +105,7 @@ function QuestionsCollapse() {
             )}
           />
         </Panel>
+        <Divider />
         <Panel
           className="panel-topic"
           header={<Title level={4}>Operators</Title>}
@@ -125,6 +136,7 @@ function QuestionsCollapse() {
             )}
           />
         </Panel>
+        <Divider />
         <Panel
           className="panel-topic"
           header={<Title level={4}>Control Structures</Title>}
@@ -155,6 +167,7 @@ function QuestionsCollapse() {
             )}
           />
         </Panel>
+        <Divider />
         <Panel
           className="panel-topic"
           header={<Title level={4}>Functions</Title>}
@@ -185,6 +198,7 @@ function QuestionsCollapse() {
             )}
           />
         </Panel>
+        <Divider />
       </Collapse>
     </div>
 
