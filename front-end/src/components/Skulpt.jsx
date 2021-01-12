@@ -5,7 +5,9 @@ import {
 } from 'antd';
 import '../style/style.css';
 import MyCodeMirror from './MyCodeMirror';
-
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/icecoder.css';
+import 'codemirror/mode/python/python';
 /* File consists of auxiliary functions for IDE rendering */
 
 class Skulpt extends React.Component {
