@@ -4,10 +4,12 @@ import {
   Button,
 } from 'antd';
 import '../style/style.css';
+import { LeftOutlined } from '@ant-design/icons';
 import MyCodeMirror from './MyCodeMirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/icecoder.css';
 import 'codemirror/mode/python/python';
+
 /* File consists of auxiliary functions for IDE rendering */
 
 class Skulpt extends React.Component {
@@ -76,14 +78,28 @@ class Skulpt extends React.Component {
           </Input.Group>
         </div>
         <div className="submit-btns">
+          <Button
+            type="primary"
+            size="medium"
+            icon={(
+              <LeftOutlined
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              />
+            )}
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            Easier
+          </Button>
           <Button type="primary" size="medium" onClick={this.execute}>
             Run
           </Button>
-          {' '}
           <Button size="medium">
             Submit
           </Button>
-          {' '}
         </div>
         <div id="output-area" style={{ display: 'none' }}>
           <textarea
