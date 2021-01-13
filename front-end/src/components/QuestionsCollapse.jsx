@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Collapse,
-    List,
-    Avatar,
-    Typography,
+  Collapse,
+  List,
+  Avatar,
+  Typography,
+  Divider,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
@@ -15,18 +16,18 @@ const { Panel } = Collapse;
 const { Title } = Typography;
 
 const data = [
-    {
-        title: 'Question 1',
-    },
-    {
-        title: 'Question 2',
-    },
-    {
-        title: 'Question 3',
-    },
-    {
-        title: 'Question 4',
-    },
+  {
+    title: 'Question 1',
+  },
+  {
+    title: 'Question 2',
+  },
+  {
+    title: 'Question 3',
+  },
+  {
+    title: 'Question 4',
+  },
 ];
 
 function QuestionsCollapse() {
@@ -126,7 +127,7 @@ function QuestionsCollapse() {
             </Collapse>
         </div>
 
-    );
+  );
 }
 
 export default QuestionsCollapse;

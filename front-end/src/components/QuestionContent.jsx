@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    Typography,
-    Tag,
-    Space
+  Typography,
+  Tag,
+  Space,
 } from 'antd';
 import '../style/style.css';
 
