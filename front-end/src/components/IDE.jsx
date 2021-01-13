@@ -58,7 +58,7 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
-      id: this.props.match.params.id,
+      Qid: this.props.match.params.id,
     };
 
     this.handleHardClick = this.handleHardClick.bind(this);
@@ -66,18 +66,19 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get(`http://localhost:3001/questions/${this.state.id}`).then((response) => {
+    Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((response) => {
       this.setState({ question: response.data[0] });
     });
+    console.log(this.props.match.params);
   }
 
   handleHardClick() {
-    this.setState({ id: this.props.match.params.id });
+    this.setState({ Qid: this.props.match.params.Qid });
     setTimeout(() => window.location.reload(), 300);
   }
 
   handleEasyClick() {
-    this.setState({ id: this.props.match.params.id });
+    this.setState({ Qid: this.props.match.params.Qid });
     setTimeout(() => window.location.reload(), 300);
   }
 

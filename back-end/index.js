@@ -29,9 +29,9 @@ app.get('/questionSet/:tags', (req, res) => {
 // Route for retrieving question from database to populate question page
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
-  var Qid = req.params.id;
-
-  const sqlRetrieve = `SELECT * FROM Questions WHERE id = ${Qid};`;
+  var Qid = req.params.Qid;
+  console.log(req.params)
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
