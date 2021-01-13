@@ -7,10 +7,12 @@ import {
 import {
   Card,
 } from 'antd';
+// import { withRouter } from 'react-router-dom';
+import Axios from 'axios';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import QuestionContent from './QuestionContent';
-import TutorialContent from './TutorialContent';
+// import TutorialContent from './TutorialContent';
 
 import '../style/style.css';
 
@@ -25,81 +27,85 @@ const tabList = [
   },
 ];
 
-const contentList = {
-  question: <QuestionContent
-    title="Addition Calculator"
-    tags="Functions"
-    description="
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-    est laborum."
-  />,
-  tutorial: <TutorialContent
-    title="Functions"
-    tags="Functions"
-    description={
-        [
-          `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-          aliquip ex ea commodo consequat. Duis aute irure dolor in 
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-          culpa qui officia deserunt mollit anim id est laborum.`,
-          `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-          aliquip ex ea commodo consequat. Duis aute irure dolor in 
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-          culpa qui officia deserunt mollit anim id est laborum.`,
-        ]
-    }
-  />,
-};
-
+//   contentList = {
+//     question: <QuestionContent
+//       contents={this.state.question}
+//     />,
+//     tutorial: <TutorialContent
+//       title="Functions"
+//       tags="Functions"
+//       description={
+//         [
+//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+//           aliquip ex ea commodo consequat. Duis aute irure dolor in
+//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
+//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+//           culpa qui officia deserunt mollit anim id est laborum.`,
+//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+//           aliquip ex ea commodo consequat. Duis aute irure dolor in
+//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
+//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+//           culpa qui officia deserunt mollit anim id est laborum.`,
+//         ]
+//       }
+//     />,
+//   };
 class IDE extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { key: 'question' };
+    this.state = {
+      key: 'question',
+      question: {},
+    };
   }
 
-    onTabChange = (key, type) => {
-      this.setState({ [type]: key });
-    };
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    Axios.get(`http://localhost:3001/questions/${id}`).then((response) => {
+      this.setState({ question: response.data[0] });
+      console.log(response.data);
+    });
+  }
 
-    render() {
-      const tabs = this.state;
-      return (
-        <div>
-          <Container>
-            <Row>
-              <Col md="6">
-                <Card
-                  style={{ width: '100%' }}
-                  tabList={tabList}
-                  activeTabKey={tabs.key}
-                  onTabChange={(key) => {
-                    this.onTabChange(key, 'key');
-                  }}
-                >
-                  {contentList[tabs.key]}
-                </Card>
-                <TestCases />
-              </Col>
-              <Col md="6">
-                <Skulpt />
-              </Col>
-            </Row>
+  onTabChange = (key, type) => {
+    this.setState({ [type]: key });
+  };
 
-          </Container>
-        </div>
-      );
-    }
+  render() {
+    const tabs = this.state;
+    return (
+      <div>
+        <Container>
+          <Row>
+            <Col md="6">
+              <Card
+                style={{ width: '100%' }}
+                tabList={tabList}
+                activeTabKey={tabs.key}
+                onTabChange={(key) => {
+                  this.onTabChange(key, 'key');
+                }}
+              >
+                {/* {this.contentList[tabs.key]} */}
+                <QuestionContent
+                  contents={this.state.question}
+                />
+              </Card>
+              <TestCases />
+            </Col>
+            <Col md="6">
+              <Skulpt id={this.state.question.id} />
+            </Col>
+          </Row>
+
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default IDE;

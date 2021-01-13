@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+
+// So that credentials can be hidden inside environment file
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -16,13 +18,15 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  const sqlSearch = "SELECT * FROM questions;";
+app.get('/questionSet/:tags', (req, res) => {
+  var tags = req.params.tags;
+  const sqlSearch = `SELECT * FROM questions WHERE tags = '${tags}';`;
   db.query(sqlSearch, (err, result)=> {
     res.send(result);
   });
 });
 
+// Route for retrieving question from database to populate question page
 app.get('/questions/:id', (req, res) => {
   // Retrieve the tag from our URL path
   var id = req.params.id;
@@ -36,15 +40,3 @@ app.get('/questions/:id', (req, res) => {
 app.listen(3001, () => {
   console.log("running on port 3001");
 });
-
-
-
-// const bodyParser = require('body-parser')
-// const path = require('path');
-// res.sendFile(path.join(__dirname, 'build', 'index.html'));
-
-// app.use(express.static(path.join(__dirname, 'build')));
-
-// app.get('/ping', function (req, res) {
-//  return res.send('pong');
-// });

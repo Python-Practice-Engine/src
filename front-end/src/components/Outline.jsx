@@ -76,7 +76,7 @@ class Outline extends React.Component {
                 </NavLink>
               </Menu.Item>
               <Menu.Item key="ide">
-                <NavLink tag={Link} to="/IDE">
+                <NavLink tag={Link} to="/IDE/1">
                   Practice Engine
                 </NavLink>
               </Menu.Item>
@@ -88,7 +88,7 @@ class Outline extends React.Component {
             </Menu>
             <div className="content">
               <Route path="/Home" component={LandingPage} />
-              <Route path="/IDE" component={IDE} />
+              <Route path="/IDE/:id" component={IDE} />
               <Route path="/Tutorials" component={Tutorials} />
               <Route path="/Questions" component={Questions} />
               <Route path="/ConceptGraph" component={ConceptGraph} />
