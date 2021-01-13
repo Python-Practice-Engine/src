@@ -29,9 +29,19 @@ app.get('/questionSet/:tags', (req, res) => {
 // Route for retrieving question from database to populate question page
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
-  var Qid = req.params.Qid;
-  console.log(req.params)
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
+  var id = req.params.id;
+
+    const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  db.query(sqlRetrieve, (err, result)=> {
+    res.send(result);
+  });
+});
+
+// Route for retrieving testcases related to a question from the database
+app.get('/testcases/:id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var id = req.params.id;
+  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${id};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });

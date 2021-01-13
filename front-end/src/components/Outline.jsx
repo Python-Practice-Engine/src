@@ -15,9 +15,7 @@ import {
 } from 'react-router-dom';
 import IDE from './IDE';
 import LandingPage from './LandingPage';
-import Tutorials from './Tutorials';
 import Questions from './Questions';
-import ConceptGraph from './ConceptGraph';
 
 import '../style/style.css';
 
@@ -70,28 +68,16 @@ class Outline extends React.Component {
                   Questions
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="tutorials">
-                <NavLink tag={Link} to="/Tutorials">
-                  Tutorials
-                </NavLink>
-              </Menu.Item>
               <Menu.Item key="ide">
                 <NavLink tag={Link} to="/IDE/1">
                   Practice Engine
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item key="graph">
-                <NavLink tag={Link} to="/ConceptGraph">
-                  Concept Graph
                 </NavLink>
               </Menu.Item>
             </Menu>
             <div className="content">
               <Route path="/Home" component={LandingPage} />
               <Route path="/IDE/:Qid" component={IDE} />
-              <Route path="/Tutorials" component={Tutorials} />
               <Route path="/Questions" component={Questions} />
-              <Route path="/ConceptGraph" component={ConceptGraph} />
               <Route exact path="/">
                 <Redirect to="/Home" />
               </Route>
