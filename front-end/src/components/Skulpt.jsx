@@ -97,7 +97,14 @@ class Skulpt extends React.Component {
           <Button type="primary" size="medium" onClick={this.execute}>
             Run
           </Button>
-          <Button size="medium">
+          <Button
+            size="medium"
+            style={{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             Submit
           </Button>
         </div>
