@@ -60,15 +60,28 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
+      id: this.props.match.params.id,
     };
+
+    this.handleHardClick = this.handleHardClick.bind(this);
+    this.handleEasyClick = this.handleEasyClick.bind(this);
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    Axios.get(`http://localhost:3001/questions/${id}`).then((response) => {
+    Axios.get(`http://localhost:3001/questions/${this.state.id}`).then((response) => {
       this.setState({ question: response.data[0] });
       console.log(response.data);
     });
+  }
+
+  handleHardClick() {
+    this.setState({ id: this.props.match.params.id });
+    setTimeout(() => window.location.reload(), 300);
+  }
+
+  handleEasyClick() {
+    this.setState({ id: this.props.match.params.id });
+    setTimeout(() => window.location.reload(), 300);
   }
 
   onTabChange = (key, type) => {
@@ -98,7 +111,11 @@ class IDE extends React.Component {
               <TestCases />
             </Col>
             <Col md="6">
-              <Skulpt id={this.state.question.id} />
+              <Skulpt
+                id={this.state.question.id}
+                handleHardClick={this.handleHardClick}
+                handleEasyClick={this.handleEasyClick}
+              />
             </Col>
           </Row>
 
