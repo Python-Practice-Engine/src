@@ -40,7 +40,7 @@ const LandingPage = () => (
               organized by a concept
               graph. The concept graph allows for a user to learn and
               understand the fundamental topics before jumping to more advanced
-              ones.Python
+              ones. Python
               Practice Engine allows you to train your programming muscle
               through programming questions while also providing in-depth
               tutorials on the concepts the question covers. If you do not want
@@ -50,7 +50,7 @@ const LandingPage = () => (
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;Python Practice Engine was created as a
               capstone project
-              under the supervision of Dr. Brown and we hope you enjoy it!
+              under the supervision of Dr. Browne and we hope you enjoy it!
             </p>
           </Container>
         </Col>
