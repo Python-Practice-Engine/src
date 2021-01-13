@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Collapse,
   List,
@@ -31,101 +31,161 @@ const data = [
 ];
 
 function QuestionsCollapse() {
-    // const [basics, setBasics] = useState([]);
-    // const [variables, setVariables] = useState([]);
-    // const [functions, setFunctions] = useState([]);
+  // const [basics, setBasics] = useState([]);
+  // const [variables, setVariables] = useState([]);
+  // const [functions, setFunctions] = useState([]);
 
-    useEffect(() => {
-        Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
-            console.log(response.data[0]);
-            // setPosts
-        });
-    }, []);
+  useEffect(() => {
+    Axios.get('http://localhost:3001/questions/1').then((response) => {
+      console.log(response.data[0]);
+      // setPosts
+    });
+  }, []);
 
-    return (
-        <div className="collapse-topics">
-            <Collapse
-                ghost
-                expandIconPosition='right'
-            >
-                <Panel className="panel-topic" header={<Title level={4}>The Basics</Title>} key="1" >
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
+  return (
+    <div className="collapse-topics">
+      <Collapse
+        ghost
+        expandIconPosition="right"
+      >
+        <Panel
+          className="panel-topic"
+          header={<Title level={4}>The Basics</Title>}
+          key="1"
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
 
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a>{item.title}</a>}
-                                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
-                                />
-                            </List.Item>
-                        )}
+              <List.Item>
+                <List.Item.Meta
+                  avatar={(
+                    <Avatar
+                      icon={(
+                        <CodeTwoTone
+                          twoToneColor="blue"
+                        />
+                      )}
+                      style={{ backgroundColor: 'white' }}
                     />
-                </Panel>
-                <Panel className="panel-topic" header={<Title level={4}>Data Types</Title>} key="2">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a>{item.title}</a>}
-                                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
-                                />
-                            </List.Item>
-                        )}
+                  )}
+                  title={<a>{item.title}</a>}
+                  description="Lorem ipsum dolor sit amet,
+                   consectetur adipiscing elit. Aenean laoreet congue
+                    lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                />
+              </List.Item>
+            )}
+          />
+        </Panel>
+        <Panel
+          className="panel-topic"
+          header={<Title level={4}>Data Types</Title>}
+          key="2"
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={(
+                    <Avatar
+                      icon={<CodeTwoTone twoToneColor="blue" />}
+                      style={{ backgroundColor: 'white' }}
                     />
-                </Panel>
-                <Panel className="panel-topic" header={<Title level={4}>Operators</Title>} key="3">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a>{item.title}</a>}
-                                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
-                                />
-                            </List.Item>
-                        )}
+)}
+                  title={<a>{item.title}</a>}
+                  description="Lorem ipsum dolor sit amet,
+                   consectetur adipiscing elit. Aenean laoreet congue
+                    lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                />
+              </List.Item>
+            )}
+          />
+        </Panel>
+        <Panel
+          className="panel-topic"
+          header={<Title level={4}>Operators</Title>}
+          key="3"
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={(
+                    <Avatar
+                      icon={<CodeTwoTone twoToneColor="blue" />}
+                      style={{ backgroundColor: 'white' }}
                     />
-                </Panel>
-                <Panel className="panel-topic" header={<Title level={4}>Control Structures</Title>} key="4">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a>{item.title}</a>}
-                                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
-                                />
-                            </List.Item>
-                        )}
+)}
+                  title={<a>{item.title}</a>}
+                  description="Lorem ipsum dolor sit amet,
+                  consectetur adipiscing elit. Aenean laoreet
+                  congue lacus vitae vestibulum. Ut quis diam
+                  in nisl venenatis."
+                />
+              </List.Item>
+            )}
+          />
+        </Panel>
+        <Panel
+          className="panel-topic"
+          header={<Title level={4}>Control Structures</Title>}
+          key="4"
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={(
+                    <Avatar
+                      icon={<CodeTwoTone twoToneColor="blue" />}
+                      style={{ backgroundColor: 'white' }}
                     />
-                </Panel>
-                <Panel className="panel-topic" header={<Title level={4}>Functions</Title>} key="5">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
-                                    title={<a>{item.title}</a>}
-                                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean laoreet congue lacus vitae vestibulum. Ut quis diam in nisl venenatis."
-                                />
-                            </List.Item>
-                        )}
+)}
+                  title={<a>{item.title}</a>}
+                  description="Lorem ipsum dolor sit amet,
+                  consectetur adipiscing elit. Aenean laoreet congue
+                  lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                />
+              </List.Item>
+            )}
+          />
+        </Panel>
+        <Panel
+          className="panel-topic"
+          header={<Title level={4}>Functions</Title>}
+          key="5"
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={(
+                    <Avatar
+                      icon={<CodeTwoTone twoToneColor="blue" />}
+                      style={{ backgroundColor: 'white' }}
                     />
-                </Panel>
-            </Collapse>
-        </div>
+)}
+                  title={<a>{item.title}</a>}
+                  description="Lorem ipsum dolor sit amet,
+                  consectetur adipiscing elit. Aenean laoreet congue
+                  lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                />
+              </List.Item>
+            )}
+          />
+        </Panel>
+      </Collapse>
+    </div>
 
   );
 }
