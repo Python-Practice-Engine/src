@@ -58,6 +58,7 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
+      testCases: [],
       id: this.props.match.params.id,
     };
 
@@ -68,6 +69,9 @@ class IDE extends React.Component {
   componentDidMount() {
     Axios.get(`http://localhost:3001/questions/${this.state.id}`).then((response) => {
       this.setState({ question: response.data[0] });
+    });
+    Axios.get(`http://localhost:3001/testcases/${this.state.id}`).then((response) => {
+      this.setState({ testCases: response.data });
     });
   }
 
@@ -105,10 +109,11 @@ class IDE extends React.Component {
                   contents={this.state.question}
                 />
               </Card>
-              <TestCases />
+              <TestCases testCases={this.state.testCases} />
             </Col>
             <Col md="6">
               <Skulpt
+                testCases={this.state.testCases}
                 id={this.state.question.id}
                 handleHardClick={this.handleHardClick}
                 handleEasyClick={this.handleEasyClick}
