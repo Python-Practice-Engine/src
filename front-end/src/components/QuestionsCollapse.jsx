@@ -4,7 +4,7 @@ import {
   List,
   Avatar,
   Typography,
-  //   Divider,
+  Divider,
 } from 'antd';
 import {
   Link,
@@ -91,6 +91,7 @@ function QuestionsCollapse() {
               )}
             />
           </Panel>
+          <Divider />
           <Panel
             className="panel-topic"
             header={<Title level={4}>Data Types</Title>}
@@ -117,6 +118,7 @@ function QuestionsCollapse() {
               )}
             />
           </Panel>
+          <Divider />
           <Panel
             className="panel-topic"
             header={<Title level={4}>Control Structures</Title>}
@@ -143,6 +145,7 @@ function QuestionsCollapse() {
               )}
             />
           </Panel>
+          <Divider />
           <Panel
             className="panel-topic"
             header={<Title level={4}>Functions</Title>}
@@ -169,6 +172,7 @@ function QuestionsCollapse() {
               )}
             />
           </Panel>
+          <Divider />
         </Collapse>
       </HashRouter>
     </div>
