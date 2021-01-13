@@ -6,6 +6,11 @@ import {
   Tooltip,
   Space,
 } from 'antd';
+import {
+  Link,
+  HashRouter,
+  NavLink,
+} from 'react-router-dom';
 import '../style/style.css';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import MyCodeMirror from './MyCodeMirror';
@@ -15,10 +20,18 @@ import 'codemirror/mode/python/python';
 
 /* File consists of auxiliary functions for IDE rendering */
 
+// function delayReload() {
+//   setTimeout(window.location.reload(), 5000);
+// }
 class Skulpt extends React.Component {
   constructor(props) {
     super(props);
     this.execute = this.execute.bind(this);
+
+    // Facing issues with code when adding state
+    // this.state = {
+    //   id: 0,
+    // };
   }
 
   componentDidMount() {
@@ -80,67 +93,80 @@ class Skulpt extends React.Component {
             <MyCodeMirror />
           </Input.Group>
         </div>
-        <Row
-          type="flex"
-          align="middle"
-          className="submit-btns"
-          justify="space-between"
-        >
-          <Tooltip
-            placement="left"
-            title="Easier"
+        <HashRouter>
+          <Row
+            type="flex"
+            align="middle"
+            className="submit-btns"
+            justify="space-between"
           >
-            <Button
-              type="primary"
-              size="medium"
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              icon={<LeftOutlined />}
-            />
-          </Tooltip>
-          <Space>
-            <Button
-              type="primary"
-              size="medium"
-              onClick={this.execute}
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+            <Tooltip
+              placement="left"
+              title="Easier"
             >
-              Run
-            </Button>
-            <Button
-              size="medium"
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              <Button
+                type="primary"
+                size="medium"
+                style={{
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                icon={<LeftOutlined />}
+              />
+            </Tooltip>
+            <Space>
+              <Button
+                type="primary"
+                size="medium"
+                onClick={this.execute}
+                style={{
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                Run
+              </Button>
+              <Button
+                size="medium"
+                style={{
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                Submit
+              </Button>
+            </Space>
+            <NavLink
+              tag={Link}
+              onClick={
+                this.setState((prevState) => ({
+                  id: prevState.id + 1,
+                }))
+              }
+              to={`/IDE/${this.props.id + 1}`}
+              // onClick={() => window.location.reload()}
             >
-              Submit
-            </Button>
-          </Space>
-          <Tooltip
-            placement="right"
-            title="Harder"
-          >
-            <Button
-              type="primary"
-              size="medium"
-              style={{
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              icon={<RightOutlined />}
-            />
-          </Tooltip>
-        </Row>
+              <Tooltip
+                placement="right"
+                title="Harder"
+              >
+                <Button
+                  type="primary"
+                  size="medium"
+                  style={{
+                    display: 'inline-flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  icon={<RightOutlined />}
+                />
+              </Tooltip>
+            </NavLink>
+          </Row>
+        </HashRouter>
         <div id="output-area" style={{ display: 'none' }}>
           <textarea
             readOnly="true"

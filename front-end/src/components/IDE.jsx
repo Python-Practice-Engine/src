@@ -98,7 +98,7 @@ class IDE extends React.Component {
               <TestCases />
             </Col>
             <Col md="6">
-              <Skulpt />
+              <Skulpt id={this.state.question.id} />
             </Col>
           </Row>
 
