@@ -70,10 +70,11 @@ class IDE extends React.Component {
     Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((response) => {
       this.setState({ question: response.data[0] });
     });
-    Axios.get(`http://localhost:3001/testcases/${this.state.id}`).then((response) => {
+    Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((response) => {
       this.setState({ testCases: response.data });
+      // console.log(response.data);
     });
-    console.log(this.props.match.params);
+    // console.log(this.props.match.params);
   }
 
   handleHardClick() {
