@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 import '../style/style.css';
 import 'antd/dist/antd.css';
-import { CodeTwoTone } from '@ant-design/icons';
+import { CodeTwoTone, RightSquareOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 
 const { Panel } = Collapse;
@@ -59,6 +59,14 @@ function QuestionsCollapse() {
         <Collapse
           ghost
           expandIconPosition="right"
+          expandIcon={
+            ({ isActive }) => (
+              <RightSquareOutlined
+                rotate={isActive ? 90 : 0}
+                style={{ 'font-size': '200%' }}
+              />
+            )
+          }
         >
           <Panel
             className="panel-topic"
