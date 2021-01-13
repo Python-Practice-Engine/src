@@ -88,7 +88,7 @@ class Outline extends React.Component {
             </Menu>
             <div className="content">
               <Route path="/Home" component={LandingPage} />
-              <Route path="/IDE/:id" component={IDE} />
+              <Route path="/IDE/:Qid" component={IDE} />
               <Route path="/Tutorials" component={Tutorials} />
               <Route path="/Questions" component={Questions} />
               <Route path="/ConceptGraph" component={ConceptGraph} />

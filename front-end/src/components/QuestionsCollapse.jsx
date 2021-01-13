@@ -136,7 +136,7 @@ function QuestionsCollapse() {
               itemLayout="horizontal"
               dataSource={controlStructures}
               renderItem={(item) => (
-                <NavLink tag={Link} to={`/IDE/${item.id}`}>
+                <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
                   <List.Item>
                     <List.Item.Meta
                       avatar={(
@@ -173,7 +173,7 @@ function QuestionsCollapse() {
                       />
         )}
                     title={(
-                      <NavLink tag={Link} to={`/IDE/${item.id}`}>
+                      <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
                         {item.name}
                       </NavLink>
 )}
