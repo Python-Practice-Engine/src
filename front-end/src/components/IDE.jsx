@@ -58,7 +58,7 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
-      Qid: this.props.match.params.id,
+      Qid: this.props.match.params.Qid,
     };
 
     this.handleHardClick = this.handleHardClick.bind(this);
