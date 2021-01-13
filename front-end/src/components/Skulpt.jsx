@@ -59,30 +59,32 @@ class Skulpt extends React.Component {
       }
       return window.Sk.builtinFiles.files[x];
     }
-
-    const prog = document.getElementById('code-input').value;
-    const mypre = document.getElementById('code-output');
-    mypre.innerHTML = '';
-    window.Sk.python3 = true;
-    window.Sk.pre = 'output';
-    window.Sk.configure({ output: outf, read: builtinRead });
-    const myPromise = window.Sk.misceval.asyncToPromise(
-      () => window.Sk.importMainWithBody(
-        '<stdin>',
-        true,
-        prog,
-        true,
-      ),
-    );
-    myPromise.then(() => {
-      console.log('success');
-    },
-    (error) => {
-      const errMsg = error.toString();
-      const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
-      const msg = errMsg.slice(0, -1) + lineNum.toString();
-      outf(msg);
-    });
+    const codeOutput = document.getElementById('code-input');
+    if (codeOutput.value !== null) {
+      const prog = codeOutput.value;
+      const mypre = codeOutput;
+      mypre.innerHTML = '';
+      window.Sk.python3 = true;
+      window.Sk.pre = 'output';
+      window.Sk.configure({ output: outf, read: builtinRead });
+      const myPromise = window.Sk.misceval.asyncToPromise(
+        () => window.Sk.importMainWithBody(
+          '<stdin>',
+          true,
+          prog,
+          true,
+        ),
+      );
+      myPromise.then(() => {
+        console.log('success');
+      },
+      (error) => {
+        const errMsg = error.toString();
+        const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
+        const msg = errMsg.slice(0, -1) + lineNum.toString();
+        outf(msg);
+      });
+    }
   }
 
   render() {
