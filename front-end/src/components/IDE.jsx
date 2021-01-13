@@ -27,7 +27,6 @@ const tabList = [
   },
 ];
 
-class IDE extends React.Component {
 //   contentList = {
 //     question: <QuestionContent
 //       contents={this.state.question}
@@ -55,7 +54,7 @@ class IDE extends React.Component {
 //       }
 //     />,
 //   };
-
+class IDE extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,7 +66,7 @@ class IDE extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     Axios.get(`http://localhost:3001/questions/${id}`).then((response) => {
-      this.setState({ question: response.data[0]});
+      this.setState({ question: response.data[0] });
       console.log(response.data);
     });
   }

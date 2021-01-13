@@ -4,7 +4,7 @@ import {
   List,
   Avatar,
   Typography,
-  Divider,
+//   Divider,
 } from 'antd';
 import '../style/style.css';
 import 'antd/dist/antd.css';
@@ -31,9 +31,9 @@ const data = [
 ];
 
 function QuestionsCollapse() {
-    const [basics, setBasics] = useState([]);
-    const [variables, setVariables] = useState([]);
-    const [functions, setFunctions] = useState([]);
+    // const [basics, setBasics] = useState([]);
+    // const [variables, setVariables] = useState([]);
+    // const [functions, setFunctions] = useState([]);
 
     useEffect(() => {
         Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
