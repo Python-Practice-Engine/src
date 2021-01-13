@@ -18,6 +18,8 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+// For the questions page
+// Route for retrieving questions based on concepts
 app.get('/questionSet/:tags', (req, res) => {
   var tags = req.params.tags;
   const sqlSearch = `SELECT * FROM Questions WHERE tags = '${tags}';`;
@@ -26,7 +28,8 @@ app.get('/questionSet/:tags', (req, res) => {
   });
 });
 
-// Route for retrieving question from database to populate question page
+// For the Practice Engine page
+// Route for retrieving question data based on id
 app.get('/questions/:id', (req, res) => {
   // Retrieve the tag from our URL path
   var id = req.params.id;
@@ -37,9 +40,10 @@ app.get('/questions/:id', (req, res) => {
   });
 });
 
-// Route for retrieving testcases related to a question from the database
+// For the Practice Engine page
+// Route for retrieving testcases related to a question
 app.get('/testcases/:id', (req, res) => {
-  // Retrieve the tag from our URL path
+  // Retrieve the question id from our URL path
   var id = req.params.id;
   const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
   db.query(sqlRetrieve, (err, result)=> {
