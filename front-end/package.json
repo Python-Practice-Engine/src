@@ -10,6 +10,7 @@
     "antd": "^4.10.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
+    "eslint-config-airbnb": "^18.2.1",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
     "react-codemirror": "^1.0.0",

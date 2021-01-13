@@ -66,11 +66,9 @@ class IDE extends React.Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    // console.log(`http://localhost:3001/questions/${id}`);
-    console.log(this.props.match);
     Axios.get(`http://localhost:3001/questions/${id}`).then((response) => {
-      this.setState({ question: response.data[0] });
-      console.log(this.state.question);
+      this.setState({ question: response.data[0]});
+      console.log(response.data);
     });
   }
 

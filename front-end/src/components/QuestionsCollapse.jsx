@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Collapse,
     List,
@@ -8,6 +8,7 @@ import {
 import '../style/style.css';
 import 'antd/dist/antd.css';
 import { CodeTwoTone } from '@ant-design/icons';
+import Axios from 'axios';
 
 const { Panel } = Collapse;
 
@@ -29,6 +30,17 @@ const data = [
 ];
 
 function QuestionsCollapse() {
+    const [basics, setBasics] = useState([]);
+    const [variables, setVariables] = useState([]);
+    const [functions, setFunctions] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`http://localhost:3001/questions/1`).then((response)=> {
+            console.log(response.data[0]);
+            // setPosts
+        });
+    }, []);
+
     return (
         <div className="collapse-topics">
             <Collapse
@@ -40,6 +52,7 @@ function QuestionsCollapse() {
                         itemLayout="horizontal"
                         dataSource={data}
                         renderItem={item => (
+
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar icon={<CodeTwoTone twoToneColor="blue" />} style={{ backgroundColor: 'white' }} />}
