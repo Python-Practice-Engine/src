@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.get('/questionSet/:tags', (req, res) => {
   var tags = req.params.tags;
-  const sqlSearch = `SELECT * FROM questions WHERE tags = '${tags}';`;
+  const sqlSearch = `SELECT * FROM Questions WHERE tags = '${tags}';`;
   db.query(sqlSearch, (err, result)=> {
     res.send(result);
   });
@@ -31,7 +31,7 @@ app.get('/questions/:id', (req, res) => {
   // Retrieve the tag from our URL path
   var id = req.params.id;
 
-  const sqlRetrieve = `SELECT * FROM questions WHERE id = ${id};`;
+  const sqlRetrieve = `SELECT * FROM Questions WHERE id = ${id};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });

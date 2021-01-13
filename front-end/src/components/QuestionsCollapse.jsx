@@ -155,20 +155,24 @@ function QuestionsCollapse() {
               itemLayout="horizontal"
               dataSource={functions}
               renderItem={(item) => (
-                <NavLink tag={Link} to={`/IDE/${item.id}`}>
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={(
-                        <Avatar
-                          icon={<CodeTwoTone twoToneColor="blue" />}
-                          style={{ backgroundColor: 'white' }}
-                        />
+
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={(
+                      <Avatar
+                        icon={<CodeTwoTone twoToneColor="blue" />}
+                        style={{ backgroundColor: 'white' }}
+                      />
         )}
-                      title={<a>{item.name}</a>}
-                      description={item.description}
-                    />
-                  </List.Item>
-                </NavLink>
+                    title={(
+                      <NavLink tag={Link} to={`/IDE/${item.id}`}>
+                        {item.name}
+                      </NavLink>
+)}
+                    description={item.description}
+                  />
+                </List.Item>
+
               )}
             />
           </Panel>
