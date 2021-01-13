@@ -7,12 +7,10 @@ import {
 import {
   Card,
 } from 'antd';
-// import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import QuestionContent from './QuestionContent';
-// import TutorialContent from './TutorialContent';
 
 import '../style/style.css';
 
@@ -67,7 +65,6 @@ class IDE extends React.Component {
     const { id } = this.props.match.params;
     Axios.get(`http://localhost:3001/questions/${id}`).then((response) => {
       this.setState({ question: response.data[0] });
-      console.log(response.data);
     });
   }
 
@@ -98,7 +95,7 @@ class IDE extends React.Component {
               <TestCases />
             </Col>
             <Col md="6">
-              <Skulpt id={this.state.question.id} />
+              <Skulpt />
             </Col>
           </Row>
 
