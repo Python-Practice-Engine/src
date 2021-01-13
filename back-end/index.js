@@ -18,8 +18,9 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
-app.get('/questionSet', (req, res) => {
-  const sqlSearch = `SELECT * FROM questions ORDER BY id DESC;`;
+app.get('/questionSet/:tags', (req, res) => {
+  var tags = req.params.tags;
+  const sqlSearch = `SELECT * FROM questions WHERE tags = '${tags}';`;
   db.query(sqlSearch, (err, result)=> {
     res.send(result);
   });
