@@ -109,13 +109,12 @@ class IDE extends React.Component {
             </Col>
             <Col md="6">
               <Skulpt
-                id={this.state.question.id}
+                id={this.state.question.Qid}
                 handleHardClick={this.handleHardClick}
                 handleEasyClick={this.handleEasyClick}
               />
             </Col>
           </Row>
-
         </Container>
       </div>
     );
