@@ -141,11 +141,11 @@ class Skulpt extends React.Component {
             </Space>
             <NavLink
               tag={Link}
-              onClick={
-                this.setState((prevState) => ({
-                  id: prevState.id + 1,
-                }))
-              }
+              // onClick={
+              //   this.setState((prevState) => ({
+              //     id: prevState.id + 1,
+              //   }))
+              // }
               to={`/IDE/${this.props.id + 1}`}
               // onClick={() => window.location.reload()}
             >
