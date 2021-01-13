@@ -2,12 +2,17 @@ import React from 'react';
 import {
   Input,
   Button,
+  Row,
+  Tooltip,
+  Space,
 } from 'antd';
 import '../style/style.css';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import MyCodeMirror from './MyCodeMirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/icecoder.css';
 import 'codemirror/mode/python/python';
+
 /* File consists of auxiliary functions for IDE rendering */
 
 class Skulpt extends React.Component {
@@ -75,16 +80,67 @@ class Skulpt extends React.Component {
             <MyCodeMirror />
           </Input.Group>
         </div>
-        <div className="submit-btns">
-          <Button type="primary" size="medium" onClick={this.execute}>
-            Run
-          </Button>
-          {' '}
-          <Button size="medium">
-            Submit
-          </Button>
-          {' '}
-        </div>
+        <Row
+          type="flex"
+          align="middle"
+          className="submit-btns"
+          justify="space-between"
+        >
+          <Tooltip
+            placement="left"
+            title="Easier"
+          >
+            <Button
+              type="primary"
+              size="medium"
+              style={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              icon={<LeftOutlined />}
+            />
+          </Tooltip>
+          <Space>
+            <Button
+              type="primary"
+              size="medium"
+              onClick={this.execute}
+              style={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Run
+            </Button>
+            <Button
+              size="medium"
+              style={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Submit
+            </Button>
+          </Space>
+          <Tooltip
+            placement="right"
+            title="Harder"
+          >
+            <Button
+              type="primary"
+              size="medium"
+              style={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              icon={<RightOutlined />}
+            />
+          </Tooltip>
+        </Row>
         <div id="output-area" style={{ display: 'none' }}>
           <textarea
             readOnly="true"
