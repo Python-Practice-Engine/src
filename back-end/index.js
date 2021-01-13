@@ -31,7 +31,17 @@ app.get('/questions/:id', (req, res) => {
   // Retrieve the tag from our URL path
   var id = req.params.id;
 
-  const sqlRetrieve = `SELECT * FROM Questions WHERE id = ${id};`;
+    const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  db.query(sqlRetrieve, (err, result)=> {
+    res.send(result);
+  });
+});
+
+// Route for retrieving testcases related to a question from the database
+app.get('/testcases/:id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var id = req.params.id;
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
