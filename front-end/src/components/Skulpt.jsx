@@ -100,21 +100,27 @@ class Skulpt extends React.Component {
             className="submit-btns"
             justify="space-between"
           >
-            <Tooltip
-              placement="left"
-              title="Easier"
+            <NavLink
+              tag={Link}
+              to={`/IDE/${this.props.id - 1}`}
             >
-              <Button
-                type="primary"
-                size="medium"
-                style={{
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                icon={<LeftOutlined />}
-              />
-            </Tooltip>
+              <Tooltip
+                placement="left"
+                title="Easier"
+              >
+                <Button
+                  type="primary"
+                  size="medium"
+                  style={{
+                    display: 'inline-flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  icon={<LeftOutlined />}
+                  onClick={this.props.handleEasyClick}
+                />
+              </Tooltip>
+            </NavLink>
             <Space>
               <Button
                 type="primary"
@@ -156,7 +162,7 @@ class Skulpt extends React.Component {
                     alignItems: 'center',
                   }}
                   icon={<RightOutlined />}
-                  onClick={this.props.handler}
+                  onClick={this.props.handleHardClick}
                 />
               </Tooltip>
             </NavLink>

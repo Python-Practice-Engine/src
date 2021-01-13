@@ -63,7 +63,8 @@ class IDE extends React.Component {
       id: this.props.match.params.id,
     };
 
-    this.handler = this.handler.bind(this);
+    this.handleHardClick = this.handleHardClick.bind(this);
+    this.handleEasyClick = this.handleEasyClick.bind(this);
   }
 
   componentDidMount() {
@@ -73,7 +74,12 @@ class IDE extends React.Component {
     });
   }
 
-  handler() {
+  handleHardClick() {
+    this.setState({ id: this.props.match.params.id });
+    setTimeout(() => window.location.reload(), 300);
+  }
+
+  handleEasyClick() {
     this.setState({ id: this.props.match.params.id });
     setTimeout(() => window.location.reload(), 300);
   }
@@ -105,7 +111,11 @@ class IDE extends React.Component {
               <TestCases />
             </Col>
             <Col md="6">
-              <Skulpt id={this.state.question.id} handler={this.handler} />
+              <Skulpt
+                id={this.state.question.id}
+                handleHardClick={this.handleHardClick}
+                handleEasyClick={this.handleEasyClick}
+              />
             </Col>
           </Row>
 
