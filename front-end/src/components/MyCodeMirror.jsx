@@ -1,9 +1,12 @@
 import React from 'react';
 import '../style/style.css';
 
+// Auxiliary helper
 const mirror = require('codemirror');
 
+// Component defining the CodeMirror instance to be used by the IDE
 class MyCodeMirror extends React.Component {
+  // Load in the relevant third-party plugin
   componentDidMount() {
     // Initialize CodeMirror
     const options = {
@@ -19,6 +22,7 @@ class MyCodeMirror extends React.Component {
     this.codeMirror.on('change', this.onEdit);
   }
 
+  // Unload thrid-party plugin after finished
   componentWillUnmount() {
     // initialize CodeMirror once done
     if (this.codeMirror) {
@@ -27,22 +31,24 @@ class MyCodeMirror extends React.Component {
     }
   }
 
-    onEdit = (editor) => {
-      // Modifies editor
-      const change = this.props;
-      document.getElementById('code-input').value = editor.getValue();
-      if (change.onChange) {
-        change.onChange(editor.getValue());
-      }
-    };
-
-    render() {
-      return (
-        <textarea id="code-input" name="code-input" margin="0">
-          #Your Code Here
-        </textarea>
-      );
+  // Update IDE UI on user change
+  onEdit = (editor) => {
+    // Modifies editor
+    const change = this.props;
+    document.getElementById('code-input').value = editor.getValue();
+    if (change.onChange) {
+      change.onChange(editor.getValue());
     }
+  };
+
+  // Display the IDE UI
+  render() {
+    return (
+      <textarea id="code-input" name="code-input" margin="0">
+        #Your Code Here
+      </textarea>
+    );
+  }
 }
 
 export default MyCodeMirror;
