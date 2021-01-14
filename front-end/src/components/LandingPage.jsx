@@ -1,16 +1,23 @@
 import React from 'react';
+import { Typography } from 'antd';
+
+// React component library imports
 import {
   Container,
   Row,
   Col,
 } from 'reactstrap';
 import Image from 'react-bootstrap/Image';
-import '../style/style.css';
-import { Typography } from 'antd';
+
+// Personal component imports
 import landingpageImage from '../assets/landingpageImage.jpeg';
 
 const { Title } = Typography;
 
+/*
+  This component is the homepage. It is the first thing users see when they
+  navigate to the site and contains and image and description of the site.
+*/
 const LandingPage = () => (
   <div>
     <Container>
@@ -21,11 +28,12 @@ const LandingPage = () => (
         <Col md={6}>
           <Title
             level={2}
-            className="landingPageTitle"
-            style={{ color: '#69c0ff' }}
           >
-            Welcome to Python Practice Engine!
+            <div className="landingPageTitle">
+              Welcome to Python Practice Engine!
+            </div>
           </Title>
+          {/* The description on the homepage */}
           <Container>
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;Python Practice Engine is an interactive
@@ -45,7 +53,7 @@ const LandingPage = () => (
               through programming questions while also providing in-depth
               tutorials on the concepts the question covers. If you do not want
               to be recommended questions you can go straight to the
-              &quot;Questions&quot; tab and select specfic questions to do.
+              &quot;Questions&quot; tab and select specific questions to do.
             </p>
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;Python Practice Engine was created as a

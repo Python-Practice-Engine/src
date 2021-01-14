@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
+import Axios from 'axios';
+
+// React component library imports
 import {
   Collapse,
   List,
@@ -7,14 +11,16 @@ import {
   Divider,
 } from 'antd';
 import {
+  CodeTwoTone,
+  RightSquareOutlined,
+} from '@ant-design/icons';
+
+// Imports for React routing
+import {
   Link,
   HashRouter,
   NavLink,
 } from 'react-router-dom';
-import '../style/style.css';
-import 'antd/dist/antd.css';
-import { CodeTwoTone, RightSquareOutlined } from '@ant-design/icons';
-import Axios from 'axios';
 
 const { Panel } = Collapse;
 
@@ -35,9 +41,11 @@ const data = [
   },
 ];
 
+/*
+  This is the complete list of questions. The questions are organized by
+  category and all questions are retrieved from the database.
+*/
 function QuestionsCollapse() {
-//   const [basics, setBasics] = useState([]);
-//   const [variables, setVariables] = useState([]);
   const [functions, setFunctions] = useState([]);
   const [controlStructures, setControlStructures] = useState([]);
 
@@ -48,11 +56,9 @@ function QuestionsCollapse() {
     });
     tags = 'controlStructures';
     Axios.get(`http://localhost:3001/questionSet/${tags}`).then((response) => {
-      console.log(response.data);
       setControlStructures(response.data);
     });
   }, []);
-
   return (
     <div className="collapse-topics">
       <HashRouter>
@@ -92,7 +98,7 @@ function QuestionsCollapse() {
                   )}
                     title={<a>{item.title}</a>}
                     description="Lorem ipsum dolor sit amet,
-                   consectetur adipiscing elit. Aenean laoreet congue
+                    consectetur adipiscing elit. Aenean laoreet congue
                     lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                   />
                 </List.Item>
@@ -116,10 +122,10 @@ function QuestionsCollapse() {
                         icon={<CodeTwoTone twoToneColor="blue" />}
                         style={{ backgroundColor: 'white' }}
                       />
-)}
+  )}
                     title={<a>{item.title}</a>}
                     description="Lorem ipsum dolor sit amet,
-                   consectetur adipiscing elit. Aenean laoreet congue
+                    consectetur adipiscing elit. Aenean laoreet congue
                     lacus vitae vestibulum. Ut quis diam in nisl venenatis."
                   />
                 </List.Item>
@@ -144,7 +150,7 @@ function QuestionsCollapse() {
                           icon={<CodeTwoTone twoToneColor="blue" />}
                           style={{ backgroundColor: 'white' }}
                         />
-)}
+  )}
                       title={<a>{item.name}</a>}
                       description={item.description}
                     />
@@ -176,7 +182,7 @@ function QuestionsCollapse() {
                       <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
                         {item.name}
                       </NavLink>
-)}
+  )}
                     description={item.description}
                   />
                 </List.Item>
@@ -188,7 +194,6 @@ function QuestionsCollapse() {
         </Collapse>
       </HashRouter>
     </div>
-
   );
 }
 

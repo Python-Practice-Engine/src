@@ -1,12 +1,16 @@
 import React from 'react';
+
+// React component library imports
 import {
   Tag,
   Table,
 } from 'antd';
-import '../style/style.css';
-import 'antd/dist/antd.css';
 
-function CreateCategoryTag(category) {
+/*
+  Creates the specific coloured tag for the question dependent on the
+  category the question falls under.
+*/
+function createCategoryTag(category) {
   let color;
   switch (category) {
     case 'function':
@@ -35,7 +39,7 @@ function CreateCategoryTag(category) {
   );
 }
 
-function CreateDifficultyTag(difficulty) {
+function createDifficultyTag(difficulty) {
   let color;
   switch (difficulty.text) {
     case 'easy':
@@ -76,7 +80,7 @@ const columns = [
     title: 'Tags',
     key: 'tags',
     dataIndex: 'tags',
-    render: (tags) => (tags.map((tag) => (CreateCategoryTag(tag)))),
+    render: (tags) => (tags.map((tag) => (createCategoryTag(tag)))),
     filters: [
       {
         text: 'Function',
@@ -105,7 +109,7 @@ const columns = [
     title: 'Difficulty',
     dataIndex: 'difficulty',
     key: 'difficulty',
-    render: (difficulty) => (CreateDifficultyTag(difficulty)),
+    render: (difficulty) => (createDifficultyTag(difficulty)),
     sorter: (a, b) => a.difficulty.value - b.difficulty.value,
     sortDirections: ['descend', 'ascend'],
     filters: [
@@ -150,10 +154,11 @@ const data = [
   },
 ];
 
-function QuestionsTable() {
-  return (
-    <Table columns={columns} dataSource={data} bordered />
-  );
-}
+/*
+  Renders the entire questions table.
+*/
+const QuestionsTable = () => (
+  <Table columns={columns} dataSource={data} bordered />
+);
 
 export default QuestionsTable;

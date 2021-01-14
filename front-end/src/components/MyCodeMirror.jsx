@@ -1,12 +1,12 @@
 import React from 'react';
 import '../style/style.css';
 
-// Auxiliary preperations
+// Auxiliary helper
 const mirror = require('codemirror');
 
-// Component used by IDE to append UI elements to code editor
+// Component defining the CodeMirror instance to be used by the IDE
 class MyCodeMirror extends React.Component {
-  // Load third-party plugin
+  // Load in the relevant third-party plugin
   componentDidMount() {
     // Initialize CodeMirror
     const options = {
@@ -22,7 +22,7 @@ class MyCodeMirror extends React.Component {
     this.codeMirror.on('change', this.onEdit);
   }
 
-  // Unload third-party plugin
+  // Unload thrid-party plugin after finished
   componentWillUnmount() {
     // initialize CodeMirror once done
     if (this.codeMirror) {

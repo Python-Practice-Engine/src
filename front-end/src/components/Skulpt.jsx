@@ -1,4 +1,6 @@
 import React from 'react';
+
+// React component library imports
 import {
   Input,
   Button,
@@ -7,17 +9,22 @@ import {
   Space,
 } from 'antd';
 import {
+  LeftOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
+
+// Imports for React routing
+import {
   Link,
   HashRouter,
   NavLink,
 } from 'react-router-dom';
-import '../style/style.css';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import MyCodeMirror from './MyCodeMirror';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/icecoder.css';
+
+// Code mirror imports
 import 'codemirror/mode/python/python';
 
+// Personal component imports
+import MyCodeMirror from './MyCodeMirror';
 /* File consists of auxiliary functions for IDE rendering */
 // Used to output computed code
 function outf(text) {
@@ -38,9 +45,7 @@ function builtinRead(x) {
   return window.Sk.builtinFiles.files[x];
 }
 
-// function delayReload() {
-//   setTimeout(window.location.reload(), 5000);
-// }
+// Component to be used by the IDE to execute any user created code
 class Skulpt extends React.Component {
   constructor(props) {
     super(props);
@@ -68,6 +73,7 @@ class Skulpt extends React.Component {
     const codeOutput = document.getElementById('code-input');
 
     if (codeOutput.value !== null) {
+      // DOM elements to be used by Skulpt
       const prog = codeOutput.value;
       const mypre = codeOutput;
 
@@ -77,7 +83,11 @@ class Skulpt extends React.Component {
       window.Sk.pre = 'output';
       window.Sk.configure({ output: outf, read: builtinRead });
 
+<<<<<<< HEAD
       // Feed code into Skulpt to execute
+=======
+      // Use Skulpt to execute code
+>>>>>>> 7cd58fcde73ad8b2f87776bfb44e3b468cc13b4f
       const myPromise = window.Sk.misceval.asyncToPromise(
         () => window.Sk.importMainWithBody(
           '<stdin>',
@@ -86,7 +96,11 @@ class Skulpt extends React.Component {
           true,
         ),
       );
+<<<<<<< HEAD
       // Code executes
+=======
+      // Code executes properly
+>>>>>>> 7cd58fcde73ad8b2f87776bfb44e3b468cc13b4f
       myPromise.then(() => {
         console.log('success');
       },
@@ -112,10 +126,16 @@ class Skulpt extends React.Component {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
+<<<<<<< HEAD
         const codeTR = tests[i].code;
         const prog = codeOutput.value + codeTR.replaceAll('"', '\\"');
         const mypre = codeOutput;
         const tag = document.getElementById(idAux + tests[i].TCid.toString());
+=======
+        const prog = codeOutput.value + tests[i].code.replaceAll('"', '\\"');
+        const mypre = codeOutput;
+        const tag = document.getElementById(idAux + tests[i].TCid);
+>>>>>>> 7cd58fcde73ad8b2f87776bfb44e3b468cc13b4f
 
         // Auxiliary preperations for Skulpt
         mypre.innerHTML = '';
