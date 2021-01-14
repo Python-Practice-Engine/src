@@ -1,19 +1,23 @@
 import React from 'react';
-import {
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
+
+import Axios from 'axios';
+
+// React component library imports
 import {
   Card,
 } from 'antd';
-import Axios from 'axios';
+import {
+  Col,
+  Container,
+  Row,
+} from 'reactstrap';
+
+// Personal component imports
+import QuestionContent from './QuestionContent';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
-import QuestionContent from './QuestionContent';
 
-import '../style/style.css';
-
+// tabList lists the names of the within the questions card.
 const tabList = [
   {
     key: 'question',
@@ -25,33 +29,12 @@ const tabList = [
   },
 ];
 
-//   contentList = {
-//     question: <QuestionContent
-//       contents={this.state.question}
-//     />,
-//     tutorial: <TutorialContent
-//       title="Functions"
-//       tags="Functions"
-//       description={
-//         [
-//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//           aliquip ex ea commodo consequat. Duis aute irure dolor in
-//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
-//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//           culpa qui officia deserunt mollit anim id est laborum.`,
-//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//           aliquip ex ea commodo consequat. Duis aute irure dolor in
-//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
-//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//           culpa qui officia deserunt mollit anim id est laborum.`,
-//         ]
-//       }
-//     />,
-//   };
+/*
+  The IDE component is the component that contains: the text editor, test
+  cases, the question itself, and the tutorial for the question. This component
+  essentially houses a few other components and is the "practice engine" page.
+*/
+
 class IDE extends React.Component {
   constructor(props) {
     super(props);
@@ -66,9 +49,12 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get(`http://localhost:3001/questions/${this.state.id}`).then((response) => {
-      this.setState({ question: response.data[0] });
-    });
+    Axios.get(`http://localhost:3001/questions/${this.state.id}`).then(
+      (response) => {
+        this.setState({ question: response.data[0] });
+      // eslint-disable-next-line comma-dangle
+      }
+    );
   }
 
   handleHardClick() {
@@ -92,15 +78,15 @@ class IDE extends React.Component {
         <Container>
           <Row>
             <Col md="6">
+              {/* The card that contains the question and tutorial */}
               <Card
-                style={{ width: '100%' }}
+                className="questionCard"
                 tabList={tabList}
                 activeTabKey={tabs.key}
                 onTabChange={(key) => {
                   this.onTabChange(key, 'key');
                 }}
               >
-                {/* {this.contentList[tabs.key]} */}
                 <QuestionContent
                   contents={this.state.question}
                 />
@@ -108,6 +94,7 @@ class IDE extends React.Component {
               <TestCases />
             </Col>
             <Col md="6">
+              {/* This is the text editor itself */}
               <Skulpt
                 id={this.state.question.id}
                 handleHardClick={this.handleHardClick}

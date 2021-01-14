@@ -1,4 +1,6 @@
 import React from 'react';
+
+// React component library imports
 import {
   Input,
   Button,
@@ -7,16 +9,22 @@ import {
   Space,
 } from 'antd';
 import {
+  LeftOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
+
+// Imports for React routing
+import {
   Link,
   HashRouter,
   NavLink,
 } from 'react-router-dom';
-import '../style/style.css';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import MyCodeMirror from './MyCodeMirror';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/icecoder.css';
+
+// Code mirror imports
 import 'codemirror/mode/python/python';
+
+// Personal component imports
+import MyCodeMirror from './MyCodeMirror';
 
 /* File consists of auxiliary functions for IDE rendering */
 

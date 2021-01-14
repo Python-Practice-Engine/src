@@ -1,10 +1,11 @@
 import React from 'react';
+
+// React component library imports
 import {
   Typography,
   Tag,
   Space,
 } from 'antd';
-import '../style/style.css';
 
 const { Title } = Typography;
 

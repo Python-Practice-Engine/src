@@ -1,5 +1,6 @@
 import React from 'react';
-import '../style/style.css';
+
+// Personal component imports
 import QuestionsCollapse from './QuestionsCollapse';
 
 const Questions = () => (

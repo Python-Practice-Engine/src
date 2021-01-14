@@ -1,4 +1,6 @@
 import React from 'react';
+
+// React component library imports
 import {
   Menu,
   Typography,
@@ -7,20 +9,26 @@ import {
   NavLink,
 } from 'reactstrap';
 
+// Imports for React routing
 import {
   Route,
   Link,
   HashRouter,
   Redirect,
 } from 'react-router-dom';
+
+// Personal component imports
 import IDE from './IDE';
 import LandingPage from './LandingPage';
 import Questions from './Questions';
 
-import '../style/style.css';
-
 const { Title } = Typography;
 
+/*
+  This component is the outline of the site. Basically, this is header, navbar,
+  and the footer. This is the component that is imported in the index.js and
+  then all other pages are component that are loaded when a tab is clicked.
+*/
 class Outline extends React.Component {
   constructor(props) {
     super(props);
@@ -36,17 +44,17 @@ class Outline extends React.Component {
       return (
         <div className="navBar">
           <HashRouter>
-            <div className="header">
-              <Title
-                style={{
-                  color: '#1890ff',
-                  marginBottom: '0',
-                  paddingBottom: '0',
-                }}
-              >
+            <Title
+              style={{
+                marginBottom: '0',
+                paddingBottom: '0',
+                marginTop: '1%',
+              }}
+            >
+              <div className="header">
                 Python Practice Engine
-              </Title>
-            </div>
+              </div>
+            </Title>
             <Menu
               onClick={this.handleClick}
               selectedKeys={[current]}
@@ -74,6 +82,8 @@ class Outline extends React.Component {
                 </NavLink>
               </Menu.Item>
             </Menu>
+            {/* This is the map the navbar components to its appropriate
+            component. */}
             <div className="content">
               <Route path="/Home" component={LandingPage} />
               <Route path="/IDE/:id" component={IDE} />

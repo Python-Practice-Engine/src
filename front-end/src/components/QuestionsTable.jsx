@@ -1,10 +1,10 @@
 import React from 'react';
+
+// React component library imports
 import {
   Tag,
   Table,
 } from 'antd';
-import '../style/style.css';
-import 'antd/dist/antd.css';
 
 function CreateCategoryTag(category) {
   let color;
