@@ -103,7 +103,7 @@ class Skulpt extends React.Component {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
-        const prog = codeOutput.value + tests[i].code;
+        const prog = codeOutput.value + tests[i].code.replaceAll('"', '\\"');
         const mypre = codeOutput;
         const tag = document.getElementById(idAux + tests[i].TCid);
         mypre.innerHTML = '';
