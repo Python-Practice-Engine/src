@@ -11,6 +11,7 @@ import Axios from 'axios';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import QuestionContent from './QuestionContent';
+import TutorialContent from './TutorialContent';
 
 import '../style/style.css';
 
@@ -59,6 +60,7 @@ class IDE extends React.Component {
       key: 'question',
       question: {},
       testCases: [],
+      tutorial: {},
       Qid: this.props.match.params.Qid,
     };
 
@@ -72,9 +74,11 @@ class IDE extends React.Component {
     });
     Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((response) => {
       this.setState({ testCases: response.data });
-      // console.log(response.data);
     });
-    // console.log(this.props.match.params);
+    Axios.get(`http://localhost:3001/tutorial/${this.state.question.Tid}`).then((response) => {
+      this.setState({ tutorial: response.data[0] });
+      console.log(response.data);
+    });
   }
 
   handleHardClick() {
@@ -107,9 +111,11 @@ class IDE extends React.Component {
                 }}
               >
                 {/* {this.contentList[tabs.key]} */}
-                <QuestionContent
-                  contents={this.state.question}
-                />
+                {
+                  tabs.key === 'question'
+                    ? <QuestionContent contents={this.state.question} />
+                    : <TutorialContent contents={this.state.tutorial} />
+                }
               </Card>
               <TestCases testCases={this.state.testCases} />
             </Col>
