@@ -18,6 +18,8 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+// For the questions page
+// Route for retrieving questions based on concepts
 app.get('/questionSet/:tags', (req, res) => {
   var tags = req.params.tags;
   const sqlSearch = `SELECT * FROM Questions WHERE tags = '${tags}';`;
@@ -26,22 +28,23 @@ app.get('/questionSet/:tags', (req, res) => {
   });
 });
 
+// For the
 // Route for retrieving question from database to populate question page
-app.get('/questions/:id', (req, res) => {
+app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
-  var id = req.params.id;
-
-    const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  var Qid = req.params.Qid;
+  console.log(req.params)
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
 });
 
-// Route for retrieving testcases related to a question from the database
-app.get('/testcases/:id', (req, res) => {
+app.get('/testcases/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
-  var id = req.params.id;
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  var Qid = req.params.Qid;
+  console.log(req.params)
+  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });

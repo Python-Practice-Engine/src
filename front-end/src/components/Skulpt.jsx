@@ -19,6 +19,24 @@ import 'codemirror/theme/icecoder.css';
 import 'codemirror/mode/python/python';
 
 /* File consists of auxiliary functions for IDE rendering */
+// Used to output computed code
+function outf(text) {
+  const mypre = document.getElementById('code-output');
+  const output = document.getElementById('output-area');
+  output.style.display = 'block';
+  mypre.innerHTML += text;
+}
+
+// Used by thrid-party plugin to compute sent code
+function builtinRead(x) {
+  if (
+    window.Sk.builtinFiles === undefined
+    || window.Sk.builtinFiles.files[x] === undefined
+  ) {
+    throw new Error(`File not found: '${x}'`);
+  }
+  return window.Sk.builtinFiles.files[x];
+}
 
 // function delayReload() {
 //   setTimeout(window.location.reload(), 5000);
@@ -34,6 +52,7 @@ class Skulpt extends React.Component {
     // };
   }
 
+  // loading relvant third-party plugin
   componentDidMount() {
     const script = document.createElement('script');
     script.src = '../skulpt.js';
@@ -43,22 +62,8 @@ class Skulpt extends React.Component {
     document.body.appendChild(script);
   }
 
+  // Auxiliary function that allows the user to run their code without running the questions tests
   execute = () => {
-    function outf(text) {
-      const mypre = document.getElementById('code-output');
-      const output = document.getElementById('output-area');
-      output.style.display = 'block';
-      mypre.innerHTML += text;
-    }
-    function builtinRead(x) {
-      if (
-        window.Sk.builtinFiles === undefined
-        || window.Sk.builtinFiles.files[x] === undefined
-      ) {
-        throw new Error(`File not found: '${x}'`);
-      }
-      return window.Sk.builtinFiles.files[x];
-    }
     const codeOutput = document.getElementById('code-input');
     if (codeOutput.value !== null) {
       const prog = codeOutput.value;
@@ -87,6 +92,44 @@ class Skulpt extends React.Component {
     }
   }
 
+  // Auxiliary function that allows the user to run the given questions test-cases
+  submit = () => {
+    let i;
+    const tests = this.props.testCases;
+    const codeOutput = document.getElementById('code-input');
+    if (codeOutput.value !== null) {
+      for (i = 0; i < tests.length; i += 1) {
+        const prog = codeOutput.value + tests[i].code;
+        const mypre = codeOutput;
+        mypre.innerHTML = '';
+        window.Sk.python3 = true;
+        window.Sk.pre = 'output';
+        window.Sk.configure({ output: outf, read: builtinRead });
+        const myPromise = window.Sk.misceval.asyncToPromise(
+          () => window.Sk.importMainWithBody(
+            '<stdin>',
+            true,
+            prog,
+            true,
+          ),
+        );
+        myPromise.then(() => {
+          console.log('success');
+        },
+        (error) => {
+          const errMsg = error.toString();
+          const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
+          const msg = errMsg.slice(0, -1) + lineNum.toString();
+          outf(msg);
+        });
+      }
+    }
+    if (codeOutput.value !== null) {
+      console.log('tests passed!');
+    }
+  }
+
+  // Used to Display the IDE portion of the IDE page
   render() {
     return (
       <div className="ide-card">
@@ -138,6 +181,7 @@ class Skulpt extends React.Component {
               </Button>
               <Button
                 size="medium"
+                onClick={this.submit}
                 style={{
                   display: 'inline-flex',
                   justifyContent: 'center',
