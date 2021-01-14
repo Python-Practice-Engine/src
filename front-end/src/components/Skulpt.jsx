@@ -94,13 +94,18 @@ class Skulpt extends React.Component {
 
   // Auxiliary function that allows the user to run the given questions test-cases
   submit = () => {
+    // Varaibles declarations
     let i;
+    const idAux = '#Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
     if (codeOutput.value !== null) {
+      // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
+        // Append tests individually to code then execute
         const prog = codeOutput.value + tests[i].code;
         const mypre = codeOutput;
+        const tag = document.getElementById(idAux + tests[i].TCid);
         mypre.innerHTML = '';
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
@@ -113,9 +118,13 @@ class Skulpt extends React.Component {
             true,
           ),
         );
+        // Code executes
         myPromise.then(() => {
+          // Display 'Passed' tag if test passes
+          tag.style.display = '';
           console.log('success');
         },
+        // Error in code, output error message
         (error) => {
           const errMsg = error.toString();
           const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
