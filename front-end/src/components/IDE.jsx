@@ -25,34 +25,6 @@ const tabList = [
     tab: 'Tutorial',
   },
 ];
-
-//   contentList = {
-//     question: <QuestionContent
-//       contents={this.state.question}
-//     />,
-//     tutorial: <TutorialContent
-//       title="Functions"
-//       tags="Functions"
-//       description={
-//         [
-//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//           aliquip ex ea commodo consequat. Duis aute irure dolor in
-//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
-//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//           culpa qui officia deserunt mollit anim id est laborum.`,
-//           `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-//           ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//           aliquip ex ea commodo consequat. Duis aute irure dolor in
-//           reprehenderit in voluptate velit esse cillum dolore eu fugiat
-//           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//           culpa qui officia deserunt mollit anim id est laborum.`,
-//         ]
-//       }
-//     />,
-//   };
 class IDE extends React.Component {
   constructor(props) {
     super(props);
@@ -71,13 +43,12 @@ class IDE extends React.Component {
   componentDidMount() {
     Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((response) => {
       this.setState({ question: response.data[0] });
+      Axios.get(`http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`).then((res) => {
+        this.setState({ tutorial: res.data[0] });
+      });
     });
     Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((response) => {
       this.setState({ testCases: response.data });
-    });
-    Axios.get(`http://localhost:3001/tutorial/${this.state.question.Tid}`).then((response) => {
-      this.setState({ tutorial: response.data[0] });
-      console.log(response.data);
     });
   }
 
@@ -110,7 +81,6 @@ class IDE extends React.Component {
                   this.onTabChange(key, 'key');
                 }}
               >
-                {/* {this.contentList[tabs.key]} */}
                 {
                   tabs.key === 'question'
                     ? <QuestionContent contents={this.state.question} />

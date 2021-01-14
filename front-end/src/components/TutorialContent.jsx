@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Typography,
-  Tag,
   Space,
 } from 'antd';
 import '../style/style.css';
@@ -9,22 +8,18 @@ import '../style/style.css';
 const { Title } = Typography;
 
 function TutorialContent(props) {
+  const content = props.contents;
   return (
     <div>
       <Title
         level={3}
       >
-        {props.title}
+        {content.name}
       </Title>
-      <Space>
-        <Tag color="warning">{props.tags}</Tag>
-      </Space>
-      {props.description.map((paragraph) => (
-        <p className="questionDescription">
-          {paragraph}
-        </p>
-      ))}
-
+      <Space />
+      <p className="questionDescription">
+        {content.description}
+      </p>
     </div>
   );
 }

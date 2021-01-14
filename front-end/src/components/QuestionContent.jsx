@@ -21,7 +21,7 @@ function QuestionContent(props) {
         <Tag color="warning">{content.tags}</Tag>
       </Space>
       <p className="questionDescription">
-        {content.description}
+        {content.question}
       </p>
     </div>
   );
