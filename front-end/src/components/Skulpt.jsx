@@ -38,9 +38,7 @@ function builtinRead(x) {
   return window.Sk.builtinFiles.files[x];
 }
 
-// function delayReload() {
-//   setTimeout(window.location.reload(), 5000);
-// }
+// Component to be used by the IDE to execute any user created code
 class Skulpt extends React.Component {
   constructor(props) {
     super(props);
@@ -64,14 +62,21 @@ class Skulpt extends React.Component {
 
   // Auxiliary function that allows the user to run their code without running the questions tests
   execute = () => {
+    // Variable declarations
     const codeOutput = document.getElementById('code-input');
+
     if (codeOutput.value !== null) {
+      // DOM elements to be used by Skulpt
       const prog = codeOutput.value;
       const mypre = codeOutput;
+
+      // Auxiliary preperations for Skulpt
       mypre.innerHTML = '';
       window.Sk.python3 = true;
       window.Sk.pre = 'output';
       window.Sk.configure({ output: outf, read: builtinRead });
+      
+      // Use Skulpt to execute code
       const myPromise = window.Sk.misceval.asyncToPromise(
         () => window.Sk.importMainWithBody(
           '<stdin>',
@@ -80,9 +85,11 @@ class Skulpt extends React.Component {
           true,
         ),
       );
+      // Code executes properly
       myPromise.then(() => {
         console.log('success');
       },
+      // Error in code, output error message
       (error) => {
         const errMsg = error.toString();
         const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
@@ -99,6 +106,7 @@ class Skulpt extends React.Component {
     const idAux = '#Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
+
     if (codeOutput.value !== null) {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
@@ -106,10 +114,14 @@ class Skulpt extends React.Component {
         const prog = codeOutput.value + tests[i].code.replaceAll('"', '\\"');
         const mypre = codeOutput;
         const tag = document.getElementById(idAux + tests[i].TCid);
+
+        // Auxiliary preperations for Skulpt
         mypre.innerHTML = '';
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
         window.Sk.configure({ output: outf, read: builtinRead });
+
+        // Feed code into Skulpt to execute
         const myPromise = window.Sk.misceval.asyncToPromise(
           () => window.Sk.importMainWithBody(
             '<stdin>',
@@ -132,9 +144,6 @@ class Skulpt extends React.Component {
           outf(msg);
         });
       }
-    }
-    if (codeOutput.value !== null) {
-      console.log('tests passed!');
     }
   }
 
