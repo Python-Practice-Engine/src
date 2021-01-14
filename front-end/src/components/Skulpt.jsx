@@ -75,7 +75,7 @@ class Skulpt extends React.Component {
       window.Sk.python3 = true;
       window.Sk.pre = 'output';
       window.Sk.configure({ output: outf, read: builtinRead });
-      
+
       // Use Skulpt to execute code
       const myPromise = window.Sk.misceval.asyncToPromise(
         () => window.Sk.importMainWithBody(

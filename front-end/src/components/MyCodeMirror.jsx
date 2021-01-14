@@ -6,7 +6,7 @@ const mirror = require('codemirror');
 
 // Component defining the CodeMirror instance to be used by the IDE
 class MyCodeMirror extends React.Component {
-  // Load in the relevant third-party plugin 
+  // Load in the relevant third-party plugin
   componentDidMount() {
     // Initialize CodeMirror
     const options = {
