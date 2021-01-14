@@ -29,11 +29,11 @@ app.get('/questionSet/:tags', (req, res) => {
 });
 
 // For the Practice Engine page
-// Route for retrieving question data based on id
-app.get('/questions/:id', (req, res) => {
+// Route for retrieving question from database to populate question page
+app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
-  var id = req.params.id;
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  var Qid = req.params.Qid;
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
@@ -41,10 +41,10 @@ app.get('/questions/:id', (req, res) => {
 
 // For the Practice Engine page
 // Route for retrieving testcases related to a question
-app.get('/testcases/:id', (req, res) => {
+app.get('/testcases/:Qid', (req, res) => {
   // Retrieve the question id from our URL path
-  var id = req.params.id;
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${id};`;
+  var Qid = req.params.Qid;
+  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });

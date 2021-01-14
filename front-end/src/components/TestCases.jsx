@@ -14,6 +14,7 @@ const data = [
   'Test Case #2',
 ];
 
+// Used to render the test-cases table in the IDE page
 const TestCases = () => (
   <div className="testCases">
     <List
@@ -27,7 +28,7 @@ const TestCases = () => (
           <List.Item>
             {item}
             <span className="float-right">
-              <Tag color="success">Passed</Tag>
+              <Tag style={{ display: 'none' }} color="success">Passed</Tag>
             </span>
           </List.Item>
         )
