@@ -1,4 +1,6 @@
 import React from 'react';
+
+// React component library imports
 import {
   Menu,
   Typography,
@@ -7,20 +9,26 @@ import {
   NavLink,
 } from 'reactstrap';
 
+// Imports for React routing
 import {
   Route,
   Link,
   HashRouter,
   Redirect,
 } from 'react-router-dom';
+
+// Personal component imports
 import IDE from './IDE';
 import LandingPage from './LandingPage';
 import Questions from './Questions';
 
-import '../style/style.css';
-
 const { Title } = Typography;
 
+/*
+  This is the outline, it contains the header, navbar, and footer. It is the
+  only component imported into the index.js as a result is shared across all
+  pages
+*/
 class Outline extends React.Component {
   constructor(props) {
     super(props);
@@ -36,17 +44,16 @@ class Outline extends React.Component {
       return (
         <div className="navBar">
           <HashRouter>
-            <div className="header">
-              <Title
-                style={{
-                  color: '#1890ff',
-                  marginBottom: '0',
-                  paddingBottom: '0',
-                }}
-              >
+            <Title
+              style={{
+                marginBottom: '0',
+                paddingBottom: '0',
+              }}
+            >
+              <div className="header">
                 Python Practice Engine
-              </Title>
-            </div>
+              </div>
+            </Title>
             <Menu
               onClick={this.handleClick}
               selectedKeys={[current]}

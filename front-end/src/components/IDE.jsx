@@ -1,20 +1,26 @@
 import React from 'react';
-import {
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
+
+import Axios from 'axios';
+
+// React component library imports
 import {
   Card,
 } from 'antd';
-import Axios from 'axios';
+import {
+  Col,
+  Container,
+  Row,
+} from 'reactstrap';
+
+// Personal component imports
+import QuestionContent from './QuestionContent';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
-import QuestionContent from './QuestionContent';
 import TutorialContent from './TutorialContent';
 
 import '../style/style.css';
 
+// tabList lists the names of the within the questions card.
 const tabList = [
   {
     key: 'question',
@@ -25,6 +31,13 @@ const tabList = [
     tab: 'Tutorial',
   },
 ];
+
+/*
+  The IDE component is the component that contains: the text editor, test
+  cases, the question itself, and the tutorial for the question. This component
+  essentially houses a few other components and is the "practice engine" page.
+*/
+
 class IDE extends React.Component {
   constructor(props) {
     super(props);
@@ -41,13 +54,19 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((response) => {
+    Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+      response
+    ) => {
       this.setState({ question: response.data[0] });
       Axios.get(`http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`).then((res) => {
         this.setState({ tutorial: res.data[0] });
       });
     });
-    Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((response) => {
+    Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+      response
+    ) => {
       this.setState({ testCases: response.data });
     });
   }
@@ -73,8 +92,9 @@ class IDE extends React.Component {
         <Container>
           <Row>
             <Col md="6">
+              {/* The card that contains the question and tutorial */}
               <Card
-                style={{ width: '100%' }}
+                className="questionCard"
                 tabList={tabList}
                 activeTabKey={tabs.key}
                 onTabChange={(key) => {
@@ -90,6 +110,7 @@ class IDE extends React.Component {
               <TestCases testCases={this.state.testCases} />
             </Col>
             <Col md="6">
+              {/* This is the text editor itself */}
               <Skulpt
                 testCases={this.state.testCases}
                 id={this.state.question.Qid}

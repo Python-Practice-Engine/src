@@ -1,13 +1,18 @@
 import React from 'react';
+
+// React component library imports
 import {
   Typography,
   Tag,
   Space,
 } from 'antd';
-import '../style/style.css';
 
 const { Title } = Typography;
 
+/*
+  This component renders the content of each question. The content includes:
+  the question title, the questions itself, the question's category.
+*/
 function QuestionContent(props) {
   const content = props.contents;
   return (

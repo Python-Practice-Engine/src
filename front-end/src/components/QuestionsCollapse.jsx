@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
+import Axios from 'axios';
+
+// React component library imports
 import {
   Collapse,
   List,
@@ -7,14 +11,16 @@ import {
   Divider,
 } from 'antd';
 import {
+  CodeTwoTone,
+  RightSquareOutlined,
+} from '@ant-design/icons';
+
+// Imports for React routing
+import {
   Link,
   HashRouter,
   NavLink,
 } from 'react-router-dom';
-import '../style/style.css';
-import 'antd/dist/antd.css';
-import { CodeTwoTone, RightSquareOutlined } from '@ant-design/icons';
-import Axios from 'axios';
 
 const { Panel } = Collapse;
 
@@ -35,6 +41,10 @@ const data = [
   },
 ];
 
+/*
+  This is the complete list of questions. The questions are organized by
+  category and all questions are retrieved from the database.
+*/
 function QuestionsCollapse() {
   const [basics, setBasics] = useState([]);
   const [variables, setVariables] = useState([]);
@@ -55,7 +65,6 @@ function QuestionsCollapse() {
       setNumbers(response.data);
     });
   }, []);
-
   return (
     <div className="collapse-topics">
       <HashRouter>
