@@ -28,22 +28,22 @@ app.get('/questionSet/:tags', (req, res) => {
   });
 });
 
-// For the
+// For the Practice Engine page
 // Route for retrieving question from database to populate question page
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
   var Qid = req.params.Qid;
-  console.log(req.params)
   const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
 });
 
+// For the Practice Engine page
+// Route for retrieving testcases related to a question
 app.get('/testcases/:Qid', (req, res) => {
-  // Retrieve the tag from our URL path
+  // Retrieve the question id from our URL path
   var Qid = req.params.Qid;
-  console.log(req.params)
   const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid};`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
