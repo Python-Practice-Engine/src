@@ -31,7 +31,7 @@ class MyCodeMirror extends React.Component {
     }
   }
 
-  // Update IDE UI on user change
+  // Update the Ui when user changes something in the code editor
   onEdit = (editor) => {
     // Modifies editor
     const change = this.props;
@@ -41,7 +41,7 @@ class MyCodeMirror extends React.Component {
     }
   };
 
-  // Display the IDE UI
+  // Display the UI overlay to the IDE
   render() {
     return (
       <textarea id="code-input" name="code-input" margin="0">

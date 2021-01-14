@@ -83,7 +83,7 @@ class Skulpt extends React.Component {
       window.Sk.pre = 'output';
       window.Sk.configure({ output: outf, read: builtinRead });
 
-      // Use Skulpt to execute code
+      // Feed code into Skulpt to execute
       const myPromise = window.Sk.misceval.asyncToPromise(
         () => window.Sk.importMainWithBody(
           '<stdin>',
@@ -110,7 +110,7 @@ class Skulpt extends React.Component {
   submit = () => {
     // Varaibles declarations
     let i;
-    const idAux = '#Test Case #';
+    const idAux = 'Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
 
@@ -118,9 +118,10 @@ class Skulpt extends React.Component {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
-        const prog = codeOutput.value + tests[i].code.replaceAll('"', '\\"');
+        const codeTR = tests[i].code;
+        const prog = codeOutput.value + codeTR.replaceAll('"', '\\"');
         const mypre = codeOutput;
-        const tag = document.getElementById(idAux + tests[i].TCid);
+        const tag = document.getElementById(idAux + tests[i].TCid.toString());
 
         // Auxiliary preperations for Skulpt
         mypre.innerHTML = '';
