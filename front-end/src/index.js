@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Outline from './components/Outline';
+
+// Style imports
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/icecoder.css';
 import './style/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
+
+// Personal component import
+import Outline from './components/Outline';
 
 ReactDOM.render(
   <React.StrictMode>
