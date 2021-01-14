@@ -1,3 +1,21 @@
+/* Outline (i.e. navbar, footer, header) */
+
+.header {
+  text-align: center;
+  color: #1890ff;
+  margin-top: 1%;
+}
+
+.footer {
+  padding-bottom:2%;
+}
+
+.navbar-padding {
+  padding-top: 1%;
+}
+
+/* IDE page */
+
 textarea[name=output] {
     width: 100%;
     height: 100%;
@@ -5,20 +23,31 @@ textarea[name=output] {
     padding: 1%;
     border: none;
     resize: none;
-}
-
-.header {
-    text-align: center;
-    color: #1890ff;
+    font-size: 16pt;
 }
 
 .testCases {
     margin-top: 2%;
 }
 
-.footer {
-    padding-bottom:2%;
+.question-col {
+  height: 100vh;
 }
+
+.ide-card {
+  width: 100%;
+}
+
+.mock-input{
+  height: 75vh;
+  width: 100%;
+}
+
+.submit-btns {
+  margin-top: 1%;
+}
+
+/* Home page */
 
 .landingPageTitle {
     text-align: center;
@@ -31,30 +60,7 @@ textarea[name=output] {
     margin: 0;
 }
 
-/* .landingPageDescription {
-    text-align: center;
-} */
-
-.navbar-padding {
-    padding-top: 1%;
-}
-
-.question-col {
-    height: 100vh;
-}
-
-.ide-card {
-    width: 100%;
-}
-
-.mock-input{
-    height: 75vh;
-    width: 100%;
-}
-
-.submit-btns {
-    margin-top: 1%;
-}
+/* Questions Page */
 
 .q-table {
     margin: 2% 5% 0 5%;
