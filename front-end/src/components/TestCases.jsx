@@ -9,20 +9,13 @@ import {
 
 // Variable declarations
 const { Title } = Typography;
-let i;
 const j = 'Test Case #';
-const data = [];
 
 // Used to render the test-cases table in the IDE page
 class TestCases extends React.Component {
   constructor(props) {
     super(props);
-
-    // Populate variable with retrieved test-cases
-    const tests = this.props.testCases;
-    for (i = 0; i < tests.length; i += 1) {
-      data.push(j + tests[i].TCid);
-    }
+    this.state = {};
   }
 
   // Display the test-cases table on IDE page
@@ -34,14 +27,14 @@ class TestCases extends React.Component {
           header={<Title level={4}>Test Cases</Title>}
           size="large"
           bordered
-          dataSource={data}
+          dataSource={this.props.testCases}
           renderItem={
             (item) => (
               <List.Item>
-                {item}
-                <span className="float-right">
-                  <Tag id={item} style={{ display: 'none' }} color="success">Passed</Tag>
-                </span>
+                <b>{j + item.TCid}</b>
+                <Tag id={item.TCid} style={{ display: 'none' }} color="success">Passed</Tag>
+                <br />
+                {item.test}
               </List.Item>
             )
           }
