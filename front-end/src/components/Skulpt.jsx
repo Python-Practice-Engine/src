@@ -207,7 +207,7 @@ class Skulpt extends React.Component {
               </Button>
               <Button
                 size="medium"
-                onClick={this.submit}
+                // onClick={this.submit}
                 style={{
                   display: 'inline-flex',
                   justifyContent: 'center',
