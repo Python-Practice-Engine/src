@@ -72,7 +72,7 @@ class Skulpt extends React.Component {
     // Variable declarations
     const codeOutput = document.getElementById('code-input');
 
-    if (codeOutput.value !== null) {
+    if (codeOutput) {
       // DOM elements to be used by Skulpt
       const prog = codeOutput.value;
       const mypre = codeOutput;
