@@ -36,21 +36,30 @@ const data = [
 ];
 
 function QuestionsCollapse() {
-//   const [basics, setBasics] = useState([]);
-//   const [variables, setVariables] = useState([]);
-  const [functions, setFunctions] = useState([]);
-  const [controlStructures, setControlStructures] = useState([]);
+  const [basics, setBasics] = useState([]);
+  const [variables, setVariables] = useState([]);
+  const [numbers, setNumbers] = useState([]);
+  //   const [functions, setFunctions] = useState([]);
+  //   const [controlStructures, setControlStructures] = useState([]);
 
   useEffect(() => {
-    let tags = 'functions';
+    let tags = 'PrintStatement';
     Axios.get(`http://localhost:3001/questionSet/${tags}`).then((response) => {
-      setFunctions(response.data);
+      setBasics(response.data);
     });
-    tags = 'controlStructures';
+    tags = 'Variables';
     Axios.get(`http://localhost:3001/questionSet/${tags}`).then((response) => {
-      console.log(response.data);
-      setControlStructures(response.data);
+      setVariables(response.data);
     });
+    tags = 'Numbers';
+    Axios.get(`http://localhost:3001/questionSet/${tags}`).then((response) => {
+      setNumbers(response.data);
+    });
+    // tags = 'controlStructures';
+    // Axios.get(`http://localhost:3001/questionSet/${tags}`).then((response) => {
+    //   console.log(response.data);
+    //   setControlStructures(response.data);
+    // });
   }, []);
 
   return (
@@ -75,7 +84,7 @@ function QuestionsCollapse() {
           >
             <List
               itemLayout="horizontal"
-              dataSource={data}
+              dataSource={basics}
               renderItem={(item) => (
 
                 <List.Item>
@@ -90,10 +99,12 @@ function QuestionsCollapse() {
                         style={{ backgroundColor: 'white' }}
                       />
                   )}
-                    title={<a>{item.title}</a>}
-                    description="Lorem ipsum dolor sit amet,
-                   consectetur adipiscing elit. Aenean laoreet congue
-                    lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                    title={(
+                      <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
+                        {item.name}
+                      </NavLink>
+                    )}
+                    description={item.description}
                   />
                 </List.Item>
               )}
@@ -102,12 +113,12 @@ function QuestionsCollapse() {
           <Divider />
           <Panel
             className="panel-topic"
-            header={<Title level={4}>Data Types</Title>}
+            header={<Title level={4}>Numbers</Title>}
             key="2"
           >
             <List
               itemLayout="horizontal"
-              dataSource={data}
+              dataSource={numbers}
               renderItem={(item) => (
                 <List.Item>
                   <List.Item.Meta
@@ -117,10 +128,12 @@ function QuestionsCollapse() {
                         style={{ backgroundColor: 'white' }}
                       />
 )}
-                    title={<a>{item.title}</a>}
-                    description="Lorem ipsum dolor sit amet,
-                   consectetur adipiscing elit. Aenean laoreet congue
-                    lacus vitae vestibulum. Ut quis diam in nisl venenatis."
+                    title={(
+                      <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
+                        {item.name}
+                      </NavLink>
+                    )}
+                    description={item.description}
                   />
                 </List.Item>
               )}
@@ -129,12 +142,12 @@ function QuestionsCollapse() {
           <Divider />
           <Panel
             className="panel-topic"
-            header={<Title level={4}>Control Structures</Title>}
+            header={<Title level={4}>Variables</Title>}
             key="4"
           >
             <List
               itemLayout="horizontal"
-              dataSource={controlStructures}
+              dataSource={variables}
               renderItem={(item) => (
                 <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
                   <List.Item>
@@ -145,7 +158,11 @@ function QuestionsCollapse() {
                           style={{ backgroundColor: 'white' }}
                         />
 )}
-                      title={<a>{item.name}</a>}
+                      title={(
+                        <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
+                          {item.name}
+                        </NavLink>
+                        )}
                       description={item.description}
                     />
                   </List.Item>
@@ -161,7 +178,7 @@ function QuestionsCollapse() {
           >
             <List
               itemLayout="horizontal"
-              dataSource={functions}
+              dataSource={data}
               renderItem={(item) => (
 
                 <List.Item>
@@ -171,12 +188,12 @@ function QuestionsCollapse() {
                         icon={<CodeTwoTone twoToneColor="blue" />}
                         style={{ backgroundColor: 'white' }}
                       />
-        )}
+                    )}
                     title={(
                       <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
                         {item.name}
                       </NavLink>
-)}
+                    )}
                     description={item.description}
                   />
                 </List.Item>

@@ -68,6 +68,7 @@ class IDE extends React.Component {
   componentDidMount() {
     Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((response) => {
       this.setState({ question: response.data[0] });
+      console.log(response.data[0]);
     });
     console.log(this.props.match.params);
   }
