@@ -107,35 +107,6 @@ function QuestionsCollapse() {
           <Divider />
           <Panel
             className="panel-topic"
-            header={<Title level={4}>Numbers</Title>}
-            key="2"
-          >
-            <List
-              itemLayout="horizontal"
-              dataSource={numbers}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={(
-                      <Avatar
-                        icon={<CodeTwoTone twoToneColor="blue" />}
-                        style={{ backgroundColor: 'white' }}
-                      />
-)}
-                    title={(
-                      <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
-                        {item.name}
-                      </NavLink>
-                    )}
-                    description={item.description}
-                  />
-                </List.Item>
-              )}
-            />
-          </Panel>
-          <Divider />
-          <Panel
-            className="panel-topic"
             header={<Title level={4}>Variables</Title>}
             key="4"
           >
@@ -161,6 +132,35 @@ function QuestionsCollapse() {
                     />
                   </List.Item>
                 </NavLink>
+              )}
+            />
+          </Panel>
+          <Divider />
+          <Panel
+            className="panel-topic"
+            header={<Title level={4}>Numbers</Title>}
+            key="2"
+          >
+            <List
+              itemLayout="horizontal"
+              dataSource={numbers}
+              renderItem={(item) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={(
+                      <Avatar
+                        icon={<CodeTwoTone twoToneColor="blue" />}
+                        style={{ backgroundColor: 'white' }}
+                      />
+)}
+                    title={(
+                      <NavLink tag={Link} to={`/IDE/${item.Qid}`}>
+                        {item.name}
+                      </NavLink>
+                    )}
+                    description={item.description}
+                  />
+                </List.Item>
               )}
             />
           </Panel>
