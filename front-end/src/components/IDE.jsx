@@ -16,6 +16,9 @@ import {
 import QuestionContent from './QuestionContent';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
+import TutorialContent from './TutorialContent';
+
+import '../style/style.css';
 
 // tabList lists the names of the within the questions card.
 const tabList = [
@@ -42,6 +45,7 @@ class IDE extends React.Component {
       key: 'question',
       question: {},
       testCases: [],
+      tutorial: {},
       Qid: this.props.match.params.Qid,
     };
 
@@ -55,6 +59,9 @@ class IDE extends React.Component {
       response
     ) => {
       this.setState({ question: response.data[0] });
+      Axios.get(`http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`).then((res) => {
+        this.setState({ tutorial: res.data[0] });
+      });
     });
     Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((
       // eslint-disable-next-line comma-dangle
@@ -94,9 +101,11 @@ class IDE extends React.Component {
                   this.onTabChange(key, 'key');
                 }}
               >
-                <QuestionContent
-                  contents={this.state.question}
-                />
+                {
+                  tabs.key === 'question'
+                    ? <QuestionContent contents={this.state.question} />
+                    : <TutorialContent contents={this.state.tutorial} />
+                }
               </Card>
               <TestCases testCases={this.state.testCases} />
             </Col>

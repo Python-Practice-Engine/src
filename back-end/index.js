@@ -50,6 +50,16 @@ app.get('/testcases/:Qid', (req, res) => {
   });
 });
 
+// For the Practice Engine page
+// Route for retrieving testcases related to a question
+app.get('/tutorial/:Tid', (req,res) => {
+  var Tid = req.params.Tid;
+  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ${Tid};`;
+  db.query(sqlRetrieve, (err, result)=> {
+    res.send(result);
+  });
+});
+
 app.listen(3001, () => {
   console.log("running on port 3001");
 });

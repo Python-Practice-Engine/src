@@ -13,29 +13,23 @@ const { Title } = Typography;
   This component renders the content of each question. The content includes:
   the question title, the questions itself, the question's category.
 */
-class QuestionContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>
-        <Title
-          level={3}
-        >
-          {this.props.contents.name}
-        </Title>
-        <Space>
-          <Tag color="warning">{this.props.contents.tags}</Tag>
-        </Space>
-        <p className="questionDescription">
-          {this.props.contents.description}
-        </p>
-      </div>
-    );
-  }
+function QuestionContent(props) {
+  const content = props.contents;
+  return (
+    <div>
+      <Title
+        level={3}
+      >
+        {content.name}
+      </Title>
+      <Space>
+        <Tag color="warning">{content.tags}</Tag>
+      </Space>
+      <p className="questionDescription">
+        {content.question}
+      </p>
+    </div>
+  );
 }
 
 export default QuestionContent;
