@@ -64,14 +64,20 @@ class Skulpt extends React.Component {
 
   // Auxiliary function that allows the user to run their code without running the questions tests
   execute = () => {
+    // Variable declarations
     const codeOutput = document.getElementById('code-input');
+
     if (codeOutput.value !== null) {
       const prog = codeOutput.value;
       const mypre = codeOutput;
+
+      // Auxiliary preperations for Skulpt
       mypre.innerHTML = '';
       window.Sk.python3 = true;
       window.Sk.pre = 'output';
       window.Sk.configure({ output: outf, read: builtinRead });
+
+      // Feed code into Skulpt to execute
       const myPromise = window.Sk.misceval.asyncToPromise(
         () => window.Sk.importMainWithBody(
           '<stdin>',
@@ -80,9 +86,11 @@ class Skulpt extends React.Component {
           true,
         ),
       );
+      // Code executes
       myPromise.then(() => {
         console.log('success');
       },
+      // Error in code, output error message
       (error) => {
         const errMsg = error.toString();
         const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
@@ -96,20 +104,26 @@ class Skulpt extends React.Component {
   submit = () => {
     // Varaibles declarations
     let i;
-    const idAux = '#Test Case #';
+    const idAux = 'Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
+
     if (codeOutput.value !== null) {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
-        const prog = codeOutput.value + tests[i].code;
+        const codeTR = tests[i].code;
+        const prog = codeOutput.value + codeTR.replaceAll('"', '\\"');
         const mypre = codeOutput;
-        const tag = document.getElementById(idAux + tests[i].TCid);
+        const tag = document.getElementById(idAux + tests[i].TCid.toString());
+
+        // Auxiliary preperations for Skulpt
         mypre.innerHTML = '';
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
         window.Sk.configure({ output: outf, read: builtinRead });
+
+        // Feed code into Skulpt to execute
         const myPromise = window.Sk.misceval.asyncToPromise(
           () => window.Sk.importMainWithBody(
             '<stdin>',
@@ -132,9 +146,6 @@ class Skulpt extends React.Component {
           outf(msg);
         });
       }
-    }
-    if (codeOutput.value !== null) {
-      console.log('tests passed!');
     }
   }
 
