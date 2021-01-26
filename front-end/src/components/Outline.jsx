@@ -27,7 +27,7 @@ const Outline = () => (
     <HashRouter>
       <Title
         style={{
-          marginBottom: '0',
+          marginBottom: '2%',
           paddingBottom: '0',
         }}
       >
