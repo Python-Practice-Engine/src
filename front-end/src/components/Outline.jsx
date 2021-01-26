@@ -42,7 +42,6 @@ const Outline = () => (
         </Route>
       </div>
     </HashRouter>
-    <IDE />
     <div className="footer" />
   </div>
 );
