@@ -14,6 +14,9 @@
   padding-top: 1%;
 }
 
+.navBar {
+    margin-bottom: 5%;
+}
 /* IDE page */
 
 textarea[name=output] {

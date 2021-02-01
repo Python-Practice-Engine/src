@@ -18,8 +18,6 @@ import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import TutorialContent from './TutorialContent';
 
-import '../style/style.css';
-
 // tabList lists the names of the within the questions card.
 const tabList = [
   {
@@ -59,7 +57,10 @@ class IDE extends React.Component {
       response
     ) => {
       this.setState({ question: response.data[0] });
-      Axios.get(`http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`).then((res) => {
+      Axios.get(
+        // eslint-disable-next-line comma-dangle
+        `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
+      ).then((res) => {
         this.setState({ tutorial: res.data[0] });
       });
     });
