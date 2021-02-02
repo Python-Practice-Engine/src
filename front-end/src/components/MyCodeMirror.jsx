@@ -1,5 +1,4 @@
 import React from 'react';
-import '../style/style.css';
 
 // Auxiliary helper
 const mirror = require('codemirror');
@@ -14,10 +13,13 @@ class MyCodeMirror extends React.Component {
       theme: 'icecoder',
       lineNumbers: true,
     };
-    this.codeMirror = mirror.fromTextArea(
-      document.getElementById('code-input'),
-      options,
-    );
+    if (mirror.fromTextArea !== null) {
+      this.codeMirror = mirror.fromTextArea(
+        document.getElementById('code-input'),
+        options,
+      );
+    }
+
     this.codeMirror.setSize('100%', '100%');
     this.codeMirror.on('change', this.onEdit);
   }

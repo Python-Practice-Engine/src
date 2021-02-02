@@ -32,7 +32,13 @@ class TestCases extends React.Component {
             (item) => (
               <List.Item>
                 <b>{j + item.TCid}</b>
-                <Tag id={item.TCid} style={{ display: 'none' }} color="success">Passed</Tag>
+                <Tag
+                  id={item.TCid}
+                  style={{ display: 'none' }}
+                  color="success"
+                >
+                  Passed
+                </Tag>
                 <br />
                 {item.test}
               </List.Item>
