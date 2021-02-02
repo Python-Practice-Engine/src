@@ -13,15 +13,14 @@ class MyCodeMirror extends React.Component {
       theme: 'icecoder',
       lineNumbers: true,
     };
-    if (mirror.fromTextArea !== null) {
+    if (document.getElementById('code-input') !== null) {
       this.codeMirror = mirror.fromTextArea(
         document.getElementById('code-input'),
         options,
       );
+      this.codeMirror.setSize('100%', '100%');
+      this.codeMirror.on('change', this.onEdit);
     }
-
-    this.codeMirror.setSize('100%', '100%');
-    this.codeMirror.on('change', this.onEdit);
   }
 
   // Unload thrid-party plugin after finished

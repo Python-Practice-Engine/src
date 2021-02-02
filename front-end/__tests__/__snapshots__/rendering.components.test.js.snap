@@ -1,6 +1,140 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the Tutorial content correctly 1`] = `
+exports[`renders the code mirror correctly 1`] = `
+<textarea
+  id="code-input"
+  margin="0"
+  name="code-input"
+>
+  #Your Code Here
+</textarea>
+`;
+
+exports[`renders the question content correctly 1`] = `
+<div>
+  <h3
+    className="ant-typography"
+    style={
+      Object {
+        "WebkitLineClamp": undefined,
+      }
+    }
+  >
+    q1
+  </h3>
+  <div
+    className="ant-space ant-space-horizontal ant-space-align-center"
+    style={Object {}}
+  >
+    <div
+      className="ant-space-item"
+      style={Object {}}
+    >
+      <span
+        className="ant-tag ant-tag-warning"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
+      >
+        easy
+      </span>
+    </div>
+  </div>
+  <p
+    className="questionDescription"
+  >
+    why is the sky blue?
+  </p>
+</div>
+`;
+
+exports[`renders the test cases correctly 1`] = `
+<div
+  className="testCases"
+>
+  <div
+    className="ant-list ant-list-lg ant-list-split ant-list-bordered"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      className="ant-list-header"
+    >
+      <h4
+        className="ant-typography"
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Test Cases
+      </h4>
+    </div>
+    <div
+      className="ant-spin-nested-loading"
+    >
+      <div
+        className="ant-spin-container"
+      >
+        <ul
+          className="ant-list-items"
+        >
+          <li
+            className="ant-list-item ant-list-item-no-flex"
+          >
+            <b>
+              Test Case #1
+            </b>
+            <span
+              className="ant-tag ant-tag-success"
+              id={1}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "display": "none",
+                }
+              }
+            >
+              Passed
+            </span>
+            <br />
+            test 1
+          </li>
+          <li
+            className="ant-list-item ant-list-item-no-flex"
+          >
+            <b>
+              Test Case #2
+            </b>
+            <span
+              className="ant-tag ant-tag-success"
+              id={2}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "display": "none",
+                }
+              }
+            >
+              Passed
+            </span>
+            <br />
+            test 2
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders the tutorial content correctly 1`] = `
 <div>
   <h3
     className="ant-typography"
