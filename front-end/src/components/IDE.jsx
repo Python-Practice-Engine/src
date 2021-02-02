@@ -72,6 +72,10 @@ class IDE extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.axiosCancelSource.cancel('Axios request canceled.');
+  }
+
   handleHardClick() {
     this.setState({ Qid: this.props.match.params.Qid });
     setTimeout(() => window.location.reload(), 300);
