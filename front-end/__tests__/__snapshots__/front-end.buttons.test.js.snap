@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the outline correctly 1`] = `
+<div>
+  <h3
+    className="ant-typography"
+    style={
+      Object {
+        "WebkitLineClamp": undefined,
+      }
+    }
+  >
+    tut1
+  </h3>
+  <p
+    className="questionDescription"
+  >
+    description
+  </p>
+</div>
+`;
