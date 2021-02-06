@@ -1,8 +1,10 @@
-import React from 'react';
-import Outline  from '../src/components/Outline.jsx';
+import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect'
+import IDE  from '../src/components/IDE.jsx';
+import * as renderer from 'react-test-renderer';
+import { logRoles } from '@testing-library/dom'
+
 
 // workaround from: https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
 Object.defineProperty(window, 'matchMedia', {
@@ -19,7 +21,6 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// workaround from: https://github.com/jsdom/jsdom/issues/3002
 document.createRange = () => {
   const range = new Range();
 
@@ -34,17 +35,14 @@ document.createRange = () => {
   };
 
   return range;
-};
+}
 
-// render home page
-beforeAll(() => {
+const { getComputedStyle } = window;
+window.getComputedStyle = (elt) => getComputedStyle(elt);
+
+test('renders IDE.jsx', () => {
   render(
-    <MemoryRouter initialEntries={["/IDE/1"]}>
-      <Outline />
-    </MemoryRouter>
+      <IDE match={ {params: { code: 1 } } } />
   );
-});
-
-test("Title loads correctly", () => {
-  expect(screen.getByText("Python Practice Engine")).toBeInTheDocument();
-});
+  expect(screen.getByText("Question")).toBeInTheDocument();
+})
