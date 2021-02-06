@@ -5,9 +5,9 @@ exports[`renders the code mirror correctly 1`] = `
   id="code-input"
   margin="0"
   name="code-input"
->
-  #Your Code Here
-</textarea>
+  onChange={[Function]}
+  value="# Your code here."
+/>
 `;
 
 exports[`renders the question content correctly 1`] = `
@@ -16,7 +16,7 @@ exports[`renders the question content correctly 1`] = `
     className="ant-typography"
     style={
       Object {
-        "WebkitLineClamp": undefined,
+        "WebkitLineClamp": null,
       }
     }
   >
@@ -69,7 +69,7 @@ exports[`renders the test cases correctly 1`] = `
         className="ant-typography"
         style={
           Object {
-            "WebkitLineClamp": undefined,
+            "WebkitLineClamp": null,
           }
         }
       >
@@ -140,7 +140,7 @@ exports[`renders the tutorial content correctly 1`] = `
     className="ant-typography"
     style={
       Object {
-        "WebkitLineClamp": undefined,
+        "WebkitLineClamp": null,
       }
     }
   >
