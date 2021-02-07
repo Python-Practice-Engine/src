@@ -1,6 +1,8 @@
+// QUESTIONS TABLE TEST CASES
 describe("Tests on the Questions Table", () => {
+    // TEST #1
     test("print statements is easy difficulty", done => {
-      const users = global.db.query(
+      const query = global.db.query(
         "SELECT * FROM Questions WHERE tags='PrintStatement'",
         (error, results, fields) => {
           if (error) {
@@ -14,8 +16,9 @@ describe("Tests on the Questions Table", () => {
       );
     });
 
+    // TEST #2
     test("the second question is about variables", done => {
-      const users = global.db.query(
+      const query = global.db.query(
         "SELECT * FROM Questions WHERE Qid=2",
         (error, results, fields) => {
           if (error) {
@@ -28,8 +31,9 @@ describe("Tests on the Questions Table", () => {
       );
     }); 
 
+    // TEST #3
     test("the third question is about numbers", done => {
-      const users = global.db.query(
+      const query = global.db.query(
         "SELECT * FROM Questions WHERE Qid=3",
         (error, results, fields) => {
           if (error) {
@@ -43,8 +47,9 @@ describe("Tests on the Questions Table", () => {
       );
     });
 
+    // TEST #4
     test("each question has a tutorial", done => {
-      const users = global.db.query(
+      const query = global.db.query(
         "SELECT * FROM Questions",
         (error, results, fields) => {
           if (error) {
@@ -59,9 +64,11 @@ describe("Tests on the Questions Table", () => {
     });
 });
 
+// TUTORIALS TABLE TEST CASES
 describe("Tests on the Tutorials Table", () => {
+    // TEST #1
     test("all tutorials have a Tid, name, and description", done => {
-      const users = global.db.query(
+      const query = global.db.query(
         "SELECT * FROM Tutorials",
         (error, results, fields) => {
           if (error) {
@@ -77,12 +84,28 @@ describe("Tests on the Tutorials Table", () => {
       );
     });
 
-    
+    // TEST #2
+    test("Tutorials and Questions correspond 1-1 to each other", done => {
+      const query = global.db.query(
+        "SELECT * FROM Tutorials, Questions",
+        (error, results, fields) => {
+          if (error) {
+            throw error;
+          }
+          for (const i in results) {
+            expect(results[i].Tid).toEqual(results[i].Qid);
+          }
+          done();
+        }
+      );
+    });
 });
 
+// TESTCASES TABLE TEST CASES
 describe("Tests on the Testcases Table", () => {
-    test("", done => {
-      const users = global.db.query(
+    // TEST #1
+    test("print statement test case code actually uses the print function", done => {
+      const query = global.db.query(
         "SELECT * FROM Tutorials",
         (error, results, fields) => {
           if (error) {
@@ -98,5 +121,5 @@ describe("Tests on the Testcases Table", () => {
       );
     });
 
-    
+    // TEST #2
 });
