@@ -126,7 +126,6 @@ describe("Tests on the Testcases Table", () => {
           if (error) {
             throw error;
           }
-          console.log(results);
           for (const i in results) {
             expect(results[i].TCid).toBeGreaterThan(0);
           }
