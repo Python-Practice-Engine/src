@@ -106,20 +106,32 @@ describe("Tests on the Testcases Table", () => {
     // TEST #1
     test("print statement test case code actually uses the print function", done => {
       const query = global.db.query(
-        "SELECT * FROM Tutorials",
+        "SELECT code FROM Testcases, Questions WHERE Questions.tags='PrintStatement' AND Testcases.TCid=Questions.Qid",
         (error, results, fields) => {
           if (error) {
             throw error;
           }
-          for (const i in results) {
-            expect(results[i].Tid).toBeGreaterThan(0);
-            expect(results[i].name).toEqual(expect.any(String));
-            expect(results[i].description).toEqual(expect.any(String));
-          }
+          expect(results).toHaveLength(1);
+          expect(results[0].code).toMatch(new RegExp('print(.*)'));
           done();
         }
       );
     });
 
     // TEST #2
+    test("there exists a test case for each question", done => {
+      const query = global.db.query(
+        "SELECT TCid,Testcases.Qid FROM Testcases, Questions",
+        (error, results, fields) => {
+          if (error) {
+            throw error;
+          }
+          console.log(results);
+          for (const i in results) {
+            expect(results[i].TCid).toBeGreaterThan(0);
+          }
+          done();
+        }
+      );
+    });
 });
