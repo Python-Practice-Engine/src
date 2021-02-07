@@ -37,6 +37,8 @@ const tabList = [
 */
 
 class IDE extends React.Component {
+  mounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -52,28 +54,35 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
+    this.axiosCancelSource = Axios.CancelToken.source();
     Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((
       // eslint-disable-next-line comma-dangle
       response
     ) => {
-      this.setState({ question: response.data[0] });
-      Axios.get(
-        // eslint-disable-next-line comma-dangle
-        `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-      ).then((res) => {
-        this.setState({ tutorial: res.data[0] });
-      });
+      if (this.mounted) {
+        this.setState({ question: response.data[0] });
+        Axios.get(
+          // eslint-disable-next-line comma-dangle
+          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
+        ).then((res) => {
+          this.setState({ tutorial: res.data[0] });
+        });
+      }
     });
     Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((
       // eslint-disable-next-line comma-dangle
       response
     ) => {
-      this.setState({ testCases: response.data });
+      if (this.mounted) {
+        this.setState({ testCases: response.data });
+      }
     });
   }
 
   componentWillUnmount() {
     this.axiosCancelSource.cancel('Axios request canceled.');
+    this.mounted = false;
   }
 
   handleHardClick() {

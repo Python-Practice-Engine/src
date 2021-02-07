@@ -242,7 +242,7 @@ class Skulpt extends React.Component {
         </HashRouter>
         <div id="output-area" style={{ display: 'none' }}>
           <textarea
-            readOnly="true"
+            readOnly="{true}?"
             className="output"
             id="code-output"
             name="output"
