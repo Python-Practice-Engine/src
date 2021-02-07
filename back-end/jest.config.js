@@ -3,5 +3,6 @@ module.exports = {
     testMatch: [
       '<rootDir>/__tests__/*.test.js'
     ],
-    transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"]
+    transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
+    preset: "jest-mysql"
   };
