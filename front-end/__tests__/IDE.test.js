@@ -2,8 +2,6 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import IDE  from '../src/components/IDE.jsx';
-import * as renderer from 'react-test-renderer';
-import { logRoles } from '@testing-library/dom'
 
 
 // workaround from: https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
