@@ -3,11 +3,16 @@
 exports[`renders the code mirror correctly 1`] = `
 <textarea
   id="code-input"
-  margin="0"
   name="code-input"
   onChange={[Function]}
   value="#Your Code Here"
+<<<<<<< HEAD
+>
+  #Your Code Here
+</textarea>
+=======
 />
+>>>>>>> main
 `;
 
 exports[`renders the question content correctly 1`] = `

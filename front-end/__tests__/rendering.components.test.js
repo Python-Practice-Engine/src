@@ -1,9 +1,15 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import TutorialContent from '../src/components/TutorialContent';
 import TestCases from '../src/components/TestCases';
 import MyCodeMirror from '../src/components/MyCodeMirror';
 import QuestionContent from '../src/components/QuestionContent';
+import Skulpt from '../src/components/Skulpt';
+import { render } from 'react-dom';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { mount, configure, shallow } from 'enzyme';
+
+configure({adapter: new Adapter()});
 
 // Workaround source: https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
 Object.defineProperty(window, 'matchMedia', {
@@ -51,28 +57,81 @@ it('renders the test cases correctly', () => {
       }></TestCases>)
       .toJSON();
     expect(tree).toMatchSnapshot();
-  });
+});
 
-  it('renders the code mirror correctly', () => {
-    const tree = renderer
-      .create(<MyCodeMirror onChange={true}></MyCodeMirror>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+it('renders the code mirror correctly', () => {
+  const tree = renderer
+    .create(<MyCodeMirror onChange={true}></MyCodeMirror>)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
-  it('renders the question content correctly', () => {
-    const tree = renderer
-      .create(<QuestionContent contents={
-          {
-              name: "q1",
-              question: "why is the sky blue?",
-              tags: "easy",
-          }
+it('skulpt execute() interperts user python code', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
+  const instance = tree.instance();
+  const compute = jest.spyOn(instance, 'execute');
   
-      } >
+  instance.execute();
+
+  expect(compute).toHaveBeenCalledTimes(1);
+});
+
+it('run call execute() and computes code', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
   
-      </QuestionContent>)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+  tree.find("Button#Run").prop('onClick');
+
+  expect(tree.find("#output-area")).toHaveLength(1);
+});
+
+it('tests that skulpt execute() throws no errors', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
+  const instance = tree.instance();
+  const compute = jest.spyOn(instance, 'execute');
+  instance.execute();
+
+  expect(compute).toHaveReturned();
+});
+
+it('skulpt submit() interperts user python code', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
+  const instance = tree.instance();
+  const compute = jest.spyOn(instance, 'submit');
+  instance.submit();
+
+  expect(compute).toHaveBeenCalledTimes(1);
+});
+
+it('submit calls submit() and computes code', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
+  
+  tree.find("Button#Submit").prop('onClick');
+
+  expect(tree.find("#output-area")).toHaveLength(1);
+});
+
+it('tests that skulpt submit() throws no errors', async () => {
+  const tree = mount(<Skulpt></Skulpt>);
+  const instance = tree.instance();
+  const compute = jest.spyOn(instance, 'submit');
+  instance.submit();
+
+  expect(compute).toHaveReturned();
+});
+
+it('renders the question content correctly', () => {
+  const tree = renderer
+    .create(<QuestionContent contents={
+        {
+            name: "q1",
+            question: "why is the sky blue?",
+            tags: "easy",
+        }
+
+    } >
+
+    </QuestionContent>)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
   

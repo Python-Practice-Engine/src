@@ -26,14 +26,6 @@ import 'codemirror/mode/python/python';
 // Personal component imports
 import MyCodeMirror from './MyCodeMirror';
 /* File consists of auxiliary functions for IDE rendering */
-// Used to output computed code
-function outf(text) {
-  const mypre = document.getElementById('code-output');
-  const output = document.getElementById('output-area');
-  output.style.display = 'block';
-  mypre.innerHTML += text;
-}
-
 // Used by thrid-party plugin to compute sent code
 function builtinRead(x) {
   if (
@@ -50,6 +42,10 @@ class Skulpt extends React.Component {
   constructor(props) {
     super(props);
     this.execute = this.execute.bind(this);
+    this.outf = this.outf.bind(this);
+    this.state = {
+      output: '',
+    };
 
     // Facing issues with code when adding state
     // this.state = {
@@ -62,59 +58,30 @@ class Skulpt extends React.Component {
     const script = document.createElement('script');
     script.src = '../skulpt.js';
     script.async = true;
-    script.onload = () => this.execute();
 
     document.body.appendChild(script);
   }
 
-  // Auxiliary function that allows the user to run their code without running the questions tests
-  execute = () => {
-    // Variable declarations
-    const codeOutput = document.getElementById('code-input');
-
-    if (codeOutput) {
-      // DOM elements to be used by Skulpt
-      const prog = codeOutput.value;
-      const mypre = codeOutput;
-
-      // Auxiliary preperations for Skulpt
-      mypre.innerHTML = '';
-      window.Sk.python3 = true;
-      window.Sk.pre = 'output';
-      window.Sk.configure({ output: outf, read: builtinRead });
-
-      // Feed code into Skulpt to execute
-      const myPromise = window.Sk.misceval.asyncToPromise(
-        () => window.Sk.importMainWithBody(
-          '<stdin>',
-          true,
-          prog,
-          true,
-        ),
-      );
-      // Code executes properly
-      myPromise.then(() => {
-        console.log('success');
-      },
-      // Error in code, output error message
-      (error) => {
-        const errMsg = error.toString();
-        const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
-        const msg = errMsg.slice(0, -1) + lineNum.toString();
-        outf(msg);
-      });
-    }
+  // Used to output computed code
+  outf = (text) => {
+    const mypre = document.getElementById('code-output');
+    const output = document.getElementById('output-area');
+    output.style.display = 'block';
+    this.setState((state) => ({
+      output: state.output + text,
+    }));
+    mypre.innerHTML += text;
   }
 
   // Auxiliary function that allows the user to run the given questions test-cases
-  submit = () => {
+  submit() {
     // Varaibles declarations
     let i;
     const idAux = 'Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
 
-    if (codeOutput.value !== null) {
+    if (codeOutput) {
       // Loop through test-cases for given question
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
@@ -127,7 +94,7 @@ class Skulpt extends React.Component {
         mypre.innerHTML = '';
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
-        window.Sk.configure({ output: outf, read: builtinRead });
+        window.Sk.configure({ output: this.outf, read: builtinRead });
 
         // Feed code into Skulpt to execute
         const myPromise = window.Sk.misceval.asyncToPromise(
@@ -149,9 +116,50 @@ class Skulpt extends React.Component {
           const errMsg = error.toString();
           const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
           const msg = errMsg.slice(0, -1) + lineNum.toString();
-          outf(msg);
+          this.outf(msg);
         });
       }
+    }
+  }
+
+  // Auxiliary function that allows the user to run their code without running the questions tests
+  execute() {
+    // Variable declarations
+    const codeOutput = document.getElementById('code-input');
+
+    if (codeOutput) {
+      // DOM elements to be used by Skulpt
+      const prog = codeOutput.value;
+      const mypre = codeOutput;
+
+      // Auxiliary preperations for Skulpt
+      mypre.innerHTML = '';
+      this.setState({ output: '' });
+      window.Sk.python3 = true;
+      window.Sk.pre = 'output';
+      window.Sk.configure({ output: this.outf, read: builtinRead });
+
+      // Feed code into Skulpt to execute
+      const myPromise = window.Sk.misceval.asyncToPromise(
+        () => window.Sk.importMainWithBody(
+          '<stdin>',
+          true,
+          prog,
+          true,
+        ),
+      );
+      // Code executes properly
+      myPromise.then(() => {
+        console.log('success');
+        return 'success';
+      },
+      // Error in code, output error message
+      (error) => {
+        const errMsg = error.toString();
+        const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
+        const msg = errMsg.slice(0, -1) + lineNum.toString();
+        this.outf(msg);
+      });
     }
   }
 
@@ -194,6 +202,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <Space>
               <Button
+                id="Run"
                 type="primary"
                 size="medium"
                 onClick={this.execute}
@@ -206,6 +215,7 @@ class Skulpt extends React.Component {
                 Run
               </Button>
               <Button
+                id="Submit"
                 size="medium"
                 // onClick={this.submit}
                 style={{
@@ -242,7 +252,8 @@ class Skulpt extends React.Component {
         </HashRouter>
         <div id="output-area" style={{ display: 'none' }}>
           <textarea
-            readOnly="{true}?"
+            value={this.state.output}
+            readOnly="true"
             className="output"
             id="code-output"
             name="output"
