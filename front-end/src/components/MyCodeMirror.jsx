@@ -45,9 +45,13 @@ class MyCodeMirror extends React.Component {
   // Display the UI overlay to the IDE
   render() {
     return (
-      <textarea onChange={this.onEdit} value="#Your Code Here" id="code-input" name="code-input">
-        #Your Code Here
-      </textarea>
+      <textarea
+        id="code-input"
+        name="code-input"
+        margin="0"
+        value="#Your Code Here"
+        onChange={this.onEdit}
+      />
     );
   }
 }
