@@ -1,13 +1,12 @@
 import React from 'react';
-import renderer, { act } from 'react-test-renderer';
+import renderer from 'react-test-renderer';
 import TutorialContent from '../src/components/TutorialContent';
 import TestCases from '../src/components/TestCases';
 import MyCodeMirror from '../src/components/MyCodeMirror';
 import QuestionContent from '../src/components/QuestionContent';
 import Skulpt from '../src/components/Skulpt';
-import { render } from 'react-dom';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { mount, configure, shallow } from 'enzyme';
+import { mount, configure } from 'enzyme';
 
 configure({adapter: new Adapter()});
 
@@ -70,7 +69,8 @@ const tree = renderer
 expect(tree).toMatchSnapshot();
 });
 
-// Tests that the execute() method of the Skulpt third-party library is properly called
+// Tests that the execute() method of the
+// Skulpt third-party library is properly called
 it('skulpt execute() interperts user python code', async () => {
 const tree = mount(<Skulpt></Skulpt>);
 const instance = tree.instance();
@@ -90,7 +90,8 @@ tree.find("Button#Run").prop('onClick');
 expect(tree.find("#output-area")).toHaveLength(1);
 });
 
-// Tests that the execute() method of the Skulpt third-party library runs with no errors
+// Tests that the execute() method of the Skulpt third-party library 
+// runs with no errors
 it('tests that skulpt execute() throws no errors', async () => {
 const tree = mount(<Skulpt></Skulpt>);
 const instance = tree.instance();
@@ -100,7 +101,8 @@ instance.execute();
 expect(compute).toHaveReturned();
 });
 
-// Tests that the submit() method of the Skulpt third-party library is properly called
+// Tests that the submit() method of the Skulpt third-party 
+// library is properly called
 it('skulpt submit() interperts user python code', async () => {
 const tree = mount(<Skulpt></Skulpt>);
 const instance = tree.instance();
@@ -119,7 +121,8 @@ tree.find("Button#Submit").prop('onClick');
 expect(tree.find("#output-area")).toHaveLength(1);
 });
 
-// Tests that the submit() method of the Skulpt third-party library runs with no errors
+// Tests that the submit() method of the Skulpt third-party 
+// library runs with no errors
 it('tests that skulpt submit() throws no errors', async () => {
 const tree = mount(<Skulpt></Skulpt>);
 const instance = tree.instance();
@@ -139,9 +142,7 @@ const tree = renderer
           question: "why is the sky blue?",
           tags: "easy",
       }
-
   } >
-
   </QuestionContent>)
   .toJSON();
 expect(tree).toMatchSnapshot();

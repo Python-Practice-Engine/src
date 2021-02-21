@@ -80,3 +80,12 @@ textarea[name=output] {
 .questionDescription {
     margin-top: 1%;
 }
+
+/* Skulpt IDE */
+.run-btn {
+    margin-left: 53%;
+}
+
+#output-area {
+    display: none
+}
