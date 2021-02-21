@@ -233,7 +233,7 @@ class Skulpt extends React.Component {
         <div id="output-area">
           <textarea
             value={this.state.output}
-            readOnly="true"
+            readOnly="{true}?"
             className="output"
             id="code-output"
             name="output"
