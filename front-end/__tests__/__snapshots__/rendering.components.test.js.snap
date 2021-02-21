@@ -3,16 +3,11 @@
 exports[`renders the code mirror correctly 1`] = `
 <textarea
   id="code-input"
+  margin="0"
   name="code-input"
   onChange={[Function]}
   value="#Your Code Here"
-<<<<<<< HEAD
->
-  #Your Code Here
-</textarea>
-=======
 />
->>>>>>> main
 `;
 
 exports[`renders the question content correctly 1`] = `
@@ -60,17 +55,13 @@ exports[`renders the test cases correctly 1`] = `
   className="testCases"
 >
   <div
-    className="ant-list ant-list-lg ant-list-split ant-list-bordered"
-    style={
-      Object {
-        "width": "100%",
-      }
-    }
+    className="ant-card ant-card-bordered"
   >
     <div
-      className="ant-list-header"
+      className="ant-card-body"
+      style={Object {}}
     >
-      <h4
+      <h3
         className="ant-typography"
         style={
           Object {
@@ -79,60 +70,100 @@ exports[`renders the test cases correctly 1`] = `
         }
       >
         Test Cases
-      </h4>
-    </div>
-    <div
-      className="ant-spin-nested-loading"
-    >
+      </h3>
       <div
-        className="ant-spin-container"
+        className="ant-list ant-list-lg ant-list-split ant-list-bordered"
+        style={
+          Object {
+            "marginLeft": "-12px",
+            "width": "105%",
+          }
+        }
       >
-        <ul
-          className="ant-list-items"
+        <div
+          className="ant-spin-nested-loading"
         >
-          <li
-            className="ant-list-item ant-list-item-no-flex"
+          <div
+            className="ant-spin-container"
           >
-            <b>
-              Test Case #1
-            </b>
-            <span
-              className="ant-tag ant-tag-success"
-              id={1}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "display": "none",
-                }
-              }
+            <ul
+              className="ant-list-items"
             >
-              Passed
-            </span>
-            <br />
-            test 1
-          </li>
-          <li
-            className="ant-list-item ant-list-item-no-flex"
-          >
-            <b>
-              Test Case #2
-            </b>
-            <span
-              className="ant-tag ant-tag-success"
-              id={2}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "display": "none",
-                }
-              }
-            >
-              Passed
-            </span>
-            <br />
-            test 2
-          </li>
-        </ul>
+              <div
+                className="ant-card test-title"
+              >
+                <div
+                  className="ant-card-head"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-card-head-wrapper"
+                  >
+                    <div
+                      className="ant-card-head-title"
+                    >
+                      Test Case #1
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={Object {}}
+                >
+                  <span
+                    className="ant-tag ant-tag-success"
+                    id={1}
+                    style={
+                      Object {
+                        "backgroundColor": undefined,
+                        "display": "none",
+                      }
+                    }
+                  >
+                    Passed
+                  </span>
+                  test 1
+                </div>
+              </div>
+              <div
+                className="ant-card test-title"
+              >
+                <div
+                  className="ant-card-head"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-card-head-wrapper"
+                  >
+                    <div
+                      className="ant-card-head-title"
+                    >
+                      Test Case #2
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={Object {}}
+                >
+                  <span
+                    className="ant-tag ant-tag-success"
+                    id={2}
+                    style={
+                      Object {
+                        "backgroundColor": undefined,
+                        "display": "none",
+                      }
+                    }
+                  >
+                    Passed
+                  </span>
+                  test 2
+                </div>
+              </div>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

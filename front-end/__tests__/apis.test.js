@@ -13,7 +13,8 @@ describe("Gets question 1", () => {
                 Qid: 1,
                 Tid: 1,
                 description: `
-                  This question focuses on the topic of print statements in Python.
+                  This question focuses on the topic of 
+                  print statements in Python.
                 `,
                 difficulty: "easy",
                 name: "Hello to the world of coding!",

@@ -5,8 +5,7 @@ import {
   Input,
   Button,
   Row,
-  Tooltip,
-  Space,
+  Typography,
 } from 'antd';
 import {
   LeftOutlined,
@@ -25,8 +24,10 @@ import 'codemirror/mode/python/python';
 
 // Personal component imports
 import MyCodeMirror from './MyCodeMirror';
+
+const { Title } = Typography;
 /* File consists of auxiliary functions for IDE rendering */
-// Used by thrid-party plugin to compute sent code
+// Used by third-party plugin to compute sent code
 function builtinRead(x) {
   if (
     window.Sk.builtinFiles === undefined
@@ -73,9 +74,10 @@ class Skulpt extends React.Component {
     mypre.innerHTML += text;
   }
 
-  // Auxiliary function that allows the user to run the given questions test-cases
+  // Auxiliary function that allows the user to run
+  // the given questions test-cases
   submit() {
-    // Varaibles declarations
+    // Variables declarations
     let i;
     const idAux = 'Test Case #';
     const tests = this.props.testCases;
@@ -122,7 +124,8 @@ class Skulpt extends React.Component {
     }
   }
 
-  // Auxiliary function that allows the user to run their code without running the questions tests
+  // Auxiliary function that allows the user to run their code without
+  // running the questions tests
   execute() {
     // Variable declarations
     const codeOutput = document.getElementById('code-input');
@@ -183,74 +186,51 @@ class Skulpt extends React.Component {
               tag={Link}
               to={`/IDE/${this.props.id - 1}`}
             >
-              <Tooltip
-                placement="left"
-                title="Easier"
-              >
-                <Button
-                  type="primary"
-                  size="medium"
-                  style={{
-                    display: 'inline-flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  icon={<LeftOutlined />}
-                  onClick={this.props.handleEasyClick}
-                />
-              </Tooltip>
-            </NavLink>
-            <Space>
               <Button
-                id="Run"
                 type="primary"
-                size="medium"
-                onClick={this.execute}
-                style={{
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                Run
-              </Button>
-              <Button
-                id="Submit"
-                size="medium"
-                // onClick={this.submit}
-                style={{
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                Submit
-              </Button>
-            </Space>
+                size="large"
+                icon={<LeftOutlined />}
+                onClick={this.props.handleEasyClick}
+              />
+            </NavLink>
             <NavLink
               tag={Link}
               to={`/IDE/${this.props.id + 1}`}
             >
-              <Tooltip
-                placement="right"
-                title="Harder"
-              >
-                <Button
-                  type="primary"
-                  size="medium"
-                  style={{
-                    display: 'inline-flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  icon={<RightOutlined />}
-                  onClick={this.props.handleHardClick}
-                />
-              </Tooltip>
+              <Button
+                type="primary"
+                size="large"
+                icon={<RightOutlined />}
+                onClick={this.props.handleHardClick}
+              />
             </NavLink>
+            <Button
+              id="Run"
+              type="primary"
+              size="large"
+              onClick={this.execute}
+              className="run-btn"
+            >
+              Run
+            </Button>
+            <Button
+              id="Submit"
+              size="large"
+              // onClick={this.submit}
+            >
+              Submit
+            </Button>
+          </Row>
+          <Row>
+            <Title
+              level={5}
+              style={{ marginLeft: '2.25%', fontWeight: 'normal' }}
+            >
+              Difficulty
+            </Title>
           </Row>
         </HashRouter>
-        <div id="output-area" style={{ display: 'none' }}>
+        <div id="output-area">
           <textarea
             value={this.state.output}
             readOnly="true"

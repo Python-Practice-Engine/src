@@ -23,7 +23,7 @@ class MyCodeMirror extends React.Component {
     }
   }
 
-  // Unload thrid-party plugin after finished
+  // Unload third-party plugin after finished
   componentWillUnmount() {
     // initialize CodeMirror once done
     if (this.codeMirror) {
