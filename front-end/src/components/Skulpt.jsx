@@ -90,11 +90,10 @@ class Skulpt extends React.Component {
         const codeTR = tests[i].code;
         const expect = tests[i].expected;
         const prog = codeOutput.value + codeTR.replaceAll('\\', '');
-        const mypre = codeOutput;
         const tag = document.getElementById(tests[i].TCid.toString());
 
         // Auxiliary preperations for Skulpt
-        mypre.innerHTML = '';
+        this.setState({ output: '' });
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
         window.Sk.configure({ output: this.outf, read: builtinRead });
