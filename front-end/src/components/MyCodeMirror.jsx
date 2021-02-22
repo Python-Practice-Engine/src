@@ -49,7 +49,7 @@ class MyCodeMirror extends React.Component {
         id="code-input"
         name="code-input"
         margin="0"
-        value="#Your Code Here"
+        defaultValue="#Your Code Here"
         onChange={this.onEdit}
       />
     );
