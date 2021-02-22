@@ -43,6 +43,7 @@ class Skulpt extends React.Component {
   constructor(props) {
     super(props);
     this.execute = this.execute.bind(this);
+    this.submit = this.submit.bind(this);
     this.outf = this.outf.bind(this);
     this.state = {
       output: '',
@@ -79,7 +80,6 @@ class Skulpt extends React.Component {
   submit() {
     // Variables declarations
     let i;
-    const idAux = 'Test Case #';
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
 
@@ -88,9 +88,10 @@ class Skulpt extends React.Component {
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
         const codeTR = tests[i].code;
-        const prog = codeOutput.value + codeTR.replaceAll('"', '\\"');
+        const expect = tests[i].expected;
+        const prog = codeOutput.value + codeTR.replaceAll('\\', '');
         const mypre = codeOutput;
-        const tag = document.getElementById(idAux + tests[i].TCid.toString());
+        const tag = document.getElementById(tests[i].TCid.toString());
 
         // Auxiliary preperations for Skulpt
         mypre.innerHTML = '';
@@ -110,7 +111,9 @@ class Skulpt extends React.Component {
         // Code executes
         myPromise.then(() => {
           // Display 'Passed' tag if test passes
-          tag.style.display = '';
+          if (expect === this.state.output) {
+            tag.style.display = '';
+          }
           console.log('success');
         },
         // Error in code, output error message
@@ -216,7 +219,7 @@ class Skulpt extends React.Component {
             <Button
               id="Submit"
               size="large"
-              // onClick={this.submit}
+              onClick={this.submit}
             >
               Submit
             </Button>
