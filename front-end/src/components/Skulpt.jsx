@@ -136,10 +136,8 @@ class Skulpt extends React.Component {
     if (codeOutput) {
       // DOM elements to be used by Skulpt
       const prog = codeOutput.value;
-      const mypre = codeOutput;
 
       // Auxiliary preperations for Skulpt
-      mypre.innerHTML = '';
       this.setState({ output: '' });
       window.Sk.python3 = true;
       window.Sk.pre = 'output';
