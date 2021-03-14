@@ -25,3 +25,12 @@ dgm.hasEdge('String', 'While loops');
 
 dgm.hasEdge('For loops', 'While loops');
 // dgm.hasEdge('While loops', 'For loops');
+
+dgm.hasEdge('For loops', 'Iterative functions');
+dgm.hasEdge('If/else', 'Iterative Functions');
+
+dgm.hasEdge('While loops', 'Recursive functions');
+dgm.hasEdge('While loops', 'Files Input and Output');
+// dgm.hasEdge('While loops', '')
+
+dgm.hasEdge('Iterative functions', 'Classes');
