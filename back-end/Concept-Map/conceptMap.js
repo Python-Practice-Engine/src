@@ -1,3 +1,4 @@
+// https://www.npmjs.com/package/directed-graph-map
 const DirectedGraphMap = require('directed-graph-map');
 
 const dgm = new DirectedGraphMap([['Intro', 'Numbers', 'String', 'Boolean', 'Conditionals', 'If/else', 'For loops', 'While loops', 'Try and catch', 'List', 'Tuple', 'dict', 'Iterative Functions', 'Recursive Functions', 'Files Input and Output', 'Classes']]);
@@ -34,3 +35,4 @@ dgm.hasEdge('While loops', 'Files Input and Output');
 // dgm.hasEdge('While loops', '')
 
 dgm.hasEdge('Iterative functions', 'Classes');
+
