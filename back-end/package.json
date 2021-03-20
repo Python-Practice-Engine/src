@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "jest-mysql": "^1.1.4",
     "mysql": "^2.18.1",
+    "node-localstorage": "^2.1.6",
     "npm": "^6.14.11",
     "supertest": "^6.1.3"
   },
