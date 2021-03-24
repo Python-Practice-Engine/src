@@ -17,16 +17,23 @@
 .navBar {
     margin-bottom: 5%;
 }
+
 /* IDE page */
+
+.text-editor {
+    border: 1px solid #E0E0E0;
+}
 
 textarea[name=output] {
     width: 100%;
-    height: 100%;
     box-sizing: border-box;
-    padding: 1%;
     border: none;
     resize: none;
     font-size: 16pt;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
 }
 
 .testCases {
@@ -87,5 +94,6 @@ textarea[name=output] {
 }
 
 #output-area {
-    display: none
+    display: none;
+    margin-top: 2%;
 }

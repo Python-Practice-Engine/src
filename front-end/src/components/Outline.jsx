@@ -40,6 +40,9 @@ const Outline = () => (
         <Route exact path="/">
           <Redirect to="/IDE/1" />
         </Route>
+        <Route exact path="/IDE">
+          <Redirect to="/IDE/1" />
+        </Route>
       </div>
     </HashRouter>
     <div className="footer" />

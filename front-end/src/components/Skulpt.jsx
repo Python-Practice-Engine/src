@@ -6,6 +6,7 @@ import {
   Button,
   Row,
   Typography,
+  Card,
 } from 'antd';
 import {
   LeftOutlined,
@@ -110,8 +111,12 @@ class Skulpt extends React.Component {
         // Code executes
         myPromise.then(() => {
           // Display 'Passed' tag if test passes
+          const scrollingElement = (
+            document.scrollingElement || document.body
+          );
+          scrollingElement.scrollTop = scrollingElement.scrollHeight;
           if (expect === this.state.output) {
-            tag.style.display = '';
+            tag.style.display = 'unset';
           }
           console.log('success');
         },
@@ -153,6 +158,10 @@ class Skulpt extends React.Component {
       );
       // Code executes properly
       myPromise.then(() => {
+        const scrollingElement = (
+          document.scrollingElement || document.body
+        );
+        scrollingElement.scrollTop = scrollingElement.scrollHeight;
         console.log('success');
         return 'success';
       },
@@ -170,7 +179,7 @@ class Skulpt extends React.Component {
   render() {
     return (
       <div className="ide-card">
-        <div>
+        <div className="text-editor">
           <Input.Group compact size="large" className="mock-input">
             <MyCodeMirror />
           </Input.Group>
@@ -231,13 +240,19 @@ class Skulpt extends React.Component {
           </Row>
         </HashRouter>
         <div id="output-area">
-          <textarea
-            value={this.state.output}
-            readOnly="{true}?"
-            className="output"
-            id="code-output"
-            name="output"
-          />
+          <Card
+            type="inner"
+            title="Output"
+            style={{ padding: '0', margin: '0' }}
+          >
+            <textarea
+              value={this.state.output}
+              readOnly="{true}?"
+              className="output"
+              id="code-output"
+              name="output"
+            />
+          </Card>
         </div>
       </div>
     );
