@@ -33,7 +33,7 @@ app.get('/questionSet/:tags', (req, res) => {
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid} OR Qid = -1 ORDER BY Tid DESC;`;
+  const sqlRetrieve = `SELECT * FROM question WHERE id = ${Qid}`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
