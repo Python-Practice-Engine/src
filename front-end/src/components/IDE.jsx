@@ -127,7 +127,7 @@ class IDE extends React.Component {
               {/* This is the text editor itself */}
               <Skulpt
                 testCases={this.state.testCases}
-                id={this.state.question.Qid}
+                id={this.state.question.id}
                 handleHardClick={this.handleHardClick}
                 handleEasyClick={this.handleEasyClick}
               />
