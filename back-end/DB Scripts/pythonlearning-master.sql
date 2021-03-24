@@ -8,9 +8,9 @@ DROP TABLE Tutorials;
 # CREATE TABLES
 CREATE TABLE Tutorials (
 	Tid INT NOT NULL,
-	name VARCHAR(40) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	description VARCHAR(2000) NOT NULL,
-	code VARCHAR(100),
+	code VARCHAR(1000),
 	PRIMARY KEY ( Tid )
 );
 
@@ -18,8 +18,8 @@ CREATE TABLE Questions (
 	Qid INT NOT NULL,
 	name VARCHAR(40) NOT NULL,
 	tags VARCHAR(50) NOT NULL,
-	question VARCHAR(300) NOT NULL,
-	description VARCHAR(1000) NOT NULL,
+	question VARCHAR(1000) NOT NULL,
+	description VARCHAR(2000) NOT NULL,
 	difficulty ENUM('easy','medium','hard'),
 	Tid INT,
 	PRIMARY KEY ( Qid ),
@@ -28,8 +28,8 @@ CREATE TABLE Questions (
 
 CREATE TABLE Testcases (
 	TCid INT NOT NULL,
-	test VARCHAR(200) NOT NULL,
-	code VARCHAR(200) NOT NULL,
+	test VARCHAR(1000) NOT NULL,
+	code VARCHAR(1000) NOT NULL,
 	Qid INT NOT NULL,
 	PRIMARY KEY ( TCid ),
 	FOREIGN KEY (Qid) REFERENCES Questions(Qid)
@@ -50,5 +50,5 @@ INSERT INTO Questions (Qid, name, description, tags, question, difficulty, Tid) 
 INSERT INTO Testcases (TCid, test, code, Qid) VALUES (2, 'If you see “Hello world, here I am!” displayed on your screen, you have passed the test cases.', '\nx = \\"Hello world, here I am!\\"\nprint(x)\n', 2);
 
  #Q3
-INSERT INTO Questions (Qid, name, description, tags, question, difficulty, Tid) VALUES (3, 'Integers and floats and numbers...oh my!', 'This question focuses on the topic of number types in Python.', 'Numbers', 'In the same way you used Python’s built-in function print(), now we are going to use the Python’s built-in function type(). type() is another built-in function that can tell us the “type” of a thing in Python. Use the print statement to print the type of 2 and repeat this for the type of 2.0.', 'easy', 3);
+INSERT INTO Questions (Qid, name, description, tags, question, difficulty, Tid) VALUES (3, 'Integers and floats and numbers...oh my!', 'This question focuses on the topic of number types in Python.', 'Numbers', 'In the same way you used Python’s built-in function print(), now we are going to use the Python’s built-in function type(). type() is another built-in function that can tell us the “type” of a thing in Python. Use the print statement to print the type of 2 and repeat this for the type of 2.0 on a separate line.', 'easy', 3);
 INSERT INTO Testcases (TCid, test, code, Qid) VALUES (3, "If you see <class 'int'>, <class 'float'> You have passed the test cases.", '\nprint(type(2))\nprint(type(2.0))\n', 3);
