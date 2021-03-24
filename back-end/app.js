@@ -33,7 +33,7 @@ app.get('/questionSet/:tags', (req, res) => {
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid};`;
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid} OR Qid = -1 ORDER BY Tid DESC;`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
@@ -44,7 +44,7 @@ app.get('/questions/:Qid', (req, res) => {
 app.get('/testcases/:Qid', (req, res) => {
   // Retrieve the question id from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid};`;
+  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid} OR Qid = -1 ORDER BY Tid DESC;`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
@@ -54,7 +54,7 @@ app.get('/testcases/:Qid', (req, res) => {
 // Route for retrieving testcases related to a question
 app.get('/tutorial/:Tid', (req,res) => {
   var Tid = req.params.Tid;
-  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ${Tid};`;
+  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ${Tid} OR Tid = -1 ORDER BY Tid DESC;`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
