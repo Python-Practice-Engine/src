@@ -97,7 +97,15 @@ class Skulpt extends React.Component {
         this.setState({ output: '' });
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
-        window.Sk.configure({ output: this.outf, read: builtinRead });
+        window.Sk.configure({
+          output: this.outf,
+          read: builtinRead,
+          killableWhile: true,
+          yieldLimit: 100,
+          execLimit: 5000,
+          timeoutMsg: 'your program timed out',
+          python3: true,
+        });
 
         // Feed code into Skulpt to execute
         const myPromise = window.Sk.misceval.asyncToPromise(
@@ -115,7 +123,18 @@ class Skulpt extends React.Component {
             document.scrollingElement || document.body
           );
           scrollingElement.scrollTop = scrollingElement.scrollHeight;
-          if (expect === this.state.output) {
+
+          const result = expect.split('\n');
+          let test = false;
+          for (let item = 0; item < result.length; item += 1) {
+            if (this.state.output.includes(result[item])) {
+              test = true;
+            } else {
+              test = false;
+              break;
+            }
+          }
+          if (test) {
             tag.style.display = 'unset';
           }
           console.log('success');
@@ -123,9 +142,7 @@ class Skulpt extends React.Component {
         // Error in code, output error message
         (error) => {
           const errMsg = error.toString();
-          const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
-          const msg = errMsg.slice(0, -1) + lineNum.toString();
-          this.outf(msg);
+          this.outf(errMsg);
         });
       }
     }
@@ -145,7 +162,15 @@ class Skulpt extends React.Component {
       this.setState({ output: '' });
       window.Sk.python3 = true;
       window.Sk.pre = 'output';
-      window.Sk.configure({ output: this.outf, read: builtinRead });
+      window.Sk.configure({
+        output: this.outf,
+        read: builtinRead,
+        killableWhile: true,
+        yieldLimit: 100,
+        execLimit: 5000,
+        timeoutMsg: 'your program timed out',
+        python3: true,
+      });
 
       // Feed code into Skulpt to execute
       const myPromise = window.Sk.misceval.asyncToPromise(
@@ -168,9 +193,7 @@ class Skulpt extends React.Component {
       // Error in code, output error message
       (error) => {
         const errMsg = error.toString();
-        const lineNum = parseInt(errMsg.substr(errMsg.length - 1), 10) - 1;
-        const msg = errMsg.slice(0, -1) + lineNum.toString();
-        this.outf(msg);
+        this.outf(errMsg);
       });
     }
   }
