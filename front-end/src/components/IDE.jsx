@@ -6,9 +6,9 @@ import Axios from 'axios';
 import {
   Card,
 } from 'antd';
+
 import {
   Col,
-  Container,
   Row,
 } from 'reactstrap';
 
@@ -102,38 +102,38 @@ class IDE extends React.Component {
   render() {
     const tabs = this.state;
     return (
-      <div>
-        <Container>
-          <Row>
-            <Col md="6">
-              {/* The card that contains the question and tutorial */}
-              <Card
-                className="questionCard"
-                tabList={tabList}
-                activeTabKey={tabs.key}
-                onTabChange={(key) => {
-                  this.onTabChange(key, 'key');
-                }}
-              >
-                {
-                  tabs.key === 'question'
-                    ? <QuestionContent contents={this.state.question} />
-                    : <TutorialContent contents={this.state.tutorial} />
-                }
-              </Card>
-              <TestCases testCases={this.state.testCases} />
-            </Col>
-            <Col md="6">
-              {/* This is the text editor itself */}
-              <Skulpt
-                testCases={this.state.testCases}
-                id={this.state.question.Qid}
-                handleHardClick={this.handleHardClick}
-                handleEasyClick={this.handleEasyClick}
-              />
-            </Col>
-          </Row>
-        </Container>
+      <div className="main-body">
+        {/* <Container> */}
+        <Row>
+          <Col md="6">
+            {/* The card that contains the question and tutorial */}
+            <Card
+              className="questionCard"
+              tabList={tabList}
+              activeTabKey={tabs.key}
+              onTabChange={(key) => {
+                this.onTabChange(key, 'key');
+              }}
+            >
+              {
+                tabs.key === 'question'
+                  ? <QuestionContent contents={this.state.question} />
+                  : <TutorialContent contents={this.state.tutorial} />
+              }
+            </Card>
+            <TestCases testCases={this.state.testCases} />
+          </Col>
+          <Col md="6">
+            {/* This is the text editor itself */}
+            <Skulpt
+              testCases={this.state.testCases}
+              id={this.state.question.Qid}
+              handleHardClick={this.handleHardClick}
+              handleEasyClick={this.handleEasyClick}
+            />
+          </Col>
+        </Row>
+        {/* </Container> */}
       </div>
     );
   }
