@@ -3,25 +3,31 @@
 .header {
   text-align: center;
   color: #1890ff;
-  margin-top: 1%;
+  margin-top: 0;
 }
 
 .footer {
-  padding-bottom:2%;
+  padding-bottom: 2%;
 }
 
-.navbar-padding {
-  padding-top: 1%;
+.nav-btns {
+    margin-top: 0.5%;
+    margin-bottom: 0;
 }
 
-.navBar {
-    margin-bottom: 5%;
+.login-btn {
+    margin-right: 7%;
 }
 
 /* IDE page */
 
 .text-editor {
     border: 1px solid #E0E0E0;
+}
+
+.main-body {
+    margin-right: 3%;
+    margin-left: 3%;
 }
 
 textarea[name=output] {
@@ -57,36 +63,6 @@ input:focus, textarea:focus, select:focus{
   margin-top: 1%;
 }
 
-/* Home page */
-
-.landingPageTitle {
-    text-align: center;
-}
-
-.landingPageImg {
-    height:65vh;
-    width:100%;
-    padding: 0;
-    margin: 0;
-}
-
-/* Questions Page */
-
-.q-table {
-    margin: 2% 5% 0 5%;
-}
-
-.panel-topic {
-    min-height: 15vh;
-}
-
-.collapse-topics {
-    margin: 5% 10% 0%;
-}
-
-.questionDescription {
-    margin-top: 1%;
-}
 
 /* Skulpt IDE */
 .run-btn {
@@ -96,4 +72,16 @@ input:focus, textarea:focus, select:focus{
 #output-area {
     display: none;
     margin-top: 2%;
+}
+
+/* Login Page */
+
+.login-page {
+    height: 100vh;
+    width: 100vw;
+    background-color: #1890ff;
+}
+
+.login-title {
+    color: #1890ff; 
 }
