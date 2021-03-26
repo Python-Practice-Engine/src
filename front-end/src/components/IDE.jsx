@@ -5,12 +5,24 @@ import Axios from 'axios';
 // React component library imports
 import {
   Card,
+  Typography,
+  Button,
 } from 'antd';
 
+// Reactstrap nav imports
 import {
   Col,
   Row,
+  Navbar,
+  Nav,
+  NavItem,
 } from 'reactstrap';
+
+import {
+  HashRouter,
+  NavLink,
+  Link,
+} from 'react-router-dom';
 
 // Personal component imports
 import QuestionContent from './QuestionContent';
@@ -29,6 +41,8 @@ const tabList = [
     tab: 'Tutorial',
   },
 ];
+
+const { Title } = Typography;
 
 /*
   The IDE component is the component that contains: the text editor, test
@@ -101,9 +115,41 @@ class IDE extends React.Component {
 
   render() {
     const tabs = this.state;
+
     return (
       <div className="main-body">
-        {/* <Container> */}
+        <div className="navBar">
+          <HashRouter>
+            <div className="nav-btns">
+              <Navbar color="faded" light expand="md">
+                <Nav className="ml-auto" navbar>
+                  <NavLink tag={Link} to="/Login" className="login-btn">
+                    <NavItem>
+                      <Button type="primary" size="medium">Login</Button>
+                    </NavItem>
+                  </NavLink>
+                  <NavLink tag={Link} to="/SignUp">
+                    <NavItem>
+                      <Button size="medium">Sign Up</Button>
+                    </NavItem>
+                  </NavLink>
+                </Nav>
+              </Navbar>
+            </div>
+          </HashRouter>
+          <Title
+            style={{
+              marginBottom: '2%',
+              paddingBottom: '0',
+              marginTop: '0',
+              paddingTop: '0',
+            }}
+          >
+            <div className="header">
+              Python Practice Engine
+            </div>
+          </Title>
+        </div>
         <Row>
           <Col md="6">
             {/* The card that contains the question and tutorial */}
@@ -133,7 +179,6 @@ class IDE extends React.Component {
             />
           </Col>
         </Row>
-        {/* </Container> */}
       </div>
     );
   }
