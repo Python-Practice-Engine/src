@@ -222,7 +222,6 @@ class Skulpt extends React.Component {
                 type="primary"
                 size="large"
                 icon={<LeftOutlined />}
-                onClick={this.props.handleEasyClick}
               />
             </NavLink>
             <NavLink
@@ -233,7 +232,6 @@ class Skulpt extends React.Component {
                 type="primary"
                 size="large"
                 icon={<RightOutlined />}
-                onClick={this.props.handleHardClick}
               />
             </NavLink>
             <Button

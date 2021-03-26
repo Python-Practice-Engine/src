@@ -60,17 +60,13 @@ class IDE extends React.Component {
       question: {},
       testCases: [],
       tutorial: {},
-      Qid: this.props.match.params.Qid,
     };
-
-    this.handleHardClick = this.handleHardClick.bind(this);
-    this.handleEasyClick = this.handleEasyClick.bind(this);
   }
 
   componentDidMount() {
     this.mounted = true;
     this.axiosCancelSource = Axios.CancelToken.source();
-    Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((
+    Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
       // eslint-disable-next-line comma-dangle
       response
     ) => {
@@ -84,7 +80,7 @@ class IDE extends React.Component {
         });
       }
     });
-    Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((
+    Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
       // eslint-disable-next-line comma-dangle
       response
     ) => {
@@ -94,19 +90,32 @@ class IDE extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.Qid !== prevProps.match.params.Qid) {
+      Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+        response
+      ) => {
+        this.setState({ question: response.data[0] });
+        Axios.get(
+          // eslint-disable-next-line comma-dangle
+          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
+        ).then((res) => {
+          this.setState({ tutorial: res.data[0] });
+        });
+      });
+      Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+        response
+      ) => {
+        this.setState({ testCases: response.data });
+      });
+    }
+  }
+
   componentWillUnmount() {
     this.axiosCancelSource.cancel('Axios request canceled.');
     this.mounted = false;
-  }
-
-  handleHardClick() {
-    this.setState({ Qid: this.props.match.params.Qid });
-    setTimeout(() => window.location.reload(), 300);
-  }
-
-  handleEasyClick() {
-    this.setState({ Qid: this.props.match.params.Qid });
-    setTimeout(() => window.location.reload(), 300);
   }
 
   onTabChange = (key, type) => {
@@ -174,8 +183,6 @@ class IDE extends React.Component {
             <Skulpt
               testCases={this.state.testCases}
               id={this.state.question.Qid}
-              handleHardClick={this.handleHardClick}
-              handleEasyClick={this.handleEasyClick}
             />
           </Col>
         </Row>
