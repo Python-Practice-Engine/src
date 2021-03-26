@@ -22,6 +22,7 @@ import {
   HashRouter,
   NavLink,
   Link,
+  Redirect,
 } from 'react-router-dom';
 
 // Personal component imports
@@ -60,6 +61,7 @@ class IDE extends React.Component {
       question: {},
       testCases: [],
       tutorial: {},
+      redirect: false,
     };
   }
 
@@ -70,6 +72,9 @@ class IDE extends React.Component {
       // eslint-disable-next-line comma-dangle
       response
     ) => {
+      if (response.data.length === 0) {
+        this.setState({ redirect: true });
+      }
       if (this.mounted) {
         this.setState({ question: response.data[0] });
         Axios.get(
@@ -96,6 +101,9 @@ class IDE extends React.Component {
       // eslint-disable-next-line comma-dangle
         response
       ) => {
+        if (response.data.length === 0) {
+          this.setState({ redirect: true });
+        }
         this.setState({ question: response.data[0] });
         Axios.get(
           // eslint-disable-next-line comma-dangle
@@ -124,6 +132,10 @@ class IDE extends React.Component {
 
   render() {
     const tabs = this.state;
+
+    if (this.state.redirect) {
+      return <Redirect to="/NoMatch" />;
+    }
 
     return (
       <div className="main-body">
