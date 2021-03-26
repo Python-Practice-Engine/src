@@ -12,6 +12,7 @@ import {
 import IDE from './IDE';
 import SignUp from './SignUp';
 import Login from './Login';
+import NoMatch from './NoMatch';
 
 /*
   This is the outline, it contains the header, navbar, and footer. It is the
@@ -30,6 +31,9 @@ const Outline = () => (
         </Route>
         <Route exact path="/IDE">
           <Redirect to="/IDE/1" />
+        </Route>
+        <Route path="*">
+          <NoMatch />
         </Route>
       </div>
     </HashRouter>
