@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
@@ -17,6 +18,7 @@ const db = mysql.createPool({
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // For the questions page
 // Route for retrieving questions based on concepts
@@ -33,7 +35,7 @@ app.get('/questionSet/:tags', (req, res) => {
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM question WHERE id = ${Qid}`;
+  const sqlRetrieve = `SELECT * FROM Questions WHERE Qid = ${Qid} OR Qid = -1 ORDER BY Qid DESC LIMIT 1;`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });

@@ -10,6 +10,7 @@ import {
   Route,
   HashRouter,
   Redirect,
+  Switch,
 } from 'react-router-dom';
 
 // Personal component imports
@@ -35,15 +36,15 @@ const Outline = () => (
           Python Practice Engine
         </div>
       </Title>
-      <div className="content">
-        <Route path="/IDE/:Qid" component={IDE} />
+      <Switch>
+        <Route exact path="/IDE/:Qid" component={IDE} />
         <Route exact path="/">
           <Redirect to="/IDE/1" />
         </Route>
         <Route exact path="/IDE">
           <Redirect to="/IDE/1" />
         </Route>
-      </div>
+      </Switch>
     </HashRouter>
     <div className="footer" />
   </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Axios from 'axios';
 
@@ -19,16 +19,6 @@ import TestCases from './TestCases';
 import TutorialContent from './TutorialContent';
 
 // tabList lists the names of the within the questions card.
-const tabList = [
-  {
-    key: 'question',
-    tab: 'Question',
-  },
-  {
-    key: 'tutorial',
-    tab: 'Tutorial',
-  },
-];
 
 /*
   The IDE component is the component that contains: the text editor, test
@@ -36,107 +26,90 @@ const tabList = [
   essentially houses a few other components and is the "practice engine" page.
 */
 
-class IDE extends React.Component {
-  mounted = false;
+function IDE(props) {
+  const [question, setQuestion] = useState({});
+  // const [Qid, setQid] = useState(props.match.params.Qid);
+  const [k, setK] = useState('question');
+  const [tutorial, setTutorial] = useState({});
+  const [testCases, setTestCases] = useState([]);
 
-  constructor(props) {
-    super(props);
-    this.state = {
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/questions/${props.match.params.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+      response
+    ) => {
+      setQuestion(response.data[0]);
+      Axios.get(
+        // eslint-disable-next-line comma-dangle
+        `http://localhost:3001/tutorial/${Object.values(question)[6]}`
+      ).then((res) => {
+        setTutorial(res.data[0]);
+      });
+    });
+    Axios.get(`http://localhost:3001/testcases/${props.match.params.Qid}`).then((
+      // eslint-disable-next-line comma-dangle
+      response
+    ) => {
+      setTestCases(response.data);
+    });
+  }, []);
+
+  // const contentList = {
+  //   question: <QuestionContent contents={question} />,
+  //   tutorial: <TutorialContent contents={tutorial} />,
+  // };
+
+  const tabList = [
+    {
       key: 'question',
-      question: {},
-      testCases: [],
-      tutorial: {},
-      Qid: this.props.match.params.Qid,
-    };
+      tab: 'Question',
+    },
+    {
+      key: 'tutorial',
+      tab: 'Tutorial',
+    },
+  ];
 
-    this.handleHardClick = this.handleHardClick.bind(this);
-    this.handleEasyClick = this.handleEasyClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.mounted = true;
-    this.axiosCancelSource = Axios.CancelToken.source();
-    Axios.get(`http://localhost:3001/questions/${this.state.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
-    ) => {
-      if (this.mounted) {
-        this.setState({ question: response.data[0] });
-        Axios.get(
-          // eslint-disable-next-line comma-dangle
-          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-        ).then((res) => {
-          this.setState({ tutorial: res.data[0] });
-        });
-      }
-    });
-    Axios.get(`http://localhost:3001/testcases/${this.state.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
-    ) => {
-      if (this.mounted) {
-        this.setState({ testCases: response.data });
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this.axiosCancelSource.cancel('Axios request canceled.');
-    this.mounted = false;
-  }
-
-  handleHardClick() {
-    this.setState({ Qid: this.props.match.params.Qid });
-    setTimeout(() => window.location.reload(), 300);
-  }
-
-  handleEasyClick() {
-    this.setState({ Qid: this.props.match.params.Qid });
-    setTimeout(() => window.location.reload(), 300);
-  }
-
-  onTabChange = (key, type) => {
-    this.setState({ [type]: key });
+  const onTabChange = (key, type) => {
+    console.log(key);
+    console.log(type);
+    console.log(key, type);
+    setK('tutorial');
   };
 
-  render() {
-    const tabs = this.state;
-    return (
-      <div>
-        <Container>
-          <Row>
-            <Col md="6">
-              {/* The card that contains the question and tutorial */}
-              <Card
-                className="questionCard"
-                tabList={tabList}
-                activeTabKey={tabs.key}
-                onTabChange={(key) => {
-                  this.onTabChange(key, 'key');
-                }}
-              >
-                {
-                  tabs.key === 'question'
-                    ? <QuestionContent contents={this.state.question} />
-                    : <TutorialContent contents={this.state.tutorial} />
-                }
-              </Card>
-              <TestCases testCases={this.state.testCases} />
-            </Col>
-            <Col md="6">
-              {/* This is the text editor itself */}
-              <Skulpt
-                testCases={this.state.testCases}
-                id={this.state.question.id}
-                handleHardClick={this.handleHardClick}
-                handleEasyClick={this.handleEasyClick}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Col md="6">
+            {/* The card that contains the question and tutorial */}
+            <Card
+              className="questionCard"
+              tabList={tabList}
+              activeTabKey={k}
+              onTabChange={(key) => {
+                onTabChange(key, 'key');
+              }}
+            >
+              {
+                k === 'question'
+                  ? <QuestionContent contents={question} />
+                  : <TutorialContent contents={tutorial} />
+              }
+            </Card>
+            <TestCases testCases={testCases} />
+          </Col>
+          <Col md="6">
+            {/* This is the text editor itself */}
+            <Skulpt
+              testCases={testCases}
+              id={question.id}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 }
 
 export default IDE;
