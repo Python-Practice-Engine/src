@@ -5,7 +5,7 @@ import {
   Route,
   HashRouter,
   Redirect,
-
+  Switch,
 } from 'react-router-dom';
 
 // Personal component imports
@@ -22,7 +22,7 @@ import NoMatch from './NoMatch';
 const Outline = () => (
   <div className="navBar">
     <HashRouter>
-      <div className="content">
+      <Switch>
         <Route path="/IDE/:Qid" component={IDE} />
         <Route path="/Login" component={Login} />
         <Route path="/SignUp" component={SignUp} />
@@ -35,7 +35,7 @@ const Outline = () => (
         <Route path="*">
           <NoMatch />
         </Route>
-      </div>
+      </Switch>
     </HashRouter>
     <div className="footer" />
   </div>
