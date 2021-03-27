@@ -216,6 +216,26 @@ class Skulpt extends React.Component {
             tag={Link}
             to={`/IDE/${this.props.id - 1}`}
           >
+            <NavLink
+              tag={Link}
+              to={`/IDE/${this.props.id - 1}`}
+            >
+              <Button
+                type="primary"
+                size="large"
+                icon={<LeftOutlined />}
+              />
+            </NavLink>
+            <NavLink
+              tag={Link}
+              to={`/IDE/${this.props.id + 1}`}
+            >
+              <Button
+                type="primary"
+                size="large"
+                icon={<RightOutlined />}
+              />
+            </NavLink>
             <Button
               type="primary"
               size="large"

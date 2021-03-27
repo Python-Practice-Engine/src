@@ -1,10 +1,5 @@
 import React from 'react';
 
-// React component library imports
-import {
-  Typography,
-} from 'antd';
-
 // Imports for React routing
 import {
   Route,
@@ -15,8 +10,9 @@ import {
 
 // Personal component imports
 import IDE from './IDE';
-
-const { Title } = Typography;
+import SignUp from './SignUp';
+import Login from './Login';
+import NoMatch from './NoMatch';
 
 /*
   This is the outline, it contains the header, navbar, and footer. It is the
@@ -26,27 +22,23 @@ const { Title } = Typography;
 const Outline = () => (
   <div className="navBar">
     <HashRouter>
-      <Title
-        style={{
-          marginBottom: '2%',
-          paddingBottom: '0',
-        }}
-      >
-        <div className="header">
-          Python Practice Engine
-        </div>
-      </Title>
       <Switch>
-        <Route exact path="/IDE/:Qid" component={IDE} />
+        <Route path="/IDE/:Qid" component={IDE} />
+        <Route path="/Login" component={Login} />
+        <Route path="/SignUp" component={SignUp} />
         <Route exact path="/">
           <Redirect to="/IDE/1" />
         </Route>
         <Route exact path="/IDE">
           <Redirect to="/IDE/1" />
         </Route>
+        <Route path="*">
+          <NoMatch />
+        </Route>
       </Switch>
     </HashRouter>
     <div className="footer" />
   </div>
 );
+
 export default Outline;
