@@ -20,8 +20,10 @@ CREATE TABLE `concept` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `level` int DEFAULT NULL,
+  `tutorial` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `question` (
   `id` int NOT NULL AUTO_INCREMENT,

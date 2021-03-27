@@ -25,13 +25,13 @@ class QuestionContent extends React.Component {
         <Title
           level={3}
         >
-          {this.props.contents.name}
+          {this.props.contents.title}
         </Title>
         <Space>
           <Tag color="warning">{this.props.contents.tags}</Tag>
         </Space>
         <p className="questionDescription">
-          {this.props.contents.question}
+          {this.props.contents.description}
         </p>
       </div>
 

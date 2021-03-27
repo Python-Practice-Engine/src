@@ -68,36 +68,45 @@ class IDE extends React.Component {
   componentDidMount() {
     this.mounted = true;
     this.axiosCancelSource = Axios.CancelToken.source();
-    Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
+
+    Axios.get(`http://localhost:3001/available_questions/${this.props.match.params.user_id}`).then((
+      response,
     ) => {
-      if (response.data.length === 0) {
-        this.setState({ redirect: true });
-      }
-      if (this.mounted) {
-        this.setState({ question: response.data[0] });
-        Axios.get(
-          // eslint-disable-next-line comma-dangle
-          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-        ).then((res) => {
-          this.setState({ tutorial: res.data[0] });
-        });
-      }
+      console.log(response.data[0]);
+      this.setState({ question: response.data[0] });
     });
-    Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
-    ) => {
-      if (this.mounted) {
-        this.setState({ testCases: response.data });
-      }
-    });
+    // Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+    //   // eslint-disable-next-line comma-dangle
+    //   response
+    // ) => {
+    //   if (response.data.length === 0) {
+    //     this.setState({ redirect: true });
+    //   }
+    //   if (this.mounted) {
+    //     this.setState({ question: response.data[0] });
+    //     Axios.get(
+    //       // eslint-disable-next-line comma-dangle
+    //       `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
+    //     ).then((res) => {
+    //       this.setState({ tutorial: res.data[0] });
+    //     });
+    //   }
+    // });
+    // Axios.get(`http://localhost:3001/testcases/${this.props.match.params.question_id}`).then((
+    //   // eslint-disable-next-line comma-dangle
+    //   response
+    // ) => {
+    //   if (this.mounted) {
+    //     this.setState({ testCases: response.data });
+    //   }
+    // });
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.Qid !== prevProps.match.params.Qid) {
-      Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
+    if (
+      this.props.match.params.question_id
+      !== prevProps.match.params.question_id) {
+      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
       // eslint-disable-next-line comma-dangle
         response
       ) => {
@@ -112,7 +121,7 @@ class IDE extends React.Component {
           this.setState({ tutorial: res.data[0] });
         });
       });
-      Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
+      Axios.get(`http://localhost:3001/testcases/${this.props.match.params.question_id}`).then((
       // eslint-disable-next-line comma-dangle
         response
       ) => {
@@ -194,7 +203,7 @@ class IDE extends React.Component {
             {/* This is the text editor itself */}
             <Skulpt
               testCases={this.state.testCases}
-              id={this.state.question.Qid}
+              id={this.state.question.id}
             />
           </Col>
         </Row>
