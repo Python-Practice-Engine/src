@@ -16,6 +16,7 @@ import {
 // Imports for React routing
 import {
   Link,
+  HashRouter,
   NavLink,
 } from 'react-router-dom';
 
@@ -206,15 +207,12 @@ class Skulpt extends React.Component {
             <MyCodeMirror />
           </Input.Group>
         </div>
-        <Row
-          type="flex"
-          align="middle"
-          className="submit-btns"
-          justify="space-between"
-        >
-          <NavLink
-            tag={Link}
-            to={`/IDE/${this.props.id - 1}`}
+        <HashRouter>
+          <Row
+            type="flex"
+            align="middle"
+            className="submit-btns"
+            justify="space-between"
           >
             <NavLink
               tag={Link}
@@ -237,46 +235,31 @@ class Skulpt extends React.Component {
               />
             </NavLink>
             <Button
+              id="Run"
               type="primary"
               size="large"
-              icon={<LeftOutlined />}
-            />
-          </NavLink>
-          <NavLink
-            tag={Link}
-            to={`/IDE/${this.props.id + 1}`}
-          >
+              onClick={this.execute}
+              className="run-btn"
+            >
+              Run
+            </Button>
             <Button
-              type="primary"
+              id="Submit"
               size="large"
-              icon={<RightOutlined />}
-            />
-          </NavLink>
-          <Button
-            id="Run"
-            type="primary"
-            size="large"
-            onClick={this.execute}
-            className="run-btn"
-          >
-            Run
-          </Button>
-          <Button
-            id="Submit"
-            size="large"
-            onClick={this.submit}
-          >
-            Submit
-          </Button>
-        </Row>
-        <Row>
-          <Title
-            level={5}
-            style={{ marginLeft: '2.25%', fontWeight: 'normal' }}
-          >
-            Difficulty
-          </Title>
-        </Row>
+              onClick={this.submit}
+            >
+              Submit
+            </Button>
+          </Row>
+          <Row>
+            <Title
+              level={5}
+              style={{ marginLeft: '2.25%', fontWeight: 'normal' }}
+            >
+              Difficulty
+            </Title>
+          </Row>
+        </HashRouter>
         <div id="output-area">
           <Card
             type="inner"
