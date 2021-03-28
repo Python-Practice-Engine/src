@@ -70,6 +70,16 @@ CREATE TABLE `user_question` (
   CONSTRAINT `user_question_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `test_case` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `question_id` int DEFAULT NULL,
+  `test` varchar(1000) DEFAULT NULL,
+  `code` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `test_case_question_id_fkey_idx` (`question_id`),
+  CONSTRAINT `test_case_question_id_fkey` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- Insert Data
 
 LOCK TABLES `user` WRITE;
