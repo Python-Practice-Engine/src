@@ -216,7 +216,7 @@ class Skulpt extends React.Component {
           >
             <NavLink
               tag={Link}
-              to={`/test/${this.props.id - 1}`}
+              to={`/question/${this.props.id - 1}`}
             >
               <Button
                 type="primary"
@@ -226,7 +226,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <NavLink
               tag={Link}
-              to={`/test/${this.props.id + 1}`}
+              to={`/question/${this.props.id + 1}`}
             >
               <Button
                 type="primary"

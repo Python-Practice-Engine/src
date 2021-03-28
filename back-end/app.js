@@ -69,7 +69,6 @@ app.get('/test_cases/:question_id', (req, res) => {
   FROM test_case
   WHERE question_id = ${question_id};`;
   db.query(sqlGetConcept, (err, testCases) => {
-    console.log(testCases);
     res.send(testCases);
   });
 });

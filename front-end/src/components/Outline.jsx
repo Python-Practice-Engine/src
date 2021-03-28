@@ -29,15 +29,15 @@ function Outline() {
     <div className="navBar">
       <HashRouter>
         <Switch>
-          <Route path="/test/:question_id" component={IDE} />
-          <Route path="/:user_id" component={IDE} />
+          <Route path="/question/:question_id" component={IDE} />
+          <Route path="/user/:user_id" component={IDE} />
           <Route path="/Login" component={Login} />
           <Route path="/SignUp" component={SignUp} />
           <Route exact path="/">
-            <Redirect to="/IDE/1" />
+            <Redirect to="/question/1" />
           </Route>
-          <Route exact path="/IDE">
-            <Redirect to="/IDE/1" />
+          <Route exact path="/question">
+            <Redirect to="/question/1" />
           </Route>
           <Route path="*">
             <NoMatch />

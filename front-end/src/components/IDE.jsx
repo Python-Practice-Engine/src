@@ -66,82 +66,93 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
-    this.mounted = true;
-    this.axiosCancelSource = Axios.CancelToken.source();
-
-    Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
-      question,
-    ) => {
-      this.setState({ question: question.data[0] });
-      Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
-        concept,
+    const { params } = this.props.match;
+    if (params.user_id) {
+      Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+        question,
       ) => {
-        this.setState({ concept: concept.data[0] });
-      });
-      Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
-        testCases,
-      ) => {
-        this.setState({ testCases: testCases.data });
-      });
-    });
-    // Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
-    //   // eslint-disable-next-line comma-dangle
-    //   response
-    // ) => {
-    //   if (response.data.length === 0) {
-    //     this.setState({ redirect: true });
-    //   }
-    //   if (this.mounted) {
-    //     this.setState({ question: response.data[0] });
-    //     Axios.get(
-    //       // eslint-disable-next-line comma-dangle
-    //       `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-    //     ).then((res) => {
-    //       this.setState({ tutorial: res.data[0] });
-    //     });
-    //   }
-    // });
-    // Axios.get(`http://localhost:3001/testcases/${this.props.match.params.question_id}`).then((
-    //   // eslint-disable-next-line comma-dangle
-    //   response
-    // ) => {
-    //   if (this.mounted) {
-    //     this.setState({ testCases: response.data });
-    //   }
-    // });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.match.params.question_id
-      !== prevProps.match.params.question_id) {
-      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
-        // eslint-disable-next-line comma-dangle
-        response
-      ) => {
-        if (response.data.length === 0) {
+        if (question.data.length === 0) {
           this.setState({ redirect: true });
         }
-        this.setState({ question: response.data[0] });
-        Axios.get(
-          // eslint-disable-next-line comma-dangle
-          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-        ).then((res) => {
-          this.setState({ concept: res.data[0] });
+        this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+          concept,
+        ) => {
+          this.setState({ concept: concept.data[0] });
+        });
+        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          testCases,
+        ) => {
+          this.setState({ testCases: testCases.data });
         });
       });
-      Axios.get(`http://localhost:3001/testcases/${this.props.match.params.question_id}`).then((
+    } else if (params.question_id) {
+      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
         // eslint-disable-next-line comma-dangle
-        response
+        question
       ) => {
-        this.setState({ testCases: response.data });
+        if (question.data.length === 0) {
+          this.setState({ redirect: true });
+        }
+        this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+          concept,
+        ) => {
+          this.setState({ concept: concept.data[0] });
+        });
+        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          testCases,
+        ) => {
+          this.setState({ testCases: testCases.data });
+        });
       });
     }
   }
 
-  componentWillUnmount() {
-    this.axiosCancelSource.cancel('Axios request canceled.');
-    this.mounted = false;
+  componentDidUpdate(prevProps) {
+    const { params } = this.props.match;
+    if (params !== prevProps.match.params) {
+      if (params.user_id) {
+        Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+          question,
+        ) => {
+          if (question.data.length === 0) {
+            this.setState({ redirect: true });
+          }
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            this.setState({ testCases: testCases.data });
+          });
+        });
+      } else if (params.question_id) {
+        Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+          // eslint-disable-next-line comma-dangle
+          question
+        ) => {
+          if (question.data.length === 0) {
+            this.setState({ redirect: true });
+          }
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            this.setState({ testCases: testCases.data });
+          });
+        });
+      }
+    }
   }
 
   onTabChange = (key, type) => {
