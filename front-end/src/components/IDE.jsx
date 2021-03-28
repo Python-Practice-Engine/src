@@ -72,14 +72,16 @@ class IDE extends React.Component {
     Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
       question,
     ) => {
-      console.log(question.data[0]);
       this.setState({ question: question.data[0] });
-      console.log(this.state.question.id);
       Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
         concept,
       ) => {
-        console.log(concept.data[0]);
         this.setState({ concept: concept.data[0] });
+      });
+      Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+        testCases,
+      ) => {
+        this.setState({ testCases: testCases.data });
       });
     });
     // Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((

@@ -62,6 +62,18 @@ app.get('/concept/:question_id', (req, res) => {
   });
 });
 
+app.get('/test_cases/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var question_id = req.params.question_id;
+  const sqlGetConcept = `SELECT *
+  FROM test_case
+  WHERE question_id = ${question_id};`;
+  db.query(sqlGetConcept, (err, testCases) => {
+    console.log(testCases);
+    res.send(testCases);
+  });
+});
+
 // For the questions page
 // Route for retrieving questions based on concepts
 app.get('/questionSet/:tags', (req, res) => {

@@ -91,7 +91,7 @@ class Skulpt extends React.Component {
         const codeTR = tests[i].code;
         const expect = tests[i].expected;
         const prog = codeOutput.value + codeTR.replaceAll('\\', '');
-        const tag = document.getElementById(tests[i].TCid.toString());
+        const tag = document.getElementById(tests[i].id.toString());
 
         // Auxiliary preperations for Skulpt
         this.setState({ output: '' });
@@ -216,7 +216,7 @@ class Skulpt extends React.Component {
           >
             <NavLink
               tag={Link}
-              to={`/IDE/${this.props.id - 1}`}
+              to={`/test/${this.props.id - 1}`}
             >
               <Button
                 type="primary"
@@ -226,7 +226,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <NavLink
               tag={Link}
-              to={`/IDE/${this.props.id + 1}`}
+              to={`/test/${this.props.id + 1}`}
             >
               <Button
                 type="primary"
