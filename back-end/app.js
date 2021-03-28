@@ -37,12 +37,12 @@ app.get('/question/:user_id', (req, res) => {
   AND user_concept.user_id = user_question.user_id
   WHERE user_concept.completed = True
   AND user_question.completed = False
-  AND user_question.user_id = ${user_id};`;
-  db.query(sqlGetQuestions, (err, questions) => {
+  AND user_question.user_id = ?;`;
+  db.query(sqlGetQuestions, user_id, (err, questions) => {
     const random = Math.floor(Math.random() * questions.length);
     const question_id = questions[random].question_id;
-    const sqlGetQuestion = `SELECT * FROM question WHERE id = ${question_id}`
-    db.query(sqlGetQuestion, (err, question) => {
+    const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
+    db.query(sqlGetQuestion, question_id, (err, question) => {
       res.send(question);
     })
   });
@@ -56,8 +56,8 @@ app.get('/concept/:question_id', (req, res) => {
   WHERE id IN (
   SELECT concept_id
   FROM question_concept
-  WHERE question_id = ${question_id});`;
-  db.query(sqlGetConcept, (err, concept) => {
+  WHERE question_id = ?);`;
+  db.query(sqlGetConcept, question_id, (err, concept) => {
     res.send(concept);
   });
 });
@@ -67,8 +67,8 @@ app.get('/test_cases/:question_id', (req, res) => {
   var question_id = req.params.question_id;
   const sqlGetConcept = `SELECT *
   FROM test_case
-  WHERE question_id = ${question_id};`;
-  db.query(sqlGetConcept, (err, testCases) => {
+  WHERE question_id = ?;`;
+  db.query(sqlGetConcept, question_id, (err, testCases) => {
     res.send(testCases);
   });
 });
@@ -77,8 +77,8 @@ app.get('/test_cases/:question_id', (req, res) => {
 // Route for retrieving questions based on concepts
 app.get('/questionSet/:tags', (req, res) => {
   var tags = req.params.tags;
-  const sqlSearch = `SELECT * FROM Questions WHERE tags = '${tags}';`;
-  db.query(sqlSearch, (err, result)=> {
+  const sqlSearch = `SELECT * FROM Questions WHERE tags = ?;`;
+  db.query(sqlSearch, [tags], (err, result)=> {
     res.send(result);
   });
 });
@@ -88,8 +88,8 @@ app.get('/questionSet/:tags', (req, res) => {
 app.get('/questions/:Qid', (req, res) => {
   // Retrieve the tag from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM question WHERE id = ${Qid}`;
-  db.query(sqlRetrieve, (err, result)=> {
+  const sqlRetrieve = `SELECT * FROM question WHERE id = ?;`;
+  db.query(sqlRetrieve, [Qid], (err, result)=> {
     res.send(result);
   });
 });
@@ -99,7 +99,7 @@ app.get('/questions/:Qid', (req, res) => {
 app.get('/testcases/:Qid', (req, res) => {
   // Retrieve the question id from our URL path
   var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ${Qid};`;
+  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ?;`;
   db.query(sqlRetrieve, (err, result)=> {
     res.send(result);
   });
@@ -109,8 +109,8 @@ app.get('/testcases/:Qid', (req, res) => {
 // Route for retrieving testcases related to a question
 app.get('/tutorial/:Tid', (req,res) => {
   var Tid = req.params.Tid;
-  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ${Tid} OR Tid = -1 ORDER BY Tid DESC LIMIT 1;`;
-  db.query(sqlRetrieve, (err, result)=> {
+  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ? OR Tid = -1 ORDER BY Tid DESC LIMIT 1;`;
+  db.query(sqlRetrieve, [Tid], (err, result)=> {
     res.send(result);
   });
 });

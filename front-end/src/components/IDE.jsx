@@ -106,6 +106,8 @@ class IDE extends React.Component {
           this.setState({ testCases: testCases.data });
         });
       });
+    } else {
+      this.setState({ redirect: true });
     }
   }
 
