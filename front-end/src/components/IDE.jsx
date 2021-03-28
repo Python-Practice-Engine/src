@@ -60,7 +60,7 @@ class IDE extends React.Component {
       key: 'question',
       question: {},
       testCases: [],
-      tutorial: {},
+      concept: {},
       redirect: false,
     };
   }
@@ -69,11 +69,18 @@ class IDE extends React.Component {
     this.mounted = true;
     this.axiosCancelSource = Axios.CancelToken.source();
 
-    Axios.get(`http://localhost:3001/available_questions/${this.props.match.params.user_id}`).then((
-      response,
+    Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+      question,
     ) => {
-      console.log(response.data[0]);
-      this.setState({ question: response.data[0] });
+      console.log(question.data[0]);
+      this.setState({ question: question.data[0] });
+      console.log(this.state.question.id);
+      Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+        concept,
+      ) => {
+        console.log(concept.data[0]);
+        this.setState({ concept: concept.data[0] });
+      });
     });
     // Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
     //   // eslint-disable-next-line comma-dangle
@@ -107,7 +114,7 @@ class IDE extends React.Component {
       this.props.match.params.question_id
       !== prevProps.match.params.question_id) {
       Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
-      // eslint-disable-next-line comma-dangle
+        // eslint-disable-next-line comma-dangle
         response
       ) => {
         if (response.data.length === 0) {
@@ -118,11 +125,11 @@ class IDE extends React.Component {
           // eslint-disable-next-line comma-dangle
           `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
         ).then((res) => {
-          this.setState({ tutorial: res.data[0] });
+          this.setState({ concept: res.data[0] });
         });
       });
       Axios.get(`http://localhost:3001/testcases/${this.props.match.params.question_id}`).then((
-      // eslint-disable-next-line comma-dangle
+        // eslint-disable-next-line comma-dangle
         response
       ) => {
         this.setState({ testCases: response.data });
@@ -193,8 +200,13 @@ class IDE extends React.Component {
             >
               {
                 tabs.key === 'question'
-                  ? <QuestionContent contents={this.state.question} />
-                  : <TutorialContent contents={this.state.tutorial} />
+                  ? (
+                    <QuestionContent
+                      question={this.state.question}
+                      concept={this.state.concept}
+                    />
+                  )
+                  : <TutorialContent contents={this.state.concept} />
               }
             </Card>
             <TestCases testCases={this.state.testCases} />

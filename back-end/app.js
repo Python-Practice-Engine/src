@@ -27,10 +27,10 @@ app.post('/insertUser', (req, res) => {
   db.query(sqlInsert, id, (err, result) => { console.log(result) })
 })
 
-app.get('/available_questions/:user_id', (req, res) => {
+app.get('/question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
   var user_id = req.params.user_id;
-  const sqlRetrieve = `SELECT question_prereq_concept.question_id
+  const sqlGetQuestions = `SELECT question_prereq_concept.question_id
   FROM question_prereq_concept
   JOIN user_question ON user_question.question_id = question_prereq_concept.question_id
   JOIN user_concept ON user_concept.concept_id = question_prereq_concept.prereq_concept_id 
@@ -38,16 +38,27 @@ app.get('/available_questions/:user_id', (req, res) => {
   WHERE user_concept.completed = True
   AND user_question.completed = False
   AND user_question.user_id = ${user_id};`;
-  db.query(sqlRetrieve, (err, questions) => {
-    const rand = Math.floor(Math.random() * questions.length);
-    console.log(rand);
-    const chosen = questions[rand].question_id;
-    console.log(chosen);
-    const sqlRetrieve2 = `SELECT * FROM question WHERE id = ${chosen}`
-    db.query(sqlRetrieve2, (err, response) => {
-      console.log(response);
-      res.send(response);
+  db.query(sqlGetQuestions, (err, questions) => {
+    const random = Math.floor(Math.random() * questions.length);
+    const question_id = questions[random].question_id;
+    const sqlGetQuestion = `SELECT * FROM question WHERE id = ${question_id}`
+    db.query(sqlGetQuestion, (err, question) => {
+      res.send(question);
     })
+  });
+});
+
+app.get('/concept/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  var question_id = req.params.question_id;
+  const sqlGetConcept = `SELECT *
+  FROM concept
+  WHERE id IN (
+  SELECT concept_id
+  FROM question_concept
+  WHERE question_id = ${question_id});`;
+  db.query(sqlGetConcept, (err, concept) => {
+    res.send(concept);
   });
 });
 

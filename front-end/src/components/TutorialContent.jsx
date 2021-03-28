@@ -15,11 +15,11 @@ function TutorialContent(props) {
       <Title
         level={3}
       >
-        {content.name}
+        {content.name + content.level}
       </Title>
       <Space />
       <p className="questionDescription">
-        {content.description}
+        {content.tutorial}
       </p>
     </div>
   );
