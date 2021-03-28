@@ -11,6 +11,7 @@ import { UserOutlined } from '@ant-design/icons';
 import {
   HashRouter,
   Link,
+  useHistory,
 } from 'react-router-dom';
 
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
@@ -22,6 +23,8 @@ const { Title } = Typography;
 function LoginStateHook() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const history = useHistory();
 
   const { setUser } = useContext(AccountContext);
 
@@ -42,6 +45,7 @@ function LoginStateHook() {
         console.log('onSuccess:', data);
         console.log(data.getIdToken().payload.email);
         setUser(data.getIdToken().payload.email);
+        history.push('/');
       },
 
       onFailure: (err) => {

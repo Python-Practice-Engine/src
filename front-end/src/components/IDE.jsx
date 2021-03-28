@@ -30,6 +30,7 @@ import QuestionContent from './QuestionContent';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import TutorialContent from './TutorialContent';
+import AccountContext from './Account';
 
 // tabList lists the names of the within the questions card.
 const tabList = [
@@ -44,7 +45,6 @@ const tabList = [
 ];
 
 const { Title } = Typography;
-
 /*
   The IDE component is the component that contains: the text editor, test
   cases, the question itself, and the tutorial for the question. This component
@@ -52,6 +52,8 @@ const { Title } = Typography;
 */
 
 class IDE extends React.Component {
+  static contextType = AccountContext;
+
   mounted = false;
 
   constructor(props) {
@@ -66,6 +68,8 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
+    const { user } = this.context;
+    console.log(user);
     this.mounted = true;
     this.axiosCancelSource = Axios.CancelToken.source();
     Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
