@@ -22,6 +22,10 @@ import AccountContext from './Account';
   pages
 */
 function Outline() {
+  // const insertId = () => {
+  //   Axios.post('/insertUser');
+  // };
+
   const [user, setUser] = useState('');
 
   return (
@@ -29,18 +33,15 @@ function Outline() {
       <AccountContext.Provider value={{ user, setUser }}>
         <HashRouter>
           <Switch>
-            <Route path="/IDE/:Qid" component={IDE} />
-            {user === '' && (
-              <>
-                <Route path="/Login" component={LoginStateHook} />
-                <Route path="/SignUp" component={SignUpStateHook} />
-              </>
-            )}
+            <Route path="/question/:question_id" component={IDE} />
+            <Route path="/user/:user_id" component={IDE} />
+            <Route path="/Login" component={LoginStateHook} />
+            <Route path="/SignUp" component={SignUpStateHook} />
             <Route exact path="/">
-              <Redirect to="/IDE/1" />
+              <Redirect to="/question/1" />
             </Route>
-            <Route exact path="/IDE">
-              <Redirect to="/IDE/1" />
+            <Route exact path="/question">
+              <Redirect to="/question/1" />
             </Route>
             <Route path="*">
               <NoMatch />

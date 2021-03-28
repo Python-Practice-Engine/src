@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+import Axios from 'axios';
 import {
   Typography,
   Card,
@@ -36,7 +36,13 @@ function SignUpStateHook() {
       UserPool.signUp(email, password, [], null, (err, data) => {
         if (err) console.error(err);
         console.log(data);
-        // console.log(JSON.stringify(this.state.username));
+        // add insert to users table using below value after it has been cleaned up
+        console.log(data.userSub);
+        Axios.post('http://localhost:3001/insert_user', {
+          user_id: data.userSub,
+        }).then(() => {
+          console.log('succesful insert');
+        });
       });
     }
   };

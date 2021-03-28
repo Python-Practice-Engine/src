@@ -40,12 +40,12 @@ class TestCases extends React.Component {
             renderItem={
               (item) => (
                 <Card
-                  title={testCaseTitle + item.TCid}
+                  title={testCaseTitle + item.id}
                   className="test-title"
                   bordered={false}
                 >
                   <Tag
-                    id={item.TCid}
+                    id={item.id}
                     style={{ display: 'none' }}
                     color="success"
                   >

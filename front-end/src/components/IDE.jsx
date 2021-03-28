@@ -64,70 +64,101 @@ class IDE extends React.Component {
       key: 'question',
       question: {},
       testCases: [],
-      tutorial: {},
+      concept: {},
       redirect: false,
     };
   }
 
   componentDidMount() {
-    this.mounted = true;
-    this.axiosCancelSource = Axios.CancelToken.source();
-    Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
-    ) => {
-      if (response.data.length === 0) {
-        this.setState({ redirect: true });
-      }
-      if (this.mounted) {
-        this.setState({ question: response.data[0] });
-        Axios.get(
-          // eslint-disable-next-line comma-dangle
-          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-        ).then((res) => {
-          this.setState({ tutorial: res.data[0] });
-        });
-      }
-    });
-    Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-      response
-    ) => {
-      if (this.mounted) {
-        this.setState({ testCases: response.data });
-      }
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.Qid !== prevProps.match.params.Qid) {
-      Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-        response
+    const { params } = this.props.match;
+    if (params.user_id) {
+      Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+        question,
       ) => {
-        if (response.data.length === 0) {
+        if (question.data.length === 0) {
           this.setState({ redirect: true });
         }
-        this.setState({ question: response.data[0] });
-        Axios.get(
-          // eslint-disable-next-line comma-dangle
-          `http://localhost:3001/tutorial/${Object.values(this.state.question)[6]}`
-        ).then((res) => {
-          this.setState({ tutorial: res.data[0] });
+        this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+          concept,
+        ) => {
+          this.setState({ concept: concept.data[0] });
+        });
+        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          testCases,
+        ) => {
+          this.setState({ testCases: testCases.data });
         });
       });
-      Axios.get(`http://localhost:3001/testcases/${this.props.match.params.Qid}`).then((
-      // eslint-disable-next-line comma-dangle
-        response
+    } else if (params.question_id) {
+      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+        // eslint-disable-next-line comma-dangle
+        question
       ) => {
-        this.setState({ testCases: response.data });
+        if (question.data.length === 0) {
+          this.setState({ redirect: true });
+        }
+        this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+          concept,
+        ) => {
+          this.setState({ concept: concept.data[0] });
+        });
+        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          testCases,
+        ) => {
+          this.setState({ testCases: testCases.data });
+        });
       });
+    } else {
+      this.setState({ redirect: true });
     }
   }
 
-  componentWillUnmount() {
-    this.axiosCancelSource.cancel('Axios request canceled.');
-    this.mounted = false;
+  componentDidUpdate(prevProps) {
+    const { params } = this.props.match;
+    if (params !== prevProps.match.params) {
+      if (params.user_id) {
+        Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+          question,
+        ) => {
+          if (question.data.length === 0) {
+            this.setState({ redirect: true });
+          }
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            this.setState({ testCases: testCases.data });
+          });
+        });
+      } else if (params.question_id) {
+        Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+          // eslint-disable-next-line comma-dangle
+          question
+        ) => {
+          if (question.data.length === 0) {
+            this.setState({ redirect: true });
+          }
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            this.setState({ testCases: testCases.data });
+          });
+        });
+      }
+    }
   }
 
   onTabChange = (key, type) => {
@@ -199,8 +230,13 @@ class IDE extends React.Component {
             >
               {
                 tabs.key === 'question'
-                  ? <QuestionContent contents={this.state.question} />
-                  : <TutorialContent contents={this.state.tutorial} />
+                  ? (
+                    <QuestionContent
+                      question={this.state.question}
+                      concept={this.state.concept}
+                    />
+                  )
+                  : <TutorialContent contents={this.state.concept} />
               }
             </Card>
             <TestCases testCases={this.state.testCases} />
@@ -209,7 +245,7 @@ class IDE extends React.Component {
             {/* This is the text editor itself */}
             <Skulpt
               testCases={this.state.testCases}
-              id={this.state.question.Qid}
+              id={this.state.question.id}
             />
           </Col>
         </Row>
