@@ -14,6 +14,7 @@ import SignUpStateHook from './SignUpStateHook';
 import LoginStateHook from './LoginStateHook';
 import NoMatch from './NoMatch';
 import AccountContext from './Account';
+// import Logout from './Logout';
 
 /*
   This is the outline, it contains the header, navbar, and footer. It is the
@@ -29,8 +30,12 @@ function Outline() {
         <HashRouter>
           <Switch>
             <Route path="/IDE/:Qid" component={IDE} />
-            <Route path="/Login" component={LoginStateHook} />
-            <Route path="/SignUp" component={SignUpStateHook} />
+            {user === '' && (
+              <>
+                <Route path="/Login" component={LoginStateHook} />
+                <Route path="/SignUp" component={SignUpStateHook} />
+              </>
+            )}
             <Route exact path="/">
               <Redirect to="/IDE/1" />
             </Route>
