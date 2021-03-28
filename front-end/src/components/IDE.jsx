@@ -31,6 +31,7 @@ import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import TutorialContent from './TutorialContent';
 import AccountContext from './Account';
+import Logout from './Logout';
 
 // tabList lists the names of the within the questions card.
 const tabList = [
@@ -52,6 +53,7 @@ const { Title } = Typography;
 */
 
 class IDE extends React.Component {
+  // eslint-disable-next-line react/static-property-placement
   static contextType = AccountContext;
 
   mounted = false;
@@ -68,8 +70,6 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
-    const { user } = this.context;
-    console.log(user);
     this.mounted = true;
     this.axiosCancelSource = Axios.CancelToken.source();
     Axios.get(`http://localhost:3001/questions/${this.props.match.params.Qid}`).then((
@@ -136,6 +136,7 @@ class IDE extends React.Component {
 
   render() {
     const tabs = this.state;
+    const { user } = this.context;
 
     if (this.state.redirect) {
       return <Redirect to="/NoMatch" />;
@@ -148,16 +149,26 @@ class IDE extends React.Component {
             <div className="nav-btns">
               <Navbar color="faded" light expand="md">
                 <Nav className="ml-auto" navbar>
-                  <NavLink tag={Link} to="/Login" className="login-btn">
-                    <NavItem>
-                      <Button type="primary" size="medium">Login</Button>
-                    </NavItem>
-                  </NavLink>
-                  <NavLink tag={Link} to="/SignUp">
-                    <NavItem>
-                      <Button size="medium">Sign Up</Button>
-                    </NavItem>
-                  </NavLink>
+                  {user === '' ? (
+                    <>
+                      <NavLink tag={Link} to="/Login" className="login-btn">
+                        <NavItem>
+                          <Button type="primary" size="medium">Login</Button>
+                        </NavItem>
+                      </NavLink>
+                      <NavLink tag={Link} to="/SignUp">
+                        <NavItem>
+                          <Button size="medium">Sign Up</Button>
+                        </NavItem>
+                      </NavLink>
+                    </>
+                  ) : (
+                    <NavLink tag={Link} to="/Login" className="login-btn">
+                      <NavItem>
+                        <Logout />
+                      </NavItem>
+                    </NavLink>
+                  )}
                 </Nav>
               </Navbar>
             </div>
