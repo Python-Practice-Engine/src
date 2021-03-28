@@ -100,7 +100,7 @@ app.get('/testcases/:Qid', (req, res) => {
   // Retrieve the question id from our URL path
   var Qid = req.params.Qid;
   const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ?;`;
-  db.query(sqlRetrieve, (err, result)=> {
+  db.query(sqlRetrieve, [Qid], (err, result)=> {
     res.send(result);
   });
 });
