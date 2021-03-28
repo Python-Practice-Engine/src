@@ -1,4 +1,5 @@
 import React from 'react';
+// import Axios from 'axios';
 
 // Imports for React routing
 import {
@@ -19,26 +20,33 @@ import NoMatch from './NoMatch';
   only component imported into the index.js as a result is shared across all
   pages
 */
-const Outline = () => (
-  <div className="navBar">
-    <HashRouter>
-      <Switch>
-        <Route path="/IDE/:Qid" component={IDE} />
-        <Route path="/Login" component={Login} />
-        <Route path="/SignUp" component={SignUp} />
-        <Route exact path="/">
-          <Redirect to="/IDE/1" />
-        </Route>
-        <Route exact path="/IDE">
-          <Redirect to="/IDE/1" />
-        </Route>
-        <Route path="*">
-          <NoMatch />
-        </Route>
-      </Switch>
-    </HashRouter>
-    <div className="footer" />
-  </div>
-);
+function Outline() {
+  // const insertId = () => {
+  //   Axios.post('/insertUser');
+  // };
+
+  return (
+    <div className="navBar">
+      <HashRouter>
+        <Switch>
+          <Route path="/question/:question_id" component={IDE} />
+          <Route path="/user/:user_id" component={IDE} />
+          <Route path="/Login" component={Login} />
+          <Route path="/SignUp" component={SignUp} />
+          <Route exact path="/">
+            <Redirect to="/question/1" />
+          </Route>
+          <Route exact path="/question">
+            <Redirect to="/question/1" />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </HashRouter>
+      <div className="footer" />
+    </div>
+  );
+}
 
 export default Outline;

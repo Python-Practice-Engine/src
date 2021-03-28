@@ -14,7 +14,7 @@ const NoMatch = () => (
       extra={(
         <NavLink
           tag={Link}
-          to="/IDE/1"
+          to="/question/1"
         >
           <Button type="primary">Back Home</Button>
         </NavLink>
