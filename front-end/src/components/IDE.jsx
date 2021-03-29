@@ -253,7 +253,8 @@ class IDE extends React.Component {
             {/* This is the text editor itself */}
             <Skulpt
               testCases={this.state.testCases}
-              id={this.state.question.id}
+              questionId={this.state.question.id}
+              conceptId={this.state.concept.id}
             />
           </Col>
         </Row>
