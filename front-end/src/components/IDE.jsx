@@ -30,6 +30,8 @@ import QuestionContent from './QuestionContent';
 import Skulpt from './Skulpt';
 import TestCases from './TestCases';
 import TutorialContent from './TutorialContent';
+import AccountContext from './Account';
+import Logout from './Logout';
 
 // tabList lists the names of the within the questions card.
 const tabList = [
@@ -44,7 +46,6 @@ const tabList = [
 ];
 
 const { Title } = Typography;
-
 /*
   The IDE component is the component that contains: the text editor, test
   cases, the question itself, and the tutorial for the question. This component
@@ -52,6 +53,9 @@ const { Title } = Typography;
 */
 
 class IDE extends React.Component {
+  // eslint-disable-next-line react/static-property-placement
+  static contextType = AccountContext;
+
   mounted = false;
 
   constructor(props) {
@@ -66,9 +70,13 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     const { params } = this.props.match;
+    // const userId = this.context.user;
     if (params.user_id) {
-      Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+      // Axios.get(`http://localhost:3001/question/${userId}`).then((
+      this.context.user = params.user_id;
+      Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
         question,
       ) => {
         if (question.data.length === 0) {
@@ -87,7 +95,7 @@ class IDE extends React.Component {
         });
       });
     } else if (params.question_id) {
-      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+      Axios.get(`http://localhost:3001/questions/${params.question_id}`).then((
         // eslint-disable-next-line comma-dangle
         question
       ) => {
@@ -115,7 +123,7 @@ class IDE extends React.Component {
     const { params } = this.props.match;
     if (params !== prevProps.match.params) {
       if (params.user_id) {
-        Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+        Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
           question,
         ) => {
           if (question.data.length === 0) {
@@ -134,7 +142,7 @@ class IDE extends React.Component {
           });
         });
       } else if (params.question_id) {
-        Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+        Axios.get(`http://localhost:3001/questions/${params.question_id}`).then((
           // eslint-disable-next-line comma-dangle
           question
         ) => {
@@ -157,12 +165,17 @@ class IDE extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   onTabChange = (key, type) => {
     this.setState({ [type]: key });
   };
 
   render() {
     const tabs = this.state;
+    const { user } = this.context;
 
     if (this.state.redirect) {
       return <Redirect to="/NoMatch" />;
@@ -175,16 +188,26 @@ class IDE extends React.Component {
             <div className="nav-btns">
               <Navbar color="faded" light expand="md">
                 <Nav className="ml-auto" navbar>
-                  <NavLink tag={Link} to="/Login" className="login-btn">
-                    <NavItem>
-                      <Button type="primary" size="medium">Login</Button>
-                    </NavItem>
-                  </NavLink>
-                  <NavLink tag={Link} to="/SignUp">
-                    <NavItem>
-                      <Button size="medium">Sign Up</Button>
-                    </NavItem>
-                  </NavLink>
+                  {user === '' ? (
+                    <>
+                      <NavLink tag={Link} to="/Login" className="login-btn">
+                        <NavItem>
+                          <Button type="primary" size="medium">Login</Button>
+                        </NavItem>
+                      </NavLink>
+                      <NavLink tag={Link} to="/SignUp">
+                        <NavItem>
+                          <Button size="medium">Sign Up</Button>
+                        </NavItem>
+                      </NavLink>
+                    </>
+                  ) : (
+                    <NavLink tag={Link} to="/Login" className="login-btn">
+                      <NavItem>
+                        <Logout />
+                      </NavItem>
+                    </NavLink>
+                  )}
                 </Nav>
               </Navbar>
             </div>
@@ -230,7 +253,8 @@ class IDE extends React.Component {
             {/* This is the text editor itself */}
             <Skulpt
               testCases={this.state.testCases}
-              id={this.state.question.id}
+              questionId={this.state.question.id}
+              conceptId={this.state.concept.id}
             />
           </Col>
         </Row>

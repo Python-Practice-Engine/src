@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import {
+  Route,
+} from 'react-router-dom';
 
 import {
   Typography,
@@ -13,12 +17,29 @@ import {
   Link,
 } from 'react-router-dom';
 
-const { Title } = Typography;
+import AccountContext from './Account';
 
+const { Title } = Typography;
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+
+    authenticate(this.state.email, this.state.password)
+      .then((data) => {
+        console.log('Logged in!', data);
+      })
+      .catch((err) => {
+        console.error('Failed to login!', err);
+      });
   }
 
   render() {
@@ -48,6 +69,8 @@ class Login extends React.Component {
             size="large"
             placeholder="Username"
             prefix={<UserOutlined />}
+            value={this.state.email}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
 
           <br />
@@ -57,14 +80,21 @@ class Login extends React.Component {
             size="large"
             type="password"
             placeholder="Password"
+            value={this.state.password}
+            onChange={
+              (event) => this.setState({ password: event.target.value })
+            }
           />
           <br />
           <br />
+
+          <button type="submit" onClick={this.onSubmit}>Login</button>
           <HashRouter>
             Need an account? Click
             <Link to="/SignUp"> here</Link>
             .
           </HashRouter>
+          <p>authenticate</p>
         </Card>
       </div>
     );

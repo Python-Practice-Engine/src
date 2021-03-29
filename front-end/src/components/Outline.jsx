@@ -1,5 +1,4 @@
-import React from 'react';
-// import Axios from 'axios';
+import React, { useState } from 'react';
 
 // Imports for React routing
 import {
@@ -11,9 +10,11 @@ import {
 
 // Personal component imports
 import IDE from './IDE';
-import SignUp from './SignUp';
-import Login from './Login';
+import SignUpStateHook from './SignUpStateHook';
+import LoginStateHook from './LoginStateHook';
 import NoMatch from './NoMatch';
+import AccountContext from './Account';
+// import Logout from './Logout';
 
 /*
   This is the outline, it contains the header, navbar, and footer. It is the
@@ -25,26 +26,30 @@ function Outline() {
   //   Axios.post('/insertUser');
   // };
 
+  const [user, setUser] = useState('');
+
   return (
     <div className="navBar">
-      <HashRouter>
-        <Switch>
-          <Route path="/question/:question_id" component={IDE} />
-          <Route path="/user/:user_id" component={IDE} />
-          <Route path="/Login" component={Login} />
-          <Route path="/SignUp" component={SignUp} />
-          <Route exact path="/">
-            <Redirect to="/question/1" />
-          </Route>
-          <Route exact path="/question">
-            <Redirect to="/question/1" />
-          </Route>
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </HashRouter>
-      <div className="footer" />
+      <AccountContext.Provider value={{ user, setUser }}>
+        <HashRouter>
+          <Switch>
+            <Route path="/question/:question_id" component={IDE} />
+            <Route path="/user/:user_id" component={IDE} />
+            <Route path="/Login" component={LoginStateHook} />
+            <Route path="/SignUp" component={SignUpStateHook} />
+            <Route exact path="/">
+              <Redirect to="/question/1" />
+            </Route>
+            <Route exact path="/question">
+              <Redirect to="/question/1" />
+            </Route>
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </HashRouter>
+        <div className="footer" />
+      </AccountContext.Provider>
     </div>
   );
 }

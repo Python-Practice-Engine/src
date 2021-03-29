@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 // React component library imports
 import {
@@ -26,6 +27,8 @@ import 'codemirror/mode/python/python';
 // Personal component imports
 import MyCodeMirror from './MyCodeMirror';
 
+import AccountContext from './Account';
+
 const { Title } = Typography;
 /* File consists of auxiliary functions for IDE rendering */
 // Used by third-party plugin to compute sent code
@@ -41,6 +44,9 @@ function builtinRead(x) {
 
 // Component to be used by the IDE to execute any user created code
 class Skulpt extends React.Component {
+  // eslint-disable-next-line react/static-property-placement
+  static contextType = AccountContext;
+
   constructor(props) {
     super(props);
     this.execute = this.execute.bind(this);
@@ -61,8 +67,6 @@ class Skulpt extends React.Component {
     const script = document.createElement('script');
     script.src = '../skulpt.js';
     script.async = true;
-
-    document.body.appendChild(script);
   }
 
   // Used to output computed code
@@ -129,6 +133,10 @@ class Skulpt extends React.Component {
             tag.innerHTML = 'Passed';
             tag.className = 'ant-tag ant-tag-success';
             tag.style.display = 'unset';
+            console.log(this.context.user, this.props.questionId);
+            Axios.post(`http://localhost:3001/mark_complete/${this.context.user}/${this.props.conceptId}/${this.props.questionId}`).then(() => {
+              console.log(`question ${this.props.questionId} marked as complete!`);
+            });
           } else {
             tag.innerHTML = 'Failed';
             tag.className = 'ant-tag ant-tag-error';
@@ -213,7 +221,7 @@ class Skulpt extends React.Component {
           >
             <NavLink
               tag={Link}
-              to={`/question/${this.props.id - 1}`}
+              to={`/question/${this.props.questionId - 1}`}
             >
               <Button
                 type="primary"
@@ -223,7 +231,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <NavLink
               tag={Link}
-              to={`/question/${this.props.id + 1}`}
+              to={`/question/${this.props.questionId + 1}`}
             >
               <Button
                 type="primary"

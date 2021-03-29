@@ -8,7 +8,7 @@ import {
 
 import {
   MailOutlined,
-  UserOutlined,
+  // UserOutlined,
 } from '@ant-design/icons';
 
 import {
@@ -16,11 +16,31 @@ import {
   Link,
 } from 'react-router-dom';
 
+import UserPool from '../UserPool';
+
 const { Title } = Typography;
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: '',
+      password: '',
+      passwordCheck: '',
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.password !== this.state.passwordCheck) {
+      console.log('The two passwords do not match');
+    } else {
+      UserPool.signUp(this.state.email, this.state.password, [], null,
+        (err, data) => {
+          if (err) console.error(err);
+          console.log(data);
+        });
+    }
   }
 
   render() {
@@ -51,24 +71,30 @@ class SignUp extends React.Component {
             placeholder=" Email Address"
             prefix={<MailOutlined />}
             type="email"
+            value={this.state.email}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
 
           <br />
           <br />
 
-          <Input
+          {/* <Input
             size="large"
             placeholder=" Username"
             prefix={<UserOutlined />}
           />
 
           <br />
-          <br />
+          <br /> */}
 
           <Input
             size="large"
             type="password"
             placeholder="Password"
+            value={this.state.password}
+            onChange={
+              (event) => this.setState({ password: event.target.value })
+            }
           />
           <br />
           <br />
@@ -77,7 +103,14 @@ class SignUp extends React.Component {
             size="large"
             type="password"
             placeholder="Re-enter Password"
+            value={this.state.passwordCheck}
+            onChange={
+              (event) => this.setState({ passwordCheck: event.target.value })
+            }
           />
+          <br />
+          <br />
+          <button type="submit" onClick={this.onSubmit}>Sign Up</button>
           <br />
           <br />
           <HashRouter>
