@@ -45,6 +45,7 @@ function LoginStateHook() {
         console.log('onSuccess:', data);
         setUser(data.getIdToken().payload.sub);
         history.push(`/user/${data.getIdToken().payload.sub}`);
+        // history.push('/user');
       },
 
       onFailure: (err) => {

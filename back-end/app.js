@@ -23,12 +23,69 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/insert_user', (req, res) => {
   const user_id = req.body.user_id;
-  // const user_id = req.params.user_id;
-  const sqlInsert = 'INSERT INTO user_test (id) VALUES (UUID_TO_BIN(?));'
-  db.query(sqlInsert, user_id, (err, result) => { 
-    console.log(result);
-    res.send(result); 
-  })
+  // Insert user id into user table
+  const sqlInsertUserId = 'INSERT INTO user (id) VALUES (UUID_TO_BIN(?));'
+  db.query(sqlInsertUserId, user_id, (err, result) => {
+    // res.send(result); 
+  });
+  // Set 'start' concept to completed so first question can be shown
+  const sqlSetStartConcept = `INSERT INTO user_concept (user_id, concept_id, completed)
+    SELECT UUID_TO_BIN(?), 0, True
+    FROM concept WHERE ID = 0;`
+    db.query(sqlSetStartConcept, user_id, (err, result) => {
+      // res.send(result); 
+    });
+  // Insert concepts in user_concept table for user
+  const sqlInsertUserConcepts = `INSERT INTO user_concept (user_id, concept_id, completed)
+  SELECT UUID_TO_BIN(?), id, False
+  FROM concept
+  WHERE id > 0;`
+  db.query(sqlInsertUserConcepts, user_id, (err, result) => {
+    // res.send(result); 
+  });
+  // Insert questions into user_question table for user
+  const sqlInsertUserQuestions = `INSERT INTO user_question (user_id, question_id, completed)
+  SELECT UUID_TO_BIN(?), id, False
+  FROM question;`
+  db.query(sqlInsertUserQuestions, user_id, (err, result) => {
+    // res.send(result); 
+  });
+})
+
+app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const concept_id = req.params.concept_id;
+  const sqlQuestionComplete = `
+  UPDATE user_question
+  SET completed = True
+  WHERE question_id = ?
+  AND user_id = UUID_TO_BIN(?);`;
+  db.query(sqlQuestionComplete, [question_id, user_id], (err, result) => {
+    const sqlCountQuestionsOfConcept = `
+    SELECT COUNT(uq.question_id) AS count
+    FROM user_question AS uq 
+    WHERE uq.user_id = UUID_TO_BIN(?)
+    AND uq.completed = False
+    AND uq.question_id IN(
+    SELECT qc.question_id 
+    FROM question_concept AS qc
+    WHERE concept_id = ?);`;
+    db.query(sqlCountQuestionsOfConcept, [user_id, concept_id], (err, result) => {
+      const count = JSON.parse(JSON.stringify(result))[0].count;
+      if (count == 0) {
+        const sqlConceptComplete = `UPDATE user_concept
+        SET completed = True
+        WHERE concept_id = ?
+        AND user_id = UUID_TO_BIN(?);`
+        console.log(concept_id, user_id)
+        db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
+          console.log(result);
+          res.send(result);
+        })
+      }
+    });
+  });
 })
 
 app.get('/question/:user_id', (req, res) => {
@@ -41,7 +98,7 @@ app.get('/question/:user_id', (req, res) => {
   AND user_concept.user_id = user_question.user_id
   WHERE user_concept.completed = True
   AND user_question.completed = False
-  AND user_question.user_id = ?;`;
+  AND user_question.user_id = UUID_TO_BIN(?);`;
   db.query(sqlGetQuestions, user_id, (err, questions) => {
     const random = Math.floor(Math.random() * questions.length);
     const question_id = questions[random].question_id;

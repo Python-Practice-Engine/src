@@ -70,9 +70,13 @@ class IDE extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     const { params } = this.props.match;
+    // const userId = this.context.user;
     if (params.user_id) {
-      Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+      // Axios.get(`http://localhost:3001/question/${userId}`).then((
+      this.context.user = params.user_id;
+      Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
         question,
       ) => {
         if (question.data.length === 0) {
@@ -91,7 +95,7 @@ class IDE extends React.Component {
         });
       });
     } else if (params.question_id) {
-      Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+      Axios.get(`http://localhost:3001/questions/${params.question_id}`).then((
         // eslint-disable-next-line comma-dangle
         question
       ) => {
@@ -119,7 +123,7 @@ class IDE extends React.Component {
     const { params } = this.props.match;
     if (params !== prevProps.match.params) {
       if (params.user_id) {
-        Axios.get(`http://localhost:3001/question/${this.props.match.params.user_id}`).then((
+        Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
           question,
         ) => {
           if (question.data.length === 0) {
@@ -138,7 +142,7 @@ class IDE extends React.Component {
           });
         });
       } else if (params.question_id) {
-        Axios.get(`http://localhost:3001/questions/${this.props.match.params.question_id}`).then((
+        Axios.get(`http://localhost:3001/questions/${params.question_id}`).then((
           // eslint-disable-next-line comma-dangle
           question
         ) => {
@@ -159,6 +163,10 @@ class IDE extends React.Component {
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   onTabChange = (key, type) => {
@@ -245,7 +253,8 @@ class IDE extends React.Component {
             {/* This is the text editor itself */}
             <Skulpt
               testCases={this.state.testCases}
-              id={this.state.question.id}
+              questionId={this.state.question.id}
+              conceptId={this.state.concept.id}
             />
           </Col>
         </Row>
