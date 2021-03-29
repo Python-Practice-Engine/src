@@ -87,7 +87,7 @@ class Skulpt extends React.Component {
       for (i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
         const codeTR = tests[i].code;
-        const expect = tests[i].expected;
+        let expect = tests[i].expected;
         const prog = codeOutput.value + codeTR.replaceAll('\\', '');
         const tag = document.getElementById(tests[i].id.toString());
 
@@ -122,17 +122,14 @@ class Skulpt extends React.Component {
           );
           scrollingElement.scrollTop = scrollingElement.scrollHeight;
 
-          const result = expect.split('\n');
-          let test = false;
-          for (let item = 0; item < result.length; item += 1) {
-            if (this.state.output.includes(result[item])) {
-              test = true;
-            } else {
-              test = false;
-              break;
-            }
-          }
-          if (test) {
+          expect += '\n';
+          if (this.state.output === expect) {
+            tag.innerHTML = 'Passed';
+            tag.className = 'ant-tag ant-tag-success';
+            tag.style.display = 'unset';
+          } else {
+            tag.innerHTML = 'Failed';
+            tag.className = 'ant-tag ant-tag-error';
             tag.style.display = 'unset';
           }
           console.log('success');
