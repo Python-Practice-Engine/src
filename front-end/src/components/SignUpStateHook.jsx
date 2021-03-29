@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 import {
   Typography,
@@ -17,7 +17,7 @@ import {
 } from 'react-router-dom';
 
 import UserPool from '../UserPool';
-import AccountContext from './Account';
+// import AccountContext from './Account';
 
 const { Title } = Typography;
 
@@ -25,8 +25,9 @@ function SignUpStateHook() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [validCred, setValidCred] = useState(false);
   // const [username, setUsername] = useState('');
-  const { user } = useContext(AccountContext);
+  // const { user } = useContext(AccountContext);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -42,6 +43,7 @@ function SignUpStateHook() {
           user_id: data.userSub,
         }).then(() => {
           console.log('succesful insert');
+          setValidCred(true);
         });
       });
     }
@@ -117,7 +119,12 @@ function SignUpStateHook() {
           <Link to="/Login"> here</Link>
           .
         </HashRouter>
-        <h3>{user}</h3>
+        {validCred && (
+          <h4>
+            Email has been sent, validate account before
+            <Link to="/Login"> logging in</Link>
+          </h4>
+        )}
       </Card>
     </div>
   );
