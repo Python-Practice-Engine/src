@@ -61,8 +61,6 @@ class Skulpt extends React.Component {
     const script = document.createElement('script');
     script.src = '../skulpt.js';
     script.async = true;
-
-    document.body.appendChild(script);
   }
 
   // Used to output computed code
@@ -94,7 +92,7 @@ class Skulpt extends React.Component {
         const tag = document.getElementById(tests[i].id.toString());
 
         // Auxiliary preperations for Skulpt
-        this.setState({ output: '' });
+        // this.setState({ output: '' });
         window.Sk.python3 = true;
         window.Sk.pre = 'output';
         window.Sk.configure({
@@ -127,6 +125,7 @@ class Skulpt extends React.Component {
           const result = expect.split('\n');
           let test = false;
           for (let item = 0; item < result.length; item += 1) {
+            console.log(this.state.output);
             if (this.state.output.includes(result[item])) {
               test = true;
             } else {
