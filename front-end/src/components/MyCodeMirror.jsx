@@ -12,6 +12,7 @@ class MyCodeMirror extends React.Component {
       mode: 'python',
       theme: 'mdn-like',
       lineNumbers: true,
+      lineWrapping: true,
     };
     if (document.getElementById('code-input') !== null) {
       this.codeMirror = mirror.fromTextArea(
