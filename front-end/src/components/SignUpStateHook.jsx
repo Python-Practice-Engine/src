@@ -39,11 +39,11 @@ function SignUpStateHook() {
         console.log(data);
         // add insert to users table using below value after it has been cleaned up
         console.log(data.userSub);
+        setValidCred(true);
         Axios.post('http://localhost:3001/insert_user', {
           user_id: data.userSub,
         }).then(() => {
           console.log('succesful insert');
-          setValidCred(true);
         });
       });
     }

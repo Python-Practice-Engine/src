@@ -22,6 +22,7 @@ export default () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
 
@@ -30,6 +31,7 @@ export default () => {
   const sendCode = (event) => {
     event.preventDefault();
 
+    setCode('');
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
@@ -49,16 +51,21 @@ export default () => {
 
     if (password !== confirmPassword) {
       console.error('Passwords are not the same');
+      setErrorMsg('Passwords are not the same');
+      setPassword('');
+      setConfirmPassword('');
       return;
     }
 
     getUser.confirmPassword(code, password, {
       onSuccess: (data) => {
         console.log('onSuccess:', data);
+        setErrorMsg('');
         history.push('/Login');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
+        setErrorMsg(err.message);
       },
     });
   };
@@ -129,6 +136,10 @@ export default () => {
             />
             <br />
             <button type="submit">Change password</button>
+            <br />
+            <button type="button" onClick={sendCode}>Resend code</button>
+            <br />
+            <h4>{errorMsg}</h4>
           </form>
         )}
       </Card>
