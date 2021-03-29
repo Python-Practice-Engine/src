@@ -108,6 +108,9 @@ function LoginStateHook() {
           Need an account? Click
           <Link to="/SignUp"> here</Link>
           .
+          <br />
+          <br />
+          <Link to="/forgot-password"> Forgot your password</Link>
         </HashRouter>
       </Card>
     </div>

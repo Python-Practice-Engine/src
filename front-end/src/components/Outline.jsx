@@ -14,7 +14,7 @@ import SignUpStateHook from './SignUpStateHook';
 import LoginStateHook from './LoginStateHook';
 import NoMatch from './NoMatch';
 import AccountContext from './Account';
-// import Logout from './Logout';
+import ForgotPassword from './ForgotPassword';
 
 /*
   This is the outline, it contains the header, navbar, and footer. It is the
@@ -37,6 +37,7 @@ function Outline() {
             <Route path="/user/:user_id" component={IDE} />
             <Route path="/Login" component={LoginStateHook} />
             <Route path="/SignUp" component={SignUpStateHook} />
+            <Route path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/">
               <Redirect to="/question/1" />
             </Route>
