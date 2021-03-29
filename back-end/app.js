@@ -30,8 +30,8 @@ app.post('/insert_user', (req, res) => {
   });
   // Set 'start' concept to completed so first question can be shown
   const sqlSetStartConcept = `INSERT INTO user_concept (user_id, concept_id, completed)
-    SELECT UUID_TO_BIN(?), 0, True
-    FROM concept WHERE ID = 0;`
+    SELECT UUID_TO_BIN(?), 0, 1
+    FROM concept WHERE id = 0;`
     db.query(sqlSetStartConcept, user_id, (err, result) => {
       // res.send(result); 
     });
