@@ -35,12 +35,15 @@ export default () => {
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
+        setErrorMsg('');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
+        setErrorMsg(err.message);
       },
       inputVerificationCode: (data) => {
         console.log('Input code:', data);
+        setErrorMsg('');
         setStage(2);
       },
     });

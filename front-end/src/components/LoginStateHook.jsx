@@ -23,6 +23,7 @@ const { Title } = Typography;
 function LoginStateHook() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
 
@@ -44,16 +45,18 @@ function LoginStateHook() {
       onSuccess: (data) => {
         console.log('onSuccess:', data);
         setUser(data.getIdToken().payload.sub);
+        setErrorMsg('');
         history.push(`/user/${data.getIdToken().payload.sub}`);
-        // history.push('/user');
       },
 
       onFailure: (err) => {
         console.error('onFailure:', err);
+        setErrorMsg(err.message);
       },
 
       newPasswordRequired: (data) => {
         console.log('newPasswordRequired:', data);
+        setErrorMsg(data);
       },
     });
   };
@@ -112,6 +115,7 @@ function LoginStateHook() {
           <br />
           <Link to="/forgot-password"> Forgot your password</Link>
         </HashRouter>
+        <h4>{errorMsg}</h4>
       </Card>
     </div>
   );
