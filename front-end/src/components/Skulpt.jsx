@@ -227,7 +227,7 @@ class Skulpt extends React.Component {
           >
             <NavLink
               tag={Link}
-              to={`/question/${this.props.questionId - 1}`}
+              to={`/user/${this.context.user}/question/${this.props.easierQuestionId}`}
             >
               <Button
                 type="primary"

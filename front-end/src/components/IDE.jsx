@@ -63,6 +63,7 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
+      easierQuestion: {},
       testCases: [],
       concept: {},
       redirect: false,
@@ -82,6 +83,11 @@ class IDE extends React.Component {
           this.setState({ redirect: true });
         }
         this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/easier_question/${params.user_id}/${params.question_id}`).then((
+          easierQuestion,
+        ) => {
+          this.setState({ easierQuestion: easierQuestion.data[0] });
+        });
         Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
           concept,
         ) => {
@@ -151,6 +157,11 @@ class IDE extends React.Component {
             this.setState({ redirect: true });
           }
           this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/easier_question/${params.user_id}/${params.question_id}`).then((
+            easierQuestion,
+          ) => {
+            this.setState({ easierQuestion: easierQuestion.data[0] });
+          });
           Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
             concept,
           ) => {
@@ -296,6 +307,7 @@ class IDE extends React.Component {
               questionId={this.state.question.id}
               conceptId={this.state.concept.id}
               params={this.props.match.params.question_id}
+              easierQuestionId={this.state.easierQuestion.id}
             />
           </Col>
         </Row>
