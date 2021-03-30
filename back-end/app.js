@@ -27,29 +27,30 @@ app.post('/insert_user', (req, res) => {
   const sqlInsertUserId = 'INSERT INTO user (id) VALUES (UUID_TO_BIN(?));'
   db.query(sqlInsertUserId, user_id, (err, result) => {
     // res.send(result); 
-  });
-  // Set 'start' concept to completed so first question can be shown
-  const sqlSetStartConcept = `INSERT INTO user_concept (user_id, concept_id, completed)
-    SELECT UUID_TO_BIN(?), 0, True
-    FROM concept WHERE ID = 0;`
-    db.query(sqlSetStartConcept, user_id, (err, result) => {
+    // Insert concepts in user_concept table for user
+    const sqlInsertUserConcepts = `INSERT INTO user_concept (user_id, concept_id, completed)
+      SELECT UUID_TO_BIN(?), concept.id, False
+      FROM concept;`
+    db.query(sqlInsertUserConcepts, user_id, (err, result) => {
+      // res.send(result);
+      // Set 'start' concept to completed so first question can be shown
+      const sqlUpdateStartConcept = `UPDATE user_concept
+        SET completed = True
+        WHERE concept_id = 0
+        AND user_id = UUID_TO_BIN(?);`;
+      db.query(sqlUpdateStartConcept, user_id, (err, result) => {
+        console.log('inserted!');
+      })
+    });
+
+    // Insert questions into user_question table for user
+    const sqlInsertUserQuestions = `INSERT INTO user_question (user_id, question_id, completed)
+    SELECT UUID_TO_BIN(?), id, False
+    FROM question;`
+    db.query(sqlInsertUserQuestions, user_id, (err, result) => {
       // res.send(result); 
     });
-  // Insert concepts in user_concept table for user
-  const sqlInsertUserConcepts = `INSERT INTO user_concept (user_id, concept_id, completed)
-  SELECT UUID_TO_BIN(?), id, False
-  FROM concept
-  WHERE id > 0;`
-  db.query(sqlInsertUserConcepts, user_id, (err, result) => {
-    // res.send(result); 
-  });
-  // Insert questions into user_question table for user
-  const sqlInsertUserQuestions = `INSERT INTO user_question (user_id, question_id, completed)
-  SELECT UUID_TO_BIN(?), id, False
-  FROM question;`
-  db.query(sqlInsertUserQuestions, user_id, (err, result) => {
-    // res.send(result); 
-  });
+  });  
 })
 
 app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {

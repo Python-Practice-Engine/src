@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 import {
   Typography,
@@ -17,7 +17,7 @@ import {
 } from 'react-router-dom';
 
 import UserPool from '../UserPool';
-import AccountContext from './Account';
+// import AccountContext from './Account';
 
 const { Title } = Typography;
 
@@ -25,23 +25,32 @@ function SignUpStateHook() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [validCred, setValidCred] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   // const [username, setUsername] = useState('');
-  const { user } = useContext(AccountContext);
+  // const { user } = useContext(AccountContext);
 
   const onSubmit = (event) => {
     event.preventDefault();
     if (password !== passwordCheck) {
       console.log("The two passwords don't match");
+      setErrorMsg('Passwords do not match');
+      setPassword('');
+      setPasswordCheck('');
     } else {
       UserPool.signUp(email, password, [], null, (err, data) => {
-        if (err) console.error(err);
+        if (err) {
+          console.error(err);
+          setErrorMsg(err.message);
+        }
         console.log(data);
-        // add insert to users table using below value after it has been cleaned up
         console.log(data.userSub);
+        setValidCred(true);
+        setErrorMsg('');
         Axios.post('http://localhost:3001/insert_user', {
           user_id: data.userSub,
         }).then(() => {
-          console.log('succesful insert');
+          console.log('successful insert');
         });
       });
     }
@@ -81,16 +90,6 @@ function SignUpStateHook() {
         <br />
         <br />
 
-        {/* <Input
-          size="large"
-          placeholder=" Username"
-          prefix={<UserOutlined />}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-
-        <br />
-        <br /> */}
-
         <Input
           size="large"
           type="password"
@@ -117,7 +116,13 @@ function SignUpStateHook() {
           <Link to="/Login"> here</Link>
           .
         </HashRouter>
-        <h3>{user}</h3>
+        {validCred && (
+          <h4>
+            Email has been sent, validate account before
+            <Link to="/Login"> logging in</Link>
+          </h4>
+        )}
+        <h4>{errorMsg}</h4>
       </Card>
     </div>
   );
