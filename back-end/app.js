@@ -89,7 +89,7 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
   });
 })
 
-app.get('/question/:user_id', (req, res) => {
+app.get('/next_question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
   var user_id = req.params.user_id;
   const sqlGetQuestions = `SELECT question_prereq_concept.question_id
@@ -107,6 +107,41 @@ app.get('/question/:user_id', (req, res) => {
     db.query(sqlGetQuestion, question_id, (err, question) => {
       res.send(question);
     })
+  });
+});
+
+app.get('/easier_question/:user_id/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const sqlGetQuestions = `SELECT question_prereq_concept.question_id
+  FROM question_prereq_concept
+  JOIN user_question ON user_question.question_id = question_prereq_concept.question_id
+  JOIN user_concept ON user_concept.concept_id = question_prereq_concept.prereq_concept_id 
+  AND user_concept.user_id = user_question.user_id
+  WHERE user_concept.completed = True
+  AND user_question.completed = False
+  AND user_question.user_id = UUID_TO_BIN(?)
+  AND user_question.question_id != ?;`;
+  db.query(sqlGetQuestions, [user_id, question_id], (err, questions) => {
+    const random = Math.floor(Math.random() * questions.length);
+    const question_id = questions[random].question_id;
+    const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
+    db.query(sqlGetQuestion, question_id, (err, question) => {
+      res.send(question);
+    })
+  });
+});
+
+app.get('/get_user_question/:user_id/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const sqlGetQuestions = `SELECT * 
+  FROM question 
+  WHERE id = ?;`;
+  db.query(sqlGetQuestions, question_id, (err, question) => {
+    res.send(question);
   });
 });
 

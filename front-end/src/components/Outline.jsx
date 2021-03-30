@@ -34,6 +34,7 @@ function Outline() {
         <HashRouter>
           <Switch>
             <Route path="/question/:question_id" component={IDE} />
+            <Route path="/user/:user_id/question/:question_id" component={IDE} />
             <Route path="/user/:user_id" component={IDE} />
             <Route path="/Login" component={LoginStateHook} />
             <Route path="/SignUp" component={SignUpStateHook} />

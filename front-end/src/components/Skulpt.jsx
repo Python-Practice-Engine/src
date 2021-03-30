@@ -54,6 +54,7 @@ class Skulpt extends React.Component {
     this.outf = this.outf.bind(this);
     this.state = {
       output: '',
+      question: this.props.params,
     };
 
     // Facing issues with code when adding state
@@ -136,6 +137,11 @@ class Skulpt extends React.Component {
             console.log(this.context.user, this.props.questionId);
             Axios.post(`http://localhost:3001/mark_complete/${this.context.user}/${this.props.conceptId}/${this.props.questionId}`).then(() => {
               console.log(`question ${this.props.questionId} marked as complete!`);
+            });
+            Axios.get(`http://localhost:3001/next_question/${this.context.user}`).then((
+              question,
+            ) => {
+              this.setState({ question: question.data[0].id });
             });
           } else {
             tag.innerHTML = 'Failed';
@@ -221,7 +227,7 @@ class Skulpt extends React.Component {
           >
             <NavLink
               tag={Link}
-              to={`/question/${this.props.questionId - 1}`}
+              to={`/user/${this.context.user}/question/${this.props.easierQuestionId}`}
             >
               <Button
                 type="primary"
@@ -231,7 +237,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <NavLink
               tag={Link}
-              to={`/question/${this.props.questionId + 1}`}
+              to={`/user/${this.context.user}/question/${this.state.question}`}
             >
               <Button
                 type="primary"

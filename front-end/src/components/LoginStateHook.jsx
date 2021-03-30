@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+import Axios from 'axios';
 import {
   Typography,
   Card,
@@ -46,7 +46,11 @@ function LoginStateHook() {
         console.log('onSuccess:', data);
         setUser(data.getIdToken().payload.sub);
         setErrorMsg('');
-        history.push(`/user/${data.getIdToken().payload.sub}`);
+        Axios.get(`http://localhost:3001/next_question/${data.getIdToken().payload.sub}`).then((
+          question,
+        ) => {
+          history.push(`/user/${data.getIdToken().payload.sub}/question/${question.data[0].id}`);
+        });
       },
 
       onFailure: (err) => {
