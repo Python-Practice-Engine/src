@@ -73,10 +73,30 @@ class IDE extends React.Component {
     this.mounted = true;
     const { params } = this.props.match;
     // const userId = this.context.user;
-    if (params.user_id) {
-      // Axios.get(`http://localhost:3001/question/${userId}`).then((
+    if (params.user_id && params.question_id) {
       this.context.user = params.user_id;
-      Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
+      Axios.get(`http://localhost:3001/get_user_question/${params.user_id}/${params.question_id}`).then((
+        question,
+      ) => {
+        if (question.data.length === 0) {
+          this.setState({ redirect: true });
+        }
+        this.setState({ question: question.data[0] });
+        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+          concept,
+        ) => {
+          this.setState({ concept: concept.data[0] });
+        });
+        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          testCases,
+        ) => {
+          this.setState({ testCases: testCases.data });
+        });
+      });
+    } else if (params.user_id) {
+      // Axios.get(`http://localhost:3001/next_question/${userId}`).then((
+      this.context.user = params.user_id;
+      Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
         question,
       ) => {
         if (question.data.length === 0) {
@@ -121,9 +141,29 @@ class IDE extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { params } = this.props.match;
-    if (params !== prevProps.match.params) {
-      if (params.user_id) {
-        Axios.get(`http://localhost:3001/question/${params.user_id}`).then((
+    if (params !== prevProps.match.params && this.mounted) {
+      if (params.user_id && params.question_id) {
+        this.context.user = params.user_id;
+        Axios.get(`http://localhost:3001/get_user_question/${params.user_id}/${params.question_id}`).then((
+          question,
+        ) => {
+          if (question.data.length === 0) {
+            this.setState({ redirect: true });
+          }
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            this.setState({ testCases: testCases.data });
+          });
+        });
+      } else if (params.user_id) {
+        Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
           question,
         ) => {
           if (question.data.length === 0) {
@@ -255,6 +295,7 @@ class IDE extends React.Component {
               testCases={this.state.testCases}
               questionId={this.state.question.id}
               conceptId={this.state.concept.id}
+              params={this.props.match.params.question_id}
             />
           </Col>
         </Row>

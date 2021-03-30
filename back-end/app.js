@@ -89,7 +89,7 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
   });
 })
 
-app.get('/question/:user_id', (req, res) => {
+app.get('/next_question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
   var user_id = req.params.user_id;
   const sqlGetQuestions = `SELECT question_prereq_concept.question_id
@@ -107,6 +107,18 @@ app.get('/question/:user_id', (req, res) => {
     db.query(sqlGetQuestion, question_id, (err, question) => {
       res.send(question);
     })
+  });
+});
+
+app.get('/get_user_question/:user_id/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const sqlGetQuestions = `SELECT * 
+  FROM question 
+  WHERE id = ?;`;
+  db.query(sqlGetQuestions, question_id, (err, question) => {
+    res.send(question);
   });
 });
 
