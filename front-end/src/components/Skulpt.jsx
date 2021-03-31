@@ -55,6 +55,7 @@ class Skulpt extends React.Component {
     this.state = {
       output: '',
       question: this.props.params,
+      testCasesPassed: true,
     };
 
     // Facing issues with code when adding state
@@ -85,18 +86,17 @@ class Skulpt extends React.Component {
   // the given questions test-cases
   submit() {
     // Variables declarations
-    let i;
     const tests = this.props.testCases;
     const codeOutput = document.getElementById('code-input');
 
     if (codeOutput) {
       // Loop through test-cases for given question
-      for (i = 0; i < tests.length; i += 1) {
+      for (let i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
         const codeTR = tests[i].code;
         let expect = tests[i].expected;
         const prog = codeOutput.value + codeTR.replaceAll('\\', '');
-        const tag = document.getElementById(tests[i].id.toString());
+        const tag = document.getElementById(tests[i].number.toString());
 
         // Auxiliary preperations for Skulpt
         this.setState({ output: '' });
@@ -131,19 +131,17 @@ class Skulpt extends React.Component {
 
           expect += '\n';
           if (this.state.output === expect) {
+            this.setState({ testCasesPassed: false });
+            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1`).then(() => {
+              console.log(`test case ${tests[i].number} failed!`);
+            });
             tag.innerHTML = 'Passed';
             tag.className = 'ant-tag ant-tag-success';
             tag.style.display = 'unset';
-            console.log(this.context.user, this.props.questionId);
-            Axios.post(`http://localhost:3001/mark_complete/${this.context.user}/${this.props.conceptId}/${this.props.questionId}`).then(() => {
-              console.log(`question ${this.props.questionId} marked as complete!`);
-            });
-            Axios.get(`http://localhost:3001/next_question/${this.context.user}`).then((
-              question,
-            ) => {
-              this.setState({ question: question.data[0].id });
-            });
           } else {
+            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0`).then(() => {
+              console.log(`test case ${tests[i].number} passed!`);
+            });
             tag.innerHTML = 'Failed';
             tag.className = 'ant-tag ant-tag-error';
             tag.style.display = 'unset';
@@ -154,6 +152,17 @@ class Skulpt extends React.Component {
         (error) => {
           const errMsg = error.toString();
           this.outf(errMsg);
+        });
+      }
+      if (this.state.testCasesPassed) {
+        console.log(this.context.user, this.props.questionId);
+        Axios.post(`http://localhost:3001/mark_complete/${this.context.user}/${this.props.conceptId}/${this.props.questionId}`).then(() => {
+          console.log(`question ${this.props.questionId} marked as complete!`);
+        });
+        Axios.get(`http://localhost:3001/next_question/${this.context.user}`).then((
+          question,
+        ) => {
+          this.setState({ question: question.data[0].id });
         });
       }
     }

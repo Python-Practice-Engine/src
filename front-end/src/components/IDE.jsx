@@ -93,7 +93,7 @@ class IDE extends React.Component {
         ) => {
           this.setState({ concept: concept.data[0] });
         });
-        Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+        Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
           testCases,
         ) => {
           this.setState({ testCases: testCases.data });
@@ -167,7 +167,7 @@ class IDE extends React.Component {
           ) => {
             this.setState({ concept: concept.data[0] });
           });
-          Axios.get(`http://localhost:3001/test_cases/${this.state.question.id}`).then((
+          Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
             testCases,
           ) => {
             this.setState({ testCases: testCases.data });

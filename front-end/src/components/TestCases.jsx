@@ -13,10 +13,50 @@ const { Title } = Typography;
 const testCaseTitle = 'Test Case #';
 
 // Used to render the test-cases table in the IDE page
+
+function TestCase(props) {
+  // eslint-disable-next-line prefer-destructuring
+  const number = props.item.number;
+  const passed = props.item.passed === undefined ? null : props.item.passed;
+  // const { passed, number } = props;
+  if (passed === null) {
+    return (
+      <Tag
+        id={number}
+        color="warning"
+      >
+        Click Submit to Run Test
+      </Tag>
+    );
+  }
+  if (passed === 0) {
+    return (
+      <Tag
+        id={number}
+        color="error"
+      >
+        Failed
+      </Tag>
+    );
+  }
+  if (passed === 1) {
+    return (
+      <Tag
+        id={number}
+        color="success"
+      >
+        Passed
+      </Tag>
+    );
+  }
+}
 class TestCases extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      // tagText: 'Click Submit to Run',
+      // tagColour: 'warning',
+    };
   }
 
   // Display the test-cases table on IDE page
@@ -40,17 +80,17 @@ class TestCases extends React.Component {
             renderItem={
               (item) => (
                 <Card
-                  title={testCaseTitle + item.id}
+                  title={testCaseTitle + item.number}
                   className="test-title"
                   bordered={false}
                 >
-                  <Tag
-                    id={item.id}
-                    style={{ display: 'none' }}
-                    color="success"
+                  <TestCase item={item} />
+                  {/* <Tag
+                    id={item.number}
+                    color={this.state.tagColour}
                   >
-                    Passed
-                  </Tag>
+                    {this.state.tagText}
+                  </Tag> */}
                   {item.test}
                 </Card>
               )

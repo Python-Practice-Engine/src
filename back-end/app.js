@@ -50,6 +50,14 @@ app.post('/insert_user', (req, res) => {
     db.query(sqlInsertUserQuestions, user_id, (err, result) => {
       // res.send(result); 
     });
+
+    // Insert test cases into user_test_case table for user
+    const sqlInsertUserTestCases = `INSERT INTO user_test_case (user_id, test_case_id, passed)
+    SELECT UUID_TO_BIN(?), test_case.id, null
+    FROM test_case;`
+    db.query(sqlInsertUserTestCases, user_id, (err, result) => {
+      // res.send(result); 
+    });
   });  
 })
 
@@ -87,6 +95,20 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
       }
     });
   });
+})
+
+app.post('/mark_test_case/:user_id/:test_case_id/:did_pass', (req, res) => {
+  const user_id = req.params.user_id;
+  const test_case_id = req.params.test_case_id;
+  const did_pass = req.params.did_pass;
+  const sqlMarkTestCase = `UPDATE user_test_case
+  SET passed = ?
+  WHERE user_id = UUID_TO_BIN(?)
+  AND test_case_id = ?;`;
+  db.query(sqlMarkTestCase, [did_pass, user_id, test_case_id], (err, result) => {
+    res.send(result);
+    console.log("test case marked!")
+  })
 })
 
 app.get('/next_question/:user_id', (req, res) => {
@@ -159,24 +181,20 @@ app.get('/concept/:question_id', (req, res) => {
   });
 });
 
-app.get('/test_cases/:question_id', (req, res) => {
+app.get('/user/:user_id/test_cases/:question_id', (req, res) => {
   // Retrieve the tag from our URL path
-  var question_id = req.params.question_id;
-  const sqlGetConcept = `SELECT *
-  FROM test_case
-  WHERE question_id = ?;`;
-  db.query(sqlGetConcept, question_id, (err, testCases) => {
+  const question_id = req.params.question_id;
+  const user_id = req.params.user_id;
+  const sqlGetTestCases = `SELECT user_id, test_case_id, question_id, number, passed, test, code, expected 
+  FROM user_test_case AS utc 
+  JOIN test_case AS tc ON utc.test_case_id = tc.id
+  WHERE question_id = ?
+  AND user_id = UUID_TO_BIN(?);`;
+  db.query(sqlGetTestCases, [question_id, user_id], (err, testCases) => {
+    if(err) {
+      console.log(err);
+    }
     res.send(testCases);
-  });
-});
-
-// For the questions page
-// Route for retrieving questions based on concepts
-app.get('/questionSet/:tags', (req, res) => {
-  var tags = req.params.tags;
-  const sqlSearch = `SELECT * FROM Questions WHERE tags = ?;`;
-  db.query(sqlSearch, [tags], (err, result)=> {
-    res.send(result);
   });
 });
 
@@ -187,27 +205,6 @@ app.get('/questions/:Qid', (req, res) => {
   var Qid = req.params.Qid;
   const sqlRetrieve = `SELECT * FROM question WHERE id = ?;`;
   db.query(sqlRetrieve, [Qid], (err, result)=> {
-    res.send(result);
-  });
-});
-
-// For the Practice Engine page
-// Route for retrieving testcases related to a question
-app.get('/testcases/:Qid', (req, res) => {
-  // Retrieve the question id from our URL path
-  var Qid = req.params.Qid;
-  const sqlRetrieve = `SELECT * FROM Testcases WHERE Qid = ?;`;
-  db.query(sqlRetrieve, [Qid], (err, result)=> {
-    res.send(result);
-  });
-});
-
-// For the Practice Engine page
-// Route for retrieving testcases related to a question
-app.get('/tutorial/:Tid', (req,res) => {
-  var Tid = req.params.Tid;
-  const sqlRetrieve = `SELECT * FROM Tutorials WHERE Tid = ? OR Tid = -1 ORDER BY Tid DESC LIMIT 1;`;
-  db.query(sqlRetrieve, [Tid], (err, result)=> {
     res.send(result);
   });
 });
