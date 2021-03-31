@@ -55,7 +55,6 @@ class Skulpt extends React.Component {
     this.state = {
       output: '',
       question: this.props.params,
-      testCasesPassed: true,
     };
 
     // Facing issues with code when adding state
@@ -130,15 +129,14 @@ class Skulpt extends React.Component {
 
           expect += '\n';
           if (this.state.output === expect) {
-            this.setState({ testCasesPassed: false });
-            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1`).then(() => {
+            this.props.updateTestCases(i, 1);
+            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1/${this.props.questionId}/${this.props.conceptId}`).then(() => {
               console.log(`test case ${tests[i].number} passed!`);
-              this.props.updateTestCases();
             });
           } else {
-            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0`).then(() => {
+            this.props.updateTestCases(i, 0);
+            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0/${this.props.questionId}/${this.props.conceptId}`).then(() => {
               console.log(`test case ${tests[i].number} failed!`);
-              this.props.updateTestCases();
             });
           }
           console.log('success');
@@ -147,17 +145,6 @@ class Skulpt extends React.Component {
         (error) => {
           const errMsg = error.toString();
           this.outf(errMsg);
-        });
-      }
-      if (this.state.testCasesPassed) {
-        console.log(this.context.user, this.props.questionId);
-        Axios.post(`http://localhost:3001/mark_complete/${this.context.user}/${this.props.conceptId}/${this.props.questionId}`).then(() => {
-          console.log(`question ${this.props.questionId} marked as complete!`);
-        });
-        Axios.get(`http://localhost:3001/next_question/${this.context.user}`).then((
-          question,
-        ) => {
-          this.setState({ question: question.data[0].id });
         });
       }
     }

@@ -220,13 +220,14 @@ class IDE extends React.Component {
     this.mounted = false;
   }
 
-  updateTestCases = () => {
-    Axios.get(`http://localhost:3001/user/${this.props.match.params.user_id}/test_cases/${this.state.question.id}`).then((
-      testCases,
-    ) => {
-      this.setState({ testCases: testCases.data });
-    });
-  };
+  updateTestCases = (i, mark) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const testCases = [...this.state.testCases];
+    const testCase = { ...testCases[i] };
+    testCase.passed = mark;
+    testCases[i] = testCase;
+    this.setState({ testCases });
+  }
 
   onTabChange = (key, type) => {
     this.setState({ [type]: key });

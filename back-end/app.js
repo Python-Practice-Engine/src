@@ -82,7 +82,7 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
     WHERE concept_id = ?);`;
     db.query(sqlCountQuestionsOfConcept, [user_id, concept_id], (err, result) => {
       const count = JSON.parse(JSON.stringify(result))[0].count;
-      if (count == 0) {
+      if (count == 0) { // all questions of concept complete
         const sqlConceptComplete = `UPDATE user_concept
         SET completed = True
         WHERE concept_id = ?
@@ -96,7 +96,7 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
   });
 })
 
-app.post('/mark_test_case/:user_id/:test_case_id/:did_pass', (req, res) => {
+app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept_id', (req, res) => {
   const user_id = req.params.user_id;
   const test_case_id = req.params.test_case_id;
   const did_pass = req.params.did_pass;
@@ -105,10 +105,64 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass', (req, res) => {
   WHERE user_id = UUID_TO_BIN(?)
   AND test_case_id = ?;`;
   db.query(sqlMarkTestCase, [did_pass, user_id, test_case_id], (err, result) => {
-    res.send(result);
+    // res.send(result);
     console.log("test case marked!")
-  })
-})
+    const question_id = req.params.question_id;
+    const sqlCheckAllPassed = `SELECT COUNT(utc.test_case_id) AS count
+    FROM user_test_case AS utc
+    WHERE (passed = 0 or passed = NULL)
+    AND utc.user_id = UUID_TO_BIN(?)
+    AND utc.test_case_id IN(
+      SELECT id
+      FROM test_case
+      WHERE question_id = ?
+    );`;
+    db.query(sqlCheckAllPassed, [user_id, question_id], (err, result) => {
+      const count = JSON.parse(JSON.stringify(result))[0].count;
+      if (count == 0) { // no test cases failed
+        console.log("All test cassed passed!")
+        const concept_id = req.params.concept_id;
+        const sqlQuestionComplete = `
+        UPDATE user_question
+        SET completed = True
+        WHERE question_id = ?
+        AND user_id = UUID_TO_BIN(?);`;
+        db.query(sqlQuestionComplete, [question_id, user_id], (err, result) => {
+          const sqlCountQuestionsOfConcept = `
+          SELECT COUNT(uq.question_id) AS count
+          FROM user_question AS uq 
+          WHERE uq.user_id = UUID_TO_BIN(?)
+          AND uq.completed = False
+          AND uq.question_id IN(
+            SELECT qc.question_id 
+            FROM question_concept AS qc
+            WHERE concept_id = ?
+          );`;
+          db.query(sqlCountQuestionsOfConcept, [user_id, concept_id], (err, result) => {
+            const count = JSON.parse(JSON.stringify(result))[0].count;
+            if (count == 0) { // all questions of concept complete
+              console.log("All questions for concept complete!")
+              const sqlConceptComplete = `UPDATE user_concept
+              SET completed = True
+              WHERE concept_id = ?
+              AND user_id = UUID_TO_BIN(?);`;
+              console.log(concept_id, user_id);
+              db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
+                res.send(result);
+              })
+            }
+            else {
+              res.send(result);
+            }
+          });
+        });
+      }
+      else {
+        res.send(result);
+      }
+    });
+  });
+});
 
 app.get('/next_question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
