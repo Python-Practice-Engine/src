@@ -96,7 +96,6 @@ class Skulpt extends React.Component {
         const codeTR = tests[i].code;
         let expect = tests[i].expected;
         const prog = codeOutput.value + codeTR.replaceAll('\\', '');
-        const tag = document.getElementById(tests[i].number.toString());
 
         // Auxiliary preperations for Skulpt
         this.setState({ output: '' });
@@ -135,17 +134,12 @@ class Skulpt extends React.Component {
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1`).then(() => {
               console.log(`test case ${tests[i].number} failed!`);
             });
-            tag.innerHTML = 'Passed';
-            tag.className = 'ant-tag ant-tag-success';
-            tag.style.display = 'unset';
           } else {
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0`).then(() => {
               console.log(`test case ${tests[i].number} passed!`);
             });
-            tag.innerHTML = 'Failed';
-            tag.className = 'ant-tag ant-tag-error';
-            tag.style.display = 'unset';
           }
+          this.props.updateTestCases();
           console.log('success');
         },
         // Error in code, output error message

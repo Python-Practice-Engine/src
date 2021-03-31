@@ -220,6 +220,14 @@ class IDE extends React.Component {
     this.mounted = false;
   }
 
+  updateTestCases = () => {
+    Axios.get(`http://localhost:3001/user/${this.props.match.params.user_id}/test_cases/${this.state.question.id}`).then((
+      testCases,
+    ) => {
+      this.setState({ testCases: testCases.data });
+    });
+  };
+
   onTabChange = (key, type) => {
     this.setState({ [type]: key });
   };
@@ -308,6 +316,7 @@ class IDE extends React.Component {
               conceptId={this.state.concept.id}
               params={this.props.match.params.question_id}
               easierQuestionId={this.state.easierQuestion.id}
+              updateTestCases={this.updateTestCases}
             />
           </Col>
         </Row>

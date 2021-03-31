@@ -89,7 +89,6 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
         AND user_id = UUID_TO_BIN(?);`
         console.log(concept_id, user_id)
         db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
-          console.log(result);
           res.send(result);
         })
       }
