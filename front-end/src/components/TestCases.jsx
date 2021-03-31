@@ -8,6 +8,12 @@ import {
   Card,
 } from 'antd';
 
+import {
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+  ClockCircleOutlined,
+} from '@ant-design/icons';
+
 // Variable declarations
 const { Title } = Typography;
 const testCaseTitle = 'Test Case #';
@@ -22,8 +28,13 @@ function TestCase(props) {
   if (passed === null) {
     return (
       <Tag
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}
+        icon={<ClockCircleOutlined />}
         id={number}
-        color="warning"
+        color="default"
       >
         Click Submit to Run Test
       </Tag>
@@ -32,8 +43,13 @@ function TestCase(props) {
   if (passed === 0) {
     return (
       <Tag
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}
+        icon={<ExclamationCircleOutlined />}
         id={number}
-        color="error"
+        color="warning"
       >
         Failed
       </Tag>
@@ -42,6 +58,11 @@ function TestCase(props) {
   if (passed === 1) {
     return (
       <Tag
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}
+        icon={<CheckCircleOutlined />}
         id={number}
         color="success"
       >
@@ -53,10 +74,7 @@ function TestCase(props) {
 class TestCases extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // tagText: 'Click Submit to Run',
-      // tagColour: 'warning',
-    };
+    this.state = {};
   }
 
   // Display the test-cases table on IDE page
@@ -85,12 +103,6 @@ class TestCases extends React.Component {
                   bordered={false}
                 >
                   <TestCase item={item} />
-                  {/* <Tag
-                    id={item.number}
-                    color={this.state.tagColour}
-                  >
-                    {this.state.tagText}
-                  </Tag> */}
                   {item.test}
                 </Card>
               )

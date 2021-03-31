@@ -132,14 +132,15 @@ class Skulpt extends React.Component {
           if (this.state.output === expect) {
             this.setState({ testCasesPassed: false });
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1`).then(() => {
-              console.log(`test case ${tests[i].number} failed!`);
+              console.log(`test case ${tests[i].number} passed!`);
+              this.props.updateTestCases();
             });
           } else {
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0`).then(() => {
-              console.log(`test case ${tests[i].number} passed!`);
+              console.log(`test case ${tests[i].number} failed!`);
+              this.props.updateTestCases();
             });
           }
-          this.props.updateTestCases();
           console.log('success');
         },
         // Error in code, output error message
