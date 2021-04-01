@@ -83,52 +83,53 @@ class IDE extends React.Component {
         console.log('lev 1');
         if (question.data.length === 0) {
           this.setState({ redirect: true });
+        } else {
+          this.setState({ question: question.data[0] });
+          Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
+            result,
+          ) => {
+            console.log('lev 2.1');
+            const isComplete = result.data[0].completed;
+            if (isComplete) {
+              Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
+                nextQuestionData,
+              ) => {
+                console.log('lev 3.1');
+                this.setState({ nextQuestion: nextQuestionData.data[0].id });
+              });
+            } else {
+              this.setState({ nextQuestion: question.data[0].id });
+            }
+          });
+          Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
+            result,
+          ) => {
+            console.log('lev 2.2');
+            const easierAvailable = result.data;
+            if (easierAvailable) {
+              Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
+                easyQuestionData,
+              ) => {
+                console.log('lev 3.2');
+                this.setState({ easierQuestion: easyQuestionData.data[0].id });
+              });
+            } else {
+              this.setState({ easierQuestion: question.data[0].id });
+            }
+          });
+          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+            concept,
+          ) => {
+            console.log('lev 2.3');
+            this.setState({ concept: concept.data[0] });
+          });
+          Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
+            testCases,
+          ) => {
+            console.log('lev 2.4');
+            this.setState({ testCases: testCases.data });
+          });
         }
-        this.setState({ question: question.data[0] });
-        Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
-          result,
-        ) => {
-          console.log('lev 2.1');
-          const isComplete = result.data[0].completed;
-          if (isComplete) {
-            Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
-              nextQuestionData,
-            ) => {
-              console.log('lev 3.1');
-              this.setState({ nextQuestion: nextQuestionData.data[0].id });
-            });
-          } else {
-            this.setState({ nextQuestion: question.data[0].id });
-          }
-        });
-        Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
-          result,
-        ) => {
-          console.log('lev 2.2');
-          const easierAvailable = result.data;
-          if (easierAvailable) {
-            Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
-              easyQuestionData,
-            ) => {
-              console.log('lev 3.2');
-              this.setState({ easierQuestion: easyQuestionData.data[0].id });
-            });
-          } else {
-            this.setState({ easierQuestion: question.data[0].id });
-          }
-        });
-        Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
-          concept,
-        ) => {
-          console.log('lev 2.3');
-          this.setState({ concept: concept.data[0] });
-        });
-        Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
-          testCases,
-        ) => {
-          console.log('lev 2.4');
-          this.setState({ testCases: testCases.data });
-        });
       });
     } else if (params.user_id) {
       this.context.user = params.user_id;
@@ -186,52 +187,55 @@ class IDE extends React.Component {
           console.log('update 1');
           if (question.data.length === 0) {
             this.setState({ redirect: true });
+          } else {
+            this.setState({ question: question.data[0] });
+            Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
+              result,
+            ) => {
+              console.log('update 2.1');
+              const isComplete = result.data[0].completed;
+              if (isComplete) {
+                Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
+                  nextQuestionData,
+                ) => {
+                  console.log('update 3.1');
+                  this.setState({ nextQuestion: nextQuestionData.data[0].id });
+                });
+              } else {
+                this.setState({ nextQuestion: question.data[0].id });
+              }
+            });
+            Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
+              result,
+            ) => {
+              console.log('update 2.2');
+              const easierAvailable = result.data;
+              if (easierAvailable) {
+                Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
+                  easyQuestionData,
+                ) => {
+                  console.log('update 3.2');
+                  this.setState({
+                    easierQuestion: easyQuestionData.data[0].id,
+                  });
+                });
+              } else {
+                this.setState({ easierQuestion: question.data[0].id });
+              }
+            });
+            Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
+              concept,
+            ) => {
+              console.log('update 2.3');
+              this.setState({ concept: concept.data[0] });
+            });
+            Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
+              testCases,
+            ) => {
+              console.log('update 2.4');
+              this.setState({ testCases: testCases.data });
+            });
           }
-          this.setState({ question: question.data[0] });
-          Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
-            result,
-          ) => {
-            console.log('update 2.1');
-            const isComplete = result.data[0].completed;
-            if (isComplete) {
-              Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
-                nextQuestionData,
-              ) => {
-                console.log('update 3.1');
-                this.setState({ nextQuestion: nextQuestionData.data[0].id });
-              });
-            } else {
-              this.setState({ nextQuestion: question.data[0].id });
-            }
-          });
-          Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
-            result,
-          ) => {
-            console.log('update 2.2');
-            const easierAvailable = result.data;
-            if (easierAvailable) {
-              Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
-                easyQuestionData,
-              ) => {
-                console.log('update 3.2');
-                this.setState({ easierQuestion: easyQuestionData.data[0].id });
-              });
-            } else {
-              this.setState({ easierQuestion: question.data[0].id });
-            }
-          });
-          Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
-            concept,
-          ) => {
-            console.log('update 2.3');
-            this.setState({ concept: concept.data[0] });
-          });
-          Axios.get(`http://localhost:3001/user/${params.user_id}/test_cases/${this.state.question.id}`).then((
-            testCases,
-          ) => {
-            console.log('update 2.4');
-            this.setState({ testCases: testCases.data });
-          });
         });
       } else if (params.user_id) {
         Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((

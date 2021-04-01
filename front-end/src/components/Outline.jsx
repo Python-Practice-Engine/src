@@ -34,10 +34,9 @@ function Outline() {
               path="/user/:user_id/question/:question_id"
               component={IDE}
             />
-            <Route path="/user/:user_id" component={IDE} />
             <Route path="/Login" component={LoginStateHook} />
             <Route path="/SignUp" component={SignUpStateHook} />
-            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/ForgotPassword" component={ForgotPassword} />
             <Route exact path="/">
               <Redirect to="/Login" />
             </Route>
