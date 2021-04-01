@@ -92,7 +92,7 @@ function LoginStateHook() {
           prefix={<UserOutlined />}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          style={{ marginBottom: '3%' }}
+          style={{ marginBottom: '2%' }}
         />
         <Input
           size="large"
@@ -102,7 +102,7 @@ function LoginStateHook() {
           onChange={
             (event) => setPassword(event.target.value)
           }
-          style={{ marginBottom: '2%' }}
+          style={{ marginBottom: '3%' }}
         />
 
         <Button type="primary" size="medium" onClick={onSubmit}>Login</Button>

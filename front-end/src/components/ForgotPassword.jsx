@@ -21,7 +21,6 @@ export default () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
 
@@ -34,15 +33,13 @@ export default () => {
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
-        setErrorMsg('');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
       inputVerificationCode: (data) => {
         console.log('Input code:', data);
-        setErrorMsg('');
         setStage(2);
       },
     });
@@ -53,7 +50,7 @@ export default () => {
 
     if (password !== confirmPassword) {
       console.error('Passwords are not the same');
-      setErrorMsg('Passwords are not the same');
+      alert('Passwords are not the same');
       setPassword('');
       setConfirmPassword('');
       return;
@@ -62,12 +59,11 @@ export default () => {
     getUser.confirmPassword(code, password, {
       onSuccess: (data) => {
         console.log('onSuccess:', data);
-        setErrorMsg('');
         history.push('/Login');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
     });
   };
@@ -118,6 +114,7 @@ export default () => {
               size="large"
               onChange={(event) => setCode(event.target.value)}
               placeholder="code"
+              style={{ marginBottom: '2%' }}
             />
             <br />
             <Input
@@ -126,6 +123,7 @@ export default () => {
               onChange={(event) => setPassword(event.target.value)}
               placeholder="password"
               type="password"
+              style={{ marginBottom: '2%' }}
             />
             <br />
             <Input
@@ -134,13 +132,16 @@ export default () => {
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="password"
               type="password"
+              style={{ marginBottom: '3%' }}
             />
             <br />
-            <Button type="primary" size="medium">Change password</Button>
+            <Button size="medium" style={{ marginRight: '2%' }}>
+              Change password
+            </Button>
+            <Button type="primary" size="medium" onClick={sendCode}>
+              Resend code
+            </Button>
             <br />
-            <Button type="primary" size="medium" onClick={sendCode}>Resend code</Button>
-            <br />
-            <h4>{errorMsg}</h4>
           </form>
         )}
       </Card>
