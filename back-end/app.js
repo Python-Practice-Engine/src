@@ -87,7 +87,6 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
         SET completed = True
         WHERE concept_id = ?
         AND user_id = UUID_TO_BIN(?);`
-        console.log(concept_id, user_id)
         db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
           res.send(result);
         })
@@ -180,7 +179,6 @@ app.get('/next_question/:user_id', (req, res) => {
       AND uq.user_id = UUID_TO_BIN(?));`;
   db.query(sqlGetQuestions, [user_id, user_id], (err, questions) => {
     const random = Math.floor(Math.random() * questions.length);
-    console.log(questions);
     const question_id = questions[random].question_id;
     const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
     db.query(sqlGetQuestion, question_id, (err, question) => {
@@ -224,7 +222,6 @@ app.get('/check_easier_question/:user_id/:question_id', (req, res) => {
       AND uq.user_id = UUID_TO_BIN(?));`;
   db.query(sqlCheck, [question_id, user_id, user_id], (err, result) => {
     const count = JSON.parse(JSON.stringify(result))[0].count;
-    console.log(count);
     if (count != 0) {
       res.send(true)
     }
