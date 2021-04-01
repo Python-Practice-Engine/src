@@ -1,3 +1,4 @@
+// setting values to amazon cognito to connect to created instance
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 
 const poolData = {

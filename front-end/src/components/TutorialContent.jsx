@@ -8,6 +8,7 @@ import {
 
 const { Title } = Typography;
 
+// populating tutorial tab for main page
 function TutorialContent(props) {
   const content = props.contents;
   return (

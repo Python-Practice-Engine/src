@@ -96,6 +96,7 @@ app.post('/mark_complete/:user_id/:concept_id/:question_id', (req, res) => {
   });
 })
 
+// updating user proficiency table 
 app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept_id', (req, res) => {
   const user_id = req.params.user_id;
   const test_case_id = req.params.test_case_id;
@@ -120,7 +121,7 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
     db.query(sqlCheckAllPassed, [user_id, question_id], (err, result) => {
       const count = JSON.parse(JSON.stringify(result))[0].count;
       if (count == 0) { // no test cases failed
-        console.log("All test cassed passed!")
+        console.log("All test cases passed!")
         const concept_id = req.params.concept_id;
         const sqlQuestionComplete = `
         UPDATE user_question
@@ -165,6 +166,7 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
   });
 });
 
+// implementation of right arrow for higher difficulty button
 app.get('/next_question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
   var user_id = req.params.user_id;
@@ -264,6 +266,7 @@ app.get('/get_easier_question/:user_id/:question_id', (req, res) => {
   });
 });
 
+// select question based on id
 app.get('/get_user_question/:user_id/:question_id', (req, res) => {
   // Retrieve the tag from our URL path
   const user_id = req.params.user_id;
