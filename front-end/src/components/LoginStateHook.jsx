@@ -53,7 +53,12 @@ function LoginStateHook() {
         Axios.get(`http://localhost:3001/next_question/${data.getIdToken().payload.sub}`).then((
           question,
         ) => {
-          history.push(`/user/${data.getIdToken().payload.sub}/question/${question.data[0].id}`);
+          history.push(
+            `/user/${data.getIdToken().payload.sub}/question/${
+              question.data[0].id
+            // eslint-disable-next-line comma-dangle
+            }`
+          );
         });
       },
 
@@ -97,7 +102,7 @@ function LoginStateHook() {
           prefix={<UserOutlined />}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          style={{ marginBottom: '3%' }}
+          style={{ marginBottom: '2%' }}
         />
         <Input
           size="large"
@@ -107,7 +112,7 @@ function LoginStateHook() {
           onChange={
             (event) => setPassword(event.target.value)
           }
-          style={{ marginBottom: '2%' }}
+          style={{ marginBottom: '3%' }}
         />
 
         <Button type="primary" size="medium" onClick={onSubmit}>Login</Button>

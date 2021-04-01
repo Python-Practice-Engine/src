@@ -21,7 +21,6 @@ export default () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
   // setting parameters for forgot password workflow
@@ -32,19 +31,19 @@ export default () => {
     event.preventDefault();
 
     setCode('');
-    // send email to account to get verification code necessary to reset password
+    // send email to account to get verification code
+    // necessary to reset password
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
-        setErrorMsg('');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
-      inputVerificationCode: (data) => { // move to second form after email has been sent with code
+      inputVerificationCode: (data) => {
+        // move to second form after email has been sent with code
         console.log('Input code:', data);
-        setErrorMsg('');
         setStage(2);
       },
     });
@@ -56,21 +55,21 @@ export default () => {
 
     if (password !== confirmPassword) {
       console.error('Passwords are not the same');
-      setErrorMsg('Passwords are not the same');
+      alert('Passwords are not the same');
       setPassword('');
       setConfirmPassword('');
       return;
     }
 
     getUser.confirmPassword(code, password, {
-      onSuccess: (data) => { // after successful password change, redirect to login page
+      onSuccess: (data) => {
+        // after successful password change, redirect to login page
         console.log('onSuccess:', data);
-        setErrorMsg('');
         history.push('/Login');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
     });
   };
@@ -108,27 +107,38 @@ export default () => {
             style={{ marginBottom: '2%' }}
           />
           <br />
-          <Button type="primary" size="medium" onClick={sendCode}>Send verification code</Button>
+          <Button
+            type="primary"
+            size="medium"
+            onClick={sendCode}
+          >
+            Send verification code
+          </Button>
           <br />
         </form>
         )}
 
         {stage === 2 && (
           <form onSubmit={resetPassword}>
-            <p>Enter verification code, email can take up to 5 minutes</p>
+            <p>
+              Please your enter verification code.
+              The email may take up to 5 minutes.
+            </p>
             <Input
               value={code}
               size="large"
               onChange={(event) => setCode(event.target.value)}
-              placeholder="code"
+              placeholder="Code"
+              style={{ marginBottom: '2%' }}
             />
             <br />
             <Input
               value={password}
               size="large"
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="password"
+              placeholder="Password"
               type="password"
+              style={{ marginBottom: '2%' }}
             />
             <br />
             <Input
@@ -136,14 +146,18 @@ export default () => {
               size="large"
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="password"
-              type="password"
+              type="Password"
+              style={{ marginBottom: '3%' }}
             />
             <br />
-            <Button type="submit" size="medium" onClick={resetPassword}>Change password</Button>
+            <Button
+              type="primary"
+              size="medium"
+              onClick={resetPassword}
+            >
+              Change password
+            </Button>
             <br />
-            <Button type="primary" size="medium" onClick={sendCode}>Resend code</Button>
-            <br />
-            <h4>{errorMsg}</h4>
           </form>
         )}
       </Card>

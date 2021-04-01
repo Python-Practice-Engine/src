@@ -16,7 +16,7 @@ function TutorialContent(props) {
       <Title
         level={3}
       >
-        {content.name + content.level}
+        {`${content.name} ${content.level}`}
       </Title>
       <Space />
       <p className="questionDescription">
