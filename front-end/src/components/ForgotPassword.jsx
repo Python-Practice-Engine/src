@@ -108,7 +108,7 @@ export default () => {
             style={{ marginBottom: '2%' }}
           />
           <br />
-          <Button type="primary" size="medium">Send verification code</Button>
+          <Button type="primary" size="medium" onClick={sendCode}>Send verification code</Button>
           <br />
         </form>
         )}
@@ -139,7 +139,7 @@ export default () => {
               type="password"
             />
             <br />
-            <Button type="submit" size="medium">Change password</Button>
+            <Button type="submit" size="medium" onClick={resetPassword}>Change password</Button>
             <br />
             <Button type="primary" size="medium" onClick={sendCode}>Resend code</Button>
             <br />
