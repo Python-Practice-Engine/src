@@ -3,12 +3,11 @@ import { CognitoUser } from 'amazon-cognito-identity-js';
 import {
   Typography,
   Card,
-//   Input,
+  Button,
+  Input,
 } from 'antd';
 
 import {
-  HashRouter,
-  Link,
   useHistory,
 } from 'react-router-dom';
 
@@ -98,49 +97,48 @@ export default () => {
         {stage === 1 && (
         <form onSubmit={sendCode}>
           <p>Enter your email address below</p>
-          <input
+          <Input
             value={email}
+            size="large"
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="email address"
+            placeholder="Email"
+            style={{ marginBottom: '2%' }}
           />
-          <button type="submit">Send verification code</button>
           <br />
-          <HashRouter>
-            Need an account? Click
-            <Link to="/SignUp"> here</Link>
-            .
-            <br />
-            <Link to="/Login">Login</Link>
-          </HashRouter>
+          <Button type="primary" size="medium">Send verification code</Button>
+          <br />
         </form>
         )}
 
         {stage === 2 && (
           <form onSubmit={resetPassword}>
             <p>Enter verification code, email can take up to 5 minutes</p>
-            <input
+            <Input
               value={code}
+              size="large"
               onChange={(event) => setCode(event.target.value)}
               placeholder="code"
             />
             <br />
-            <input
+            <Input
               value={password}
+              size="large"
               onChange={(event) => setPassword(event.target.value)}
               placeholder="password"
               type="password"
             />
             <br />
-            <input
+            <Input
               value={confirmPassword}
+              size="large"
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="password"
               type="password"
             />
             <br />
-            <button type="submit">Change password</button>
+            <Button type="submit" size="medium">Change password</Button>
             <br />
-            <button type="button" onClick={sendCode}>Resend code</button>
+            <Button type="primary" size="medium" onClick={sendCode}>Resend code</Button>
             <br />
             <h4>{errorMsg}</h4>
           </form>

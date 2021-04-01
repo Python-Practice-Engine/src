@@ -78,10 +78,21 @@ input:focus, textarea:focus, select:focus{
 
 .login-page {
     height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     background-color: #1890ff;
+    /* text-align: center; */
 }
 
 .login-title {
     color: #1890ff; 
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #8c8c8c;
+}
+
+.submit-btn {
+    margin-bottom: 2%;
 }
