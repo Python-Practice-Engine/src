@@ -124,7 +124,7 @@ function LoginStateHook() {
           .
           <br />
           <Link
-            to="/forgot-password"
+            to="/ForgotPassword"
             className="forgot-password"
           >
             Forgot password?
