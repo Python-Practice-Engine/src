@@ -5,7 +5,7 @@ import {
   NavLink,
 } from 'react-router-dom';
 
-//for invalid url
+// for invalid url
 const NoMatch = () => (
   <div>
     <Result

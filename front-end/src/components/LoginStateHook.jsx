@@ -29,22 +29,22 @@ function LoginStateHook() {
 
   const { setUser } = useContext(AccountContext);
 
-  //check that user credentials matches the one stored on aws cognito 
+  // check that user credentials matches the one stored on aws cognito
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    //retrieving values from aws cognito
+    // retrieving values from aws cognito
     const user = new CognitoUser({
       Username: email,
       Pool: UserPool,
     });
-    ///retrieving user provided values
+    // retrieving user provided values
     const authDetails = new AuthenticationDetails({
       Username: email,
       Password: password,
     });
 
-    //compare aws cognito values with user provided values
+    // compare aws cognito values with user provided values
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log('onSuccess:', data);
