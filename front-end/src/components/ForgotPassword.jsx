@@ -136,7 +136,7 @@ export default () => {
               type="password"
             />
             <br />
-            <Button type="submit" size="medium">Change password</Button>
+            <Button type="primary" size="medium">Change password</Button>
             <br />
             <Button type="primary" size="medium" onClick={sendCode}>Resend code</Button>
             <br />
