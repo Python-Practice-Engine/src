@@ -8,12 +8,6 @@ import {
   Card,
 } from 'antd';
 
-import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  ClockCircleOutlined,
-} from '@ant-design/icons';
-
 // Variable declarations
 const { Title } = Typography;
 const testCaseTitle = 'Test Case #';
@@ -24,50 +18,52 @@ function TestCase(props) {
   // eslint-disable-next-line prefer-destructuring
   const number = props.item.number;
   const passed = props.item.passed === undefined ? null : props.item.passed;
-  // const { passed, number } = props;
   if (passed === null) {
     return (
-      <Tag
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}
-        icon={<ClockCircleOutlined />}
-        id={number}
-        color="default"
-      >
-        Click Submit to Run Test
-      </Tag>
+      <div>
+        <Tag
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+          id={number}
+          color="#1890ff"
+        >
+          Click submit to run tests
+        </Tag>
+      </div>
     );
   }
   if (passed === 0) {
     return (
-      <Tag
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}
-        icon={<ExclamationCircleOutlined />}
-        id={number}
-        color="warning"
-      >
-        Failed
-      </Tag>
+      <div>
+        <Tag
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+          id={number}
+          color="red"
+        >
+          Failed
+        </Tag>
+      </div>
     );
   }
   if (passed === 1) {
     return (
-      <Tag
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}
-        icon={<CheckCircleOutlined />}
-        id={number}
-        color="success"
-      >
-        Passed
-      </Tag>
+      <div>
+        <Tag
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+          id={number}
+          color="green"
+        >
+          Passed
+        </Tag>
+      </div>
     );
   }
 }

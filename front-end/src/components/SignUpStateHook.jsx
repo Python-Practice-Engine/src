@@ -4,6 +4,7 @@ import {
   Typography,
   Card,
   Input,
+  Button,
 } from 'antd';
 
 import {
@@ -24,14 +25,12 @@ function SignUpStateHook() {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [validCred, setValidCred] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmit = (event) => {
     event.preventDefault();
     // check two passwords are the same
     if (password !== passwordCheck) {
-      console.log("The two passwords don't match");
-      setErrorMsg('Passwords do not match');
+      alert('Passwords do not match');
       setPassword('');
       setPasswordCheck('');
     } else {
@@ -39,18 +38,18 @@ function SignUpStateHook() {
       UserPool.signUp(email, password, [], null, (err, data) => {
         if (err) {
           console.error(err);
-          setErrorMsg(err.message);
+          alert(err.message);
         }
-        console.log(data);
-        console.log(data.userSub);
-        setValidCred(true);
-        setErrorMsg('');
-        // insert into user table in the database
-        Axios.post('http://localhost:3001/insert_user', {
-          user_id: data.userSub,
-        }).then(() => {
-          console.log('successful insert');
-        });
+        if (data) {
+          console.log(data);
+          console.log(data.userSub);
+          setValidCred(true);
+          Axios.post('http://localhost:3001/insert_user', {
+            user_id: data.userSub,
+          }).then(() => {
+            console.log('successful insert');
+          });
+        }
       });
     }
   };
@@ -66,7 +65,7 @@ function SignUpStateHook() {
           bottom: '0',
           left: '0',
           right: '0',
-          height: '60%',
+          height: '50%',
           width: '40%',
           borderRadius: '10px',
         }
@@ -84,31 +83,32 @@ function SignUpStateHook() {
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          style={{ marginBottom: '2%' }}
         />
-
-        <br />
-        <br />
-
         <Input
+          style={{ marginBottom: '2%' }}
           size="large"
-          type="password"
           placeholder="Password"
+          type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <br />
-        <br />
-
         <Input
           size="large"
           type="password"
           placeholder="Re-enter Password"
           value={passwordCheck}
           onChange={(event) => setPasswordCheck(event.target.value)}
+          style={{ marginBottom: '3%' }}
         />
-
-        <button type="submit" onClick={onSubmit}>Submit</button>
-        <br />
+        <Button
+          type="primary"
+          size="medium"
+          onClick={onSubmit}
+          className="submit-btn"
+        >
+          Submit
+        </Button>
         <br />
         <HashRouter>
           Already have an account? Click
@@ -116,12 +116,8 @@ function SignUpStateHook() {
           .
         </HashRouter>
         {validCred && (
-          <h4>
-            Email has been sent, validate account before
-            <Link to="/Login"> logging in</Link>
-          </h4>
+          alert('Email has been sent, validate account before')
         )}
-        <h4>{errorMsg}</h4>
       </Card>
     </div>
   );

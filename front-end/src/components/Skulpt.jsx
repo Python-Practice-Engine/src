@@ -54,7 +54,7 @@ class Skulpt extends React.Component {
     this.outf = this.outf.bind(this);
     this.state = {
       output: '',
-      question: this.props.params,
+      // question: this.props.params,
     };
 
     // Facing issues with code when adding state
@@ -90,7 +90,8 @@ class Skulpt extends React.Component {
 
     if (codeOutput) {
       // Loop through test-cases for given question
-      for (let i = 0; i < tests.length; i += 1) {
+      // eslint-disable-next-line spaced-comment
+      for (let i = 0/*countPassed = 0*/; i < tests.length; i += 1) {
         // Append tests individually to code then execute
         const codeTR = tests[i].code;
         let expect = tests[i].expected;
@@ -129,11 +130,16 @@ class Skulpt extends React.Component {
 
           expect += '\n';
           if (this.state.output === expect) {
+            // countPassed += 1;
             this.props.updateTestCases(i, 1);
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1/${this.props.questionId}/${this.props.conceptId}`).then(() => {
               console.log(`test case ${tests[i].number} passed!`);
+              // if (countPassed === tests.length) {
+              //   this.props.getNextQuestion();
+              // }
             });
           } else {
+            // fail += 1;
             this.props.updateTestCases(i, 0);
             Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0/${this.props.questionId}/${this.props.conceptId}`).then(() => {
               console.log(`test case ${tests[i].number} failed!`);
@@ -228,7 +234,7 @@ class Skulpt extends React.Component {
             </NavLink>
             <NavLink
               tag={Link}
-              to={`/user/${this.context.user}/question/${this.state.question}`}
+              to={`/user/${this.context.user}/question/${this.props.nextQuestionId}`}
             >
               <Button
                 type="primary"
