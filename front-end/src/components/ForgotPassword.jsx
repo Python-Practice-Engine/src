@@ -23,13 +23,16 @@ export default () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const history = useHistory();
-
+  // setting parameters for forgot password workflow
   const getUser = new CognitoUser({ Username: email.toLowerCase(), Pool });
 
+  // used to send email to username who has forgotten password
   const sendCode = (event) => {
     event.preventDefault();
 
     setCode('');
+    // send email to account to get verification code
+    // necessary to reset password
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
@@ -39,12 +42,14 @@ export default () => {
         alert(err.message);
       },
       inputVerificationCode: (data) => {
+        // move to second form after email has been sent with code
         console.log('Input code:', data);
         setStage(2);
       },
     });
   };
 
+  // function for second form of resetting the password after getting code
   const resetPassword = (event) => {
     event.preventDefault();
 
@@ -58,6 +63,7 @@ export default () => {
 
     getUser.confirmPassword(code, password, {
       onSuccess: (data) => {
+        // after successful password change, redirect to login page
         console.log('onSuccess:', data);
         history.push('/Login');
       },
@@ -101,7 +107,13 @@ export default () => {
             style={{ marginBottom: '2%' }}
           />
           <br />
-          <Button type="primary" size="medium">Send verification code</Button>
+          <Button
+            type="primary"
+            size="medium"
+            onClick={sendCode}
+          >
+            Send verification code
+          </Button>
           <br />
         </form>
         )}
@@ -135,11 +147,12 @@ export default () => {
               style={{ marginBottom: '3%' }}
             />
             <br />
-            <Button size="medium" style={{ marginRight: '2%' }}>
+            <Button
+              type="primary"
+              size="medium"
+              onClick={resetPassword}
+            >
               Change password
-            </Button>
-            <Button type="primary" size="medium" onClick={sendCode}>
-              Resend code
             </Button>
             <br />
           </form>

@@ -28,11 +28,14 @@ function SignUpStateHook() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    // check two passwords are the same
     if (password !== passwordCheck) {
       alert('Passwords do not match');
       setPassword('');
       setPasswordCheck('');
     } else {
+      // sign up using cognito api and restrictions of 8 characters and
+      // number and special character
       UserPool.signUp(email, password, [], null, (err, data) => {
         if (err) {
           console.error(err);

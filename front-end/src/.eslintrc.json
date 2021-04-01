@@ -30,6 +30,6 @@
       "no-alert": 0,
       "import/no-named-as-default-member": 0,
       "arrow-body-style": ["error", "as-needed"],
-      "max-len": [2, {"code": 100, "ignoreUrls": true}]
+      "max-len": [2, {"code": 80, "ignoreUrls": true}]
     }
 }

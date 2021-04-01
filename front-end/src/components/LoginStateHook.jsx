@@ -29,26 +29,36 @@ function LoginStateHook() {
 
   const { setUser } = useContext(AccountContext);
 
+  // check that user credentials matches the one stored on aws cognito
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    // retrieving values from aws cognito
     const user = new CognitoUser({
       Username: email,
       Pool: UserPool,
     });
+    // retrieving user provided values
     const authDetails = new AuthenticationDetails({
       Username: email,
       Password: password,
     });
 
+    // compare aws cognito values with user provided values
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log('onSuccess:', data);
+        // using sub value which is used as key in table, redirect to main page
         setUser(data.getIdToken().payload.sub);
         Axios.get(`http://localhost:3001/next_question/${data.getIdToken().payload.sub}`).then((
           question,
         ) => {
-          history.push(`/user/${data.getIdToken().payload.sub}/question/${question.data[0].id}`);
+          history.push(
+            `/user/${data.getIdToken().payload.sub}/question/${
+              question.data[0].id
+            // eslint-disable-next-line comma-dangle
+            }`
+          );
         });
       },
 
