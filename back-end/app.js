@@ -147,20 +147,15 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
               SET completed = True
               WHERE concept_id = ?
               AND user_id = UUID_TO_BIN(?);`;
-              console.log(concept_id, user_id);
               db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
-                // res.send(result);
+                res.send(true);
               })
-            }
-            else {
-              res.send(result);
+            } else {
+              console.log("Not all questions for concepts complete")
+              res.send(false);
             }
           });
         });
-        res.send(result);
-      }
-      else {
-        res.send(result);
       }
     });
   });
@@ -185,6 +180,7 @@ app.get('/next_question/:user_id', (req, res) => {
       AND uq.user_id = UUID_TO_BIN(?));`;
   db.query(sqlGetQuestions, [user_id, user_id], (err, questions) => {
     const random = Math.floor(Math.random() * questions.length);
+    console.log(questions);
     const question_id = questions[random].question_id;
     const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
     db.query(sqlGetQuestion, question_id, (err, question) => {

@@ -54,13 +54,7 @@ class Skulpt extends React.Component {
     this.outf = this.outf.bind(this);
     this.state = {
       output: '',
-      // question: this.props.params,
     };
-
-    // Facing issues with code when adding state
-    // this.state = {
-    //   id: 0,
-    // };
   }
 
   // loading relvant third-party plugin
@@ -81,6 +75,16 @@ class Skulpt extends React.Component {
     mypre.innerHTML += text;
   }
 
+  mark = async (i, tests, mark) => {
+    const marked = await Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/${mark}/${this.props.questionId}/${this.props.conceptId}`);
+    // const nextQuestionData = await marked.data === true ? Axios.get(`http://localhost:3001/next_question/${this.context.user}`) : false;
+    if (await marked.data === true) {
+      const nextQuestionData = await Axios.get(`http://localhost:3001/next_question/${this.context.user}`);
+      const id = await nextQuestionData.data[0].id;
+      this.props.nextQuestion(await id);
+    }
+  }
+
   // Auxiliary function that allows the user to run
   // the given questions test-cases
   submit() {
@@ -91,7 +95,7 @@ class Skulpt extends React.Component {
     if (codeOutput) {
       // Loop through test-cases for given question
       // eslint-disable-next-line spaced-comment
-      for (let i = 0/*countPassed = 0*/; i < tests.length; i += 1) {
+      for (let i = 0; i < tests.length; i += 1) {
         // Append tests individually to code then execute
         const codeTR = tests[i].code;
         let expect = tests[i].expected;
@@ -130,20 +134,11 @@ class Skulpt extends React.Component {
 
           expect += '\n';
           if (this.state.output === expect) {
-            // countPassed += 1;
             this.props.updateTestCases(i, 1);
-            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/1/${this.props.questionId}/${this.props.conceptId}`).then(() => {
-              console.log(`test case ${tests[i].number} passed!`);
-              // if (countPassed === tests.length) {
-              //   this.props.getNextQuestion();
-              // }
-            });
+            this.mark(i, tests, 1);
           } else {
-            // fail += 1;
             this.props.updateTestCases(i, 0);
-            Axios.post(`http://localhost:3001/mark_test_case/${this.context.user}/${tests[i].test_case_id}/0/${this.props.questionId}/${this.props.conceptId}`).then(() => {
-              console.log(`test case ${tests[i].number} failed!`);
-            });
+            this.mark(i, tests, 0);
           }
           console.log('success');
         },
