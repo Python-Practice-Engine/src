@@ -148,7 +148,7 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
               AND user_id = UUID_TO_BIN(?);`;
               console.log(concept_id, user_id);
               db.query(sqlConceptComplete, [concept_id, user_id], (err, result) => {
-                res.send(result);
+                // res.send(result);
               })
             }
             else {
@@ -156,6 +156,7 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
             }
           });
         });
+        res.send(result);
       }
       else {
         res.send(result);
@@ -167,15 +168,20 @@ app.post('/mark_test_case/:user_id/:test_case_id/:did_pass/:question_id/:concept
 app.get('/next_question/:user_id', (req, res) => {
   // Retrieve the tag from our URL path
   var user_id = req.params.user_id;
-  const sqlGetQuestions = `SELECT question_prereq_concept.question_id
-  FROM question_prereq_concept
-  JOIN user_question ON user_question.question_id = question_prereq_concept.question_id
-  JOIN user_concept ON user_concept.concept_id = question_prereq_concept.prereq_concept_id 
-  AND user_concept.user_id = user_question.user_id
-  WHERE user_concept.completed = True
-  AND user_question.completed = False
-  AND user_question.user_id = UUID_TO_BIN(?);`;
-  db.query(sqlGetQuestions, user_id, (err, questions) => {
+  const sqlGetQuestions = `
+  SELECT qpc.question_id
+  FROM question_prereq_concept AS qpc
+  WHERE qpc.prereq_concept_id IN(
+  SELECT uc.concept_id
+      FROM user_concept AS uc
+      WHERE uc.completed = True
+      AND uc.user_id = UUID_TO_BIN(?))
+  AND qpc.question_id IN(
+      SELECT uq.question_id
+      FROM user_question AS uq
+      WHERE uq.completed = FALSE
+      AND uq.user_id = UUID_TO_BIN(?));`;
+  db.query(sqlGetQuestions, [user_id, user_id], (err, questions) => {
     const random = Math.floor(Math.random() * questions.length);
     const question_id = questions[random].question_id;
     const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
@@ -185,39 +191,77 @@ app.get('/next_question/:user_id', (req, res) => {
   });
 });
 
-app.get('/easier_question/:user_id/:question_id', (req, res) => {
+app.get('/check_current_question/:user_id/:question_id', (req, res) => {
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const sqlCheckCurrentQuestionComplete =`
+    SELECT uq.completed
+    FROM user_question AS uq
+    WHERE uq.user_id = UUID_TO_BIN(?)
+    AND uq.question_id = ?
+  `;
+    db.query(sqlCheckCurrentQuestionComplete, [user_id, question_id], (err, result) => {
+      res.send(result);
+    })
+});
+
+app.get('/check_easier_question/:user_id/:question_id', (req, res) => {
   // Retrieve the tag from our URL path
   const user_id = req.params.user_id;
   const question_id = req.params.question_id;
 
-  const sqlCheck = `select COUNT(question_id) as count
-  FROM user_question
-  WHERE user_id = UUID_TO_BIN(?)
-  AND completed = True;`
-  db.query(sqlCheck, [user_id], (err, result) => {
+  const sqlCheck = `
+  SELECT COUNT(qpc.question_id) AS count
+  FROM question_prereq_concept AS qpc
+  WHERE qpc.question_id != ?
+  AND qpc.prereq_concept_id IN(
+      SELECT uc.concept_id
+      FROM user_concept AS uc
+      WHERE uc.completed = True
+      AND uc.user_id = UUID_TO_BIN(?))
+  AND qpc.question_id IN(
+      SELECT uq.question_id
+      FROM user_question AS uq
+      WHERE uq.completed = FALSE
+      AND uq.user_id = UUID_TO_BIN(?));`;
+  db.query(sqlCheck, [question_id, user_id, user_id], (err, result) => {
     const count = JSON.parse(JSON.stringify(result))[0].count;
+    console.log(count);
     if (count != 0) {
-      const sqlGetQuestions = `SELECT question_prereq_concept.question_id
-      FROM question_prereq_concept
-      JOIN user_question ON user_question.question_id = question_prereq_concept.question_id
-      JOIN user_concept ON user_concept.concept_id = question_prereq_concept.prereq_concept_id 
-      AND user_concept.user_id = user_question.user_id
-      WHERE user_concept.completed = True
-      AND user_question.completed = False
-      AND user_question.user_id = UUID_TO_BIN(?)
-      AND user_question.question_id != ?;`;
-      db.query(sqlGetQuestions, [user_id, question_id], (err, questions) => {
-        const random = Math.floor(Math.random() * questions.length);
-        const question_id = questions[random].question_id;
-        const sqlGetQuestion = `SELECT * FROM question WHERE id = ?`
-        db.query(sqlGetQuestion, question_id, (err, question) => {
-          res.send(question);
-        })
-      });
+      res.send(true)
+    }
+    else { // send back current questio
+      res.send(false);
     }
   });
+});
 
-  
+app.get('/get_easier_question/:user_id/:question_id', (req, res) => {
+  // Retrieve the tag from our URL path
+  const user_id = req.params.user_id;
+  const question_id = req.params.question_id;
+  const sqlGetQuestions = `
+  SELECT qpc.question_id
+  FROM question_prereq_concept AS qpc
+  WHERE qpc.question_id != ?
+  AND qpc.prereq_concept_id IN(
+  SELECT uc.concept_id
+      FROM user_concept AS uc
+      WHERE uc.completed = True
+      AND uc.user_id = UUID_TO_BIN(?))
+  AND qpc.question_id IN(
+      SELECT uq.question_id
+      FROM user_question AS uq
+      WHERE uq.completed = FALSE
+      AND uq.user_id = UUID_TO_BIN(?));`;
+  db.query(sqlGetQuestions, [question_id, user_id, user_id], (err, questions) => {
+    const random = Math.floor(Math.random() * questions.length);
+    const question_id = questions[random].question_id;
+    const sqlGetQuestion = `SELECT id FROM question WHERE id = ?`
+    db.query(sqlGetQuestion, question_id, (err, question) => {
+      res.send(question);
+    })
+  });
 });
 
 app.get('/get_user_question/:user_id/:question_id', (req, res) => {
