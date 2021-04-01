@@ -120,12 +120,15 @@ export default () => {
 
         {stage === 2 && (
           <form onSubmit={resetPassword}>
-            <p>Enter verification code, email can take up to 5 minutes</p>
+            <p>
+              Please your enter verification code.
+              The email may take up to 5 minutes.
+            </p>
             <Input
               value={code}
               size="large"
               onChange={(event) => setCode(event.target.value)}
-              placeholder="code"
+              placeholder="Code"
               style={{ marginBottom: '2%' }}
             />
             <br />
@@ -133,7 +136,7 @@ export default () => {
               value={password}
               size="large"
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="password"
+              placeholder="Password"
               type="password"
               style={{ marginBottom: '2%' }}
             />
@@ -143,7 +146,7 @@ export default () => {
               size="large"
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="password"
-              type="password"
+              type="Password"
               style={{ marginBottom: '3%' }}
             />
             <br />
