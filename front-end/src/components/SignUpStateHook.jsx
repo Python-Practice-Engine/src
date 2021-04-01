@@ -8,7 +8,6 @@ import {
 
 import {
   MailOutlined,
-  // UserOutlined,
 } from '@ant-design/icons';
 
 import {
@@ -17,7 +16,6 @@ import {
 } from 'react-router-dom';
 
 import UserPool from '../UserPool';
-// import AccountContext from './Account';
 
 const { Title } = Typography;
 
@@ -27,17 +25,18 @@ function SignUpStateHook() {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [validCred, setValidCred] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  // const [username, setUsername] = useState('');
-  // const { user } = useContext(AccountContext);
+
 
   const onSubmit = (event) => {
     event.preventDefault();
+    //check two passwords are the same
     if (password !== passwordCheck) {
       console.log("The two passwords don't match");
       setErrorMsg('Passwords do not match');
       setPassword('');
       setPasswordCheck('');
     } else {
+      // sign up using cognito api and restrictions of 8 characters and number and special character
       UserPool.signUp(email, password, [], null, (err, data) => {
         if (err) {
           console.error(err);
@@ -47,6 +46,7 @@ function SignUpStateHook() {
         console.log(data.userSub);
         setValidCred(true);
         setErrorMsg('');
+        //insert into user table in the database
         Axios.post('http://localhost:3001/insert_user', {
           user_id: data.userSub,
         }).then(() => {

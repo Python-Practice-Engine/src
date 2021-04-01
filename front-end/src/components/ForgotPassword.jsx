@@ -3,7 +3,6 @@ import { CognitoUser } from 'amazon-cognito-identity-js';
 import {
   Typography,
   Card,
-//   Input,
 } from 'antd';
 
 import {
@@ -25,13 +24,15 @@ export default () => {
   const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
-
+  //setting parameters for forgot password workflow
   const getUser = new CognitoUser({ Username: email.toLowerCase(), Pool });
 
+  // used to send email to username who has forgotten password
   const sendCode = (event) => {
     event.preventDefault();
 
     setCode('');
+    //send email to account to get verification code necessary to reset password
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
@@ -41,7 +42,7 @@ export default () => {
         console.error('onFailure:', err);
         setErrorMsg(err.message);
       },
-      inputVerificationCode: (data) => {
+      inputVerificationCode: (data) => { //move to second form after email has been sent with code
         console.log('Input code:', data);
         setErrorMsg('');
         setStage(2);
@@ -49,6 +50,7 @@ export default () => {
     });
   };
 
+  //function for second form of actually resetting the password for a user using code from sendCode function
   const resetPassword = (event) => {
     event.preventDefault();
 
@@ -61,7 +63,7 @@ export default () => {
     }
 
     getUser.confirmPassword(code, password, {
-      onSuccess: (data) => {
+      onSuccess: (data) => { //after successful password change, redirect to login page
         console.log('onSuccess:', data);
         setErrorMsg('');
         history.push('/Login');
