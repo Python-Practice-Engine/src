@@ -39,7 +39,7 @@ function Outline() {
             <Route path="/SignUp" component={SignUpStateHook} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/">
-              <Redirect to="/question/1" />
+              <Redirect to="/Login" />
             </Route>
             <Route exact path="/question">
               <Redirect to="/question/1" />
