@@ -3,12 +3,11 @@ import { CognitoUser } from 'amazon-cognito-identity-js';
 import {
   Typography,
   Card,
-//   Input,
+  Button,
+  Input,
 } from 'antd';
 
 import {
-  HashRouter,
-  Link,
   useHistory,
 } from 'react-router-dom';
 
@@ -22,39 +21,41 @@ export default () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
 
   const history = useHistory();
-
+  // setting parameters for forgot password workflow
   const getUser = new CognitoUser({ Username: email.toLowerCase(), Pool });
 
+  // used to send email to username who has forgotten password
   const sendCode = (event) => {
     event.preventDefault();
 
     setCode('');
+    // send email to account to get verification code
+    // necessary to reset password
     getUser.forgotPassword({
       onSuccess: (data) => {
         console.log('onSuccess:', data);
-        setErrorMsg('');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
       inputVerificationCode: (data) => {
+        // move to second form after email has been sent with code
         console.log('Input code:', data);
-        setErrorMsg('');
         setStage(2);
       },
     });
   };
 
+  // function for second form of resetting the password after getting code
   const resetPassword = (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
       console.error('Passwords are not the same');
-      setErrorMsg('Passwords are not the same');
+      alert('Passwords are not the same');
       setPassword('');
       setConfirmPassword('');
       return;
@@ -62,13 +63,13 @@ export default () => {
 
     getUser.confirmPassword(code, password, {
       onSuccess: (data) => {
+        // after successful password change, redirect to login page
         console.log('onSuccess:', data);
-        setErrorMsg('');
         history.push('/Login');
       },
       onFailure: (err) => {
         console.error('onFailure:', err);
-        setErrorMsg(err.message);
+        alert(err.message);
       },
     });
   };
@@ -98,51 +99,65 @@ export default () => {
         {stage === 1 && (
         <form onSubmit={sendCode}>
           <p>Enter your email address below</p>
-          <input
+          <Input
             value={email}
+            size="large"
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="email address"
+            placeholder="Email"
+            style={{ marginBottom: '2%' }}
           />
-          <button type="submit">Send verification code</button>
           <br />
-          <HashRouter>
-            Need an account? Click
-            <Link to="/SignUp"> here</Link>
-            .
-            <br />
-            <Link to="/Login">Login</Link>
-          </HashRouter>
+          <Button
+            type="primary"
+            size="medium"
+            onClick={sendCode}
+          >
+            Send verification code
+          </Button>
+          <br />
         </form>
         )}
 
         {stage === 2 && (
           <form onSubmit={resetPassword}>
-            <p>Enter verification code, email can take up to 5 minutes</p>
-            <input
+            <p>
+              Please your enter verification code.
+              The email may take up to 5 minutes.
+            </p>
+            <Input
               value={code}
+              size="large"
               onChange={(event) => setCode(event.target.value)}
-              placeholder="code"
+              placeholder="Code"
+              style={{ marginBottom: '2%' }}
             />
             <br />
-            <input
+            <Input
               value={password}
+              size="large"
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="password"
+              placeholder="Password"
               type="password"
+              style={{ marginBottom: '2%' }}
             />
             <br />
-            <input
+            <Input
               value={confirmPassword}
+              size="large"
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="password"
-              type="password"
+              type="Password"
+              style={{ marginBottom: '3%' }}
             />
             <br />
-            <button type="submit">Change password</button>
+            <Button
+              type="primary"
+              size="medium"
+              onClick={resetPassword}
+            >
+              Change password
+            </Button>
             <br />
-            <button type="button" onClick={sendCode}>Resend code</button>
-            <br />
-            <h4>{errorMsg}</h4>
           </form>
         )}
       </Card>

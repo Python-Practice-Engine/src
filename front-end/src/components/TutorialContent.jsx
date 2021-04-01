@@ -8,6 +8,7 @@ import {
 
 const { Title } = Typography;
 
+// populating tutorial tab for main page
 function TutorialContent(props) {
   const content = props.contents;
   return (
@@ -15,7 +16,7 @@ function TutorialContent(props) {
       <Title
         level={3}
       >
-        {content.name + content.level}
+        {`${content.name} ${content.level}`}
       </Title>
       <Space />
       <p className="questionDescription">
