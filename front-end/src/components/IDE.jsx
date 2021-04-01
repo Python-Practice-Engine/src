@@ -63,10 +63,11 @@ class IDE extends React.Component {
     this.state = {
       key: 'question',
       question: {},
-      easierQuestion: {},
+      easierQuestion: -1,
       testCases: [],
       concept: {},
       redirect: false,
+      nextQuestion: -1,
     };
   }
 
@@ -83,10 +84,33 @@ class IDE extends React.Component {
           this.setState({ redirect: true });
         }
         this.setState({ question: question.data[0] });
-        Axios.get(`http://localhost:3001/easier_question/${params.user_id}/${params.question_id}`).then((
-          easierQuestion,
+        Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
+          result,
         ) => {
-          this.setState({ easierQuestion: easierQuestion.data[0] });
+          const isComplete = result.data[0].completed;
+          if (isComplete) {
+            Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
+              nextQuestionData,
+            ) => {
+              this.setState({ nextQuestion: nextQuestionData.data.id });
+            });
+          } else {
+            this.setState({ nextQuestion: question.data[0].id });
+          }
+        });
+        Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
+          result,
+        ) => {
+          const easierAvailable = result.data;
+          if (easierAvailable) {
+            Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
+              easyQuestionData,
+            ) => {
+              this.setState({ easierQuestion: easyQuestionData.data[0].id });
+            });
+          } else {
+            this.setState({ easierQuestion: question.data[0].id });
+          }
         });
         Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
           concept,
@@ -100,7 +124,6 @@ class IDE extends React.Component {
         });
       });
     } else if (params.user_id) {
-      // Axios.get(`http://localhost:3001/next_question/${userId}`).then((
       this.context.user = params.user_id;
       Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
         question,
@@ -157,10 +180,33 @@ class IDE extends React.Component {
             this.setState({ redirect: true });
           }
           this.setState({ question: question.data[0] });
-          Axios.get(`http://localhost:3001/easier_question/${params.user_id}/${params.question_id}`).then((
-            easierQuestion,
+          Axios.get(`http://localhost:3001/check_current_question/${params.user_id}/${params.question_id}`).then((
+            result,
           ) => {
-            this.setState({ easierQuestion: easierQuestion.data[0] });
+            const isComplete = result.data[0].completed;
+            if (isComplete) {
+              Axios.get(`http://localhost:3001/next_question/${params.user_id}`).then((
+                nextQuestionData,
+              ) => {
+                this.setState({ nextQuestion: nextQuestionData.data.id });
+              });
+            } else {
+              this.setState({ nextQuestion: question.data[0].id });
+            }
+          });
+          Axios.get(`http://localhost:3001/check_easier_question/${params.user_id}/${params.question_id}`).then((
+            result,
+          ) => {
+            const easierAvailable = result.data;
+            if (easierAvailable) {
+              Axios.get(`http://localhost:3001/get_easier_question/${params.user_id}/${params.question_id}`).then((
+                easyQuestionData,
+              ) => {
+                this.setState({ easierQuestion: easyQuestionData.data[0].id });
+              });
+            } else {
+              this.setState({ easierQuestion: question.data[0].id });
+            }
           });
           Axios.get(`http://localhost:3001/concept/${this.state.question.id}`).then((
             concept,
@@ -316,8 +362,9 @@ class IDE extends React.Component {
               questionId={this.state.question.id}
               conceptId={this.state.concept.id}
               params={this.props.match.params.question_id}
-              easierQuestionId={this.state.easierQuestion.id}
+              easierQuestionId={this.state.easierQuestion}
               updateTestCases={this.updateTestCases}
+              nextQuestionId={this.state.nextQuestion}
             />
           </Col>
         </Row>
